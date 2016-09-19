@@ -94,9 +94,9 @@ $body$
         slideNumber: $if(slideNumber)$true$else$false$endif$,                // Display the page number of the current slide
         theme: $if(theme)$'$theme$'$else$Reveal.getQueryHash().theme$endif$, // available themes are in /css/theme
         transition: $if(transition)$'$transition$'$else$Reveal.getQueryHash().transition || 'default'$endif$, // default/cube/page/concave/zoom/linear/fade/none
+
         math: {
-          mathjax: '$revealjs-url$/../MathJax-2.5.3/MathJax.js',
-          config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+          config: 'TeX-AMS_HTML-full'
         },
 
         // Optional libraries used to extend on reveal.js
@@ -105,8 +105,10 @@ $body$
           { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '$revealjs-url$/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '$revealjs-url$/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
 //          { src: '$revealjs-url$/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '$revealjs-url$/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+//          { src: '$revealjs-url$/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
 ]});
     </script>
   $for(include-after)$
