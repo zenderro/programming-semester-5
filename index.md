@@ -14,3 +14,6 @@ layout: default
 ## Числа с плавающей точкой. Матричные нормы. Постановка задачи решения линейной системы.
 [презентация — html](presentations/03-Matrix-Generate-Multiply.html)
 [список задач](presentations/tasks-1.pdf)
+
+## Метод Гаусса и производные от него (LU-разложение, метод Жордана, выбор главного элемента)
+[презентация — html](presentations/04-Gauss-Jordan.html)
