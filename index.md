@@ -17,3 +17,10 @@ layout: default
 
 ## Метод Гаусса и производные от него (LU-разложение, метод Жордана, выбор главного элемента)
 [презентация — html](presentations/04-Gauss-Jordan.html)
+
+## Методы нахождения собственных значений
+[презентация — html](presentations/05-Eigenvalues.html)
+
+# Материалы предыдущих лет
+2014-15 учебный год: https://goo.gl/v4jFHo
+2015-16 учебный год: https://goo.gl/byCcXB
