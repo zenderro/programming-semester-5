@@ -21,6 +21,9 @@ layout: default
 ## Методы нахождения собственных значений
 [презентация — html](presentations/05-Eigenvalues.html)
 
+## Параллельное программирование с использованием библиотеки Pthreads
+[презентация — html](presentations/06-Pthreads.html)
+
 # Материалы предыдущих лет
 2014-15 учебный год: https://goo.gl/v4jFHo
 2015-16 учебный год: https://goo.gl/byCcXB

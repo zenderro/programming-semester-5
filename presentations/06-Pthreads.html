@@ -1,0 +1,361 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="slider.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+  <div style="width: 640px;height: 400px;">
+  <input id="slider-max" type="checkbox" checked="">
+   <article class="slider slider-indicator">
+   <a id="slider-default"></a>
+   <label for="slider-max" title="Maximize"></label>
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<h3 id="вторая-и-третья-задачи">Вторая и третья задачи</h3>
+<h3 id="параллельное-программирование-с-общей-памятью">Параллельное программирование с общей памятью</h3>
+<h3 id="библиотека-pthreads">Библиотека pthreads</h3>
+<h3 id="средства-синхронизации-библиотеки-pthreads">Средства синхронизации библиотеки pthreads</h3>
+<p><a href="mailto:maxim.krivchikov@gmail.com" class="email">maxim.krivchikov@gmail.com</a></p>
+<p><a href="https://maxxk.github.io/programming-semester-5/" class="uri">https://maxxk.github.io/programming-semester-5/</a></p>
+<style>
+div.left-column {
+  width: 44%;
+  float: left;
+}
+div.right-column {
+  width: 44%;
+  float: right;
+}
+div.small {
+  font-size: 0.8em;
+}
+div.fullwidth img {
+  width: 100% !important;
+}
+</style>
+</section><div><a class="slider-prev"></a><a class="slider-next" href="#вторая-и-третья-задачи-1"></a></div>
+<section id="вторая-и-третья-задачи-1" class="slide level1">
+<h1>Вторая и третья задачи</h1>
+<p>Если вы не получили вторую задачу — подойдите после презентации.</p>
+<p>Третья задача — параллельная реализация алгоритма решения линейной системы (решения матрицы) с использованием библиотеки pthreads. Нужно реализовать параллельную версию вашего метода из первой задачи. При этом программа должна принимать в качестве одного из агрументов количество потоков.</p>
+<p>При увеличении потоков на достаточно больших матрицах (2000x2000, 4000x4000) программа должна ускоряться, на 2 потоках — хотя бы в 1.6 раза, на 4 потоках — в 3 раза. На одном потоке программа не должна быть существенно медленнее, чем однопоточная реализация</p>
+</section><div><a class="slider-prev" href="#добрый-день-группа-312"></a><a class="slider-next" href="#литература"></a></div>
+<section id="литература" class="slide level1">
+<h1>Литература</h1>
+<ol type="1">
+<li class="fragment">К.Ю. Богачёв. Основы параллельного программирования.</li>
+<li class="fragment"><a href="http://www.intuit.ru/studies/courses/53/53/lecture/1569">Мобильное программирование приложений реального времени, Лекции 1,2</a></li>
+</ol>
+<p>Небольшие примеры, введения, презентации:</p>
+<ul>
+<li class="fragment"><a href="http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf" class="uri">http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf</a></li>
+<li class="fragment"><a href="https://computing.llnl.gov/tutorials/pthreads/" class="uri">https://computing.llnl.gov/tutorials/pthreads/</a></li>
+</ul>
+</section><div><a class="slider-prev" href="#вторая-и-третья-задачи-1"></a><a class="slider-next" href="#программы-исполняются-последовательно"></a></div>
+<section id="программы-исполняются-последовательно" class="slide level1">
+<h1>Программы исполняются последовательно</h1>
+<p>Программы на языке C транслируются в машинный код — последовательность простых команд для процессора:</p>
+<div class="left-column">
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">void</span> foo(<span class="dt">int</span> x) {
+    <span class="kw">if</span> (x == <span class="dv">0</span>) {
+       printf(<span class="st">"testing</span><span class="ch">\n</span><span class="st">"</span>);
+    }
+}</code></pre></div>
+Процессор затем исполняет эти команды по порядку.
+</div>
+<div class="right-column">
+<div class="sourceCode"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span class="kw">.globl</span>  _foo
+<span class="kw">_foo:</span>        <span class="co">## @foo</span>
+    testl   %edi, %edi
+    je  LBB0_2
+    retq
+  <span class="kw">LBB0_2:</span>
+    leaq    L_str(%rip), %rdi
+    jmp _puts                
+
+<span class="kw">L_str:</span>        <span class="co">## @str</span>
+<span class="kw">.asciz</span>  <span class="st">"testing"</span></code></pre></div>
+</div>
+</section><div><a class="slider-prev" href="#литература"></a><a class="slider-next" href="#современные-процессоры-имеют-несколько-ядер"></a></div>
+<section id="современные-процессоры-имеют-несколько-ядер" class="slide level1">
+<h1>Современные процессоры имеют несколько ядер</h1>
+<p>— т.е. они могут выполнять несколько «потоков команд» (программ) одновременно.<br>
+<img src="images/inside_intel_sandy_bridge_quad_core_processor.jpg"></p>
+</section><div><a class="slider-prev" href="#программы-исполняются-последовательно"></a><a class="slider-next" href="#потоки-threads"></a></div>
+<section id="потоки-threads" class="slide level1">
+<h1>Потоки (threads)</h1>
+<p>— способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами.<br>
+Т.е. можно обмениваться указателями, выполнять одновременное чтение и запись, и так далее. Если просто запустить несколько копий программы, у каждой копии будет своё пространство памяти и они не смогут взаимодействовать.<br>
+Для использования потоков нужно дать специальную команду «создать поток» и указать, какие команды этот поток должен исполнять.</p>
+<p>В Linux (и на Mac) потоки реализованы согласно спецификации POSIX Threads.<br>
+В командную строку при компиляции добавить: <code>-pthreads</code> или <code>-lpthreads</code><br>
+В исходный код:</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;pthread.h&gt;</span></code></pre></div>
+<div class="small">
+POSIX (Portable Operating System Interface for Unix) — серия стандартов, описывающая интерфейсы операционной системы для разработки портируемых приложений.
+</div>
+</section><div><a class="slider-prev" href="#современные-процессоры-имеют-несколько-ядер"></a><a class="slider-next" href="#потоки-и-общая-память"></a></div>
+<section id="потоки-и-общая-память" class="slide level1">
+<h1>Потоки и общая память</h1>
+<p>Когда программа использует потоки, можно считать, что в этой программе одновременно выполняется несколько функций (или несколько копий одной функции). При этом в общем случае про взаимную последовательность выполнения команд функций (какой поток раньше считает элемент матрицы) ничего неизвестно.</p>
+<p><img src="images/5-4-figure-1.gif"></p>
+</section><div><a class="slider-prev" href="#потоки-threads"></a><a class="slider-next" href="#создание-потока"></a></div>
+<section id="создание-потока" class="slide level1">
+<h1>Создание потока</h1>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">pthread_t thread;
+<span class="dt">int</span>  pthread_create(pthread_t *thread,
+     <span class="dt">const</span> pthread_attr_t *attr,
+     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),
+     <span class="dt">void</span> *arg);
+<span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);
+<span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</code></pre></div>
+<div class="fullwidth">
+<p><img src="tikz-images/a44700b63e0c29edc5bd8299e12a1e42348512ac.svg"></p>
+</div>
+</section><div><a class="slider-prev" href="#потоки-и-общая-память"></a><a class="slider-next" href="#создание-потока-1"></a></div>
+<section id="создание-потока-1" class="slide level1">
+<h1>Создание потока</h1>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_create(pthread_t *thread,
+     <span class="dt">const</span> pthread_attr_t *attr,
+     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),
+     <span class="dt">void</span> *arg);</code></pre></div>
+<dl>
+<dt class="fragment"><code>thread</code></dt>
+<dd class="fragment">(выходной аргумент) — идентификатор потока
+</dd>
+<dt class="fragment"><code>attr</code></dt>
+<dd class="fragment">атрибуты, можно оставить <code>NULL</code>
+</dd>
+<dt class="fragment"><code>start_routine</code></dt>
+<dd class="fragment">указатель на функцию, главную для потока<br>
+<code class="sourceCode c"><span class="dt">void</span> *child_thread_func(<span class="dt">void</span>* arg)</code>
+</dd>
+<dt class="fragment"><code>arg</code></dt>
+<dd class="fragment">указатель на аргумент, передаваемый главной функции
+</dd>
+</dl>
+<p><code>pthread_exit</code> вызывать необязательно, можно просто возвращаьт значение через <code class="sourceCode c"><span class="kw">return</span></code></p>
+<p><code>pthread_join</code> ожидает завершения потока-аргумента и возвращает ненулевое значение, если поток вернул результат, который будет записан по адресу <code>retval</code></p>
+</section><div><a class="slider-prev" href="#создание-потока"></a><a class="slider-next" href="#мьютэксы-mutex"></a></div>
+<section id="мьютэксы-mutex" class="slide level1">
+<h1>Мьютэксы (mutex)</h1>
+<p>Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">pthread_mutex_t mutex;
+<span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,
+     <span class="dt">const</span> pthread_mutexattr_t *attr);
+<span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</code></pre></div>
+<p><code>attr</code> может быть <code>NULL</code></p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);
+<span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</code></pre></div>
+</section><div><a class="slider-prev" href="#создание-потока-1"></a><a class="slider-next" href="#мьютэксы"></a></div>
+<section id="мьютэксы" class="slide level1">
+<h1>Мьютэксы</h1>
+<div class="fullwidth">
+<p><img src="tikz-images/9ee7cc28b01a91232319eefb01452a8a774f6ba7.svg"></p>
+</div>
+<p>(<span class="math inline"><em>L</em><em>i</em></span>) <code>lock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code> <span class="four-em"></span> (<span class="math inline"><em>U</em><em>i</em></span>) <code>unlock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code></p>
+</section><div><a class="slider-prev" href="#мьютэксы-mutex"></a><a class="slider-next" href="#взаимная-блокировка-deadlock"></a></div>
+<section id="взаимная-блокировка-deadlock" class="slide level1">
+<h1>Взаимная блокировка (deadlock)</h1>
+<div class="fullwidth">
+<p><img src="tikz-images/7d187ceafe9d01a68640e7920b857bacdb98e497.svg"></p>
+</div>
+<p>При использовании более чем одного мьютэкса возможна ситуация, когда потоки блокируют друг друга — синий поток ожидает мьютэкс <span class="math inline">1</span> для того, чтобы потом разблокировать мьютэкс <span class="math inline">2</span>, который требуется красному потоку для разблокировки мьютэкса <span class="math inline">1</span>.</p>
+</section><div><a class="slider-prev" href="#мьютэксы"></a><a class="slider-next" href="#условные-переменные-condvar"></a></div>
+<section id="условные-переменные-condvar" class="slide level1">
+<h1>Условные переменные (condvar)</h1>
+<p>С помощью условных переменных потоки могут передавать сигналы о готовности данных и т.п. Потоки, вызывающие <code>pthread_cond_wait</code> блокируются до момента, когда какой-либо активный поток вызовет <code>pthread_cond_signal</code> (разблокирует один поток) или <code>pthread_cond_broadcast</code> (разблокирует все ожидающие потоки)</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,
+     <span class="dt">const</span> pthread_condattr_t *attr);
+<span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,
+     pthread_mutex_t *mutex);
+<span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);
+<span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</code></pre></div>
+<p><code>mutex</code> — один и тот же для всех операций с фиксированной условной переменной</p>
+</section><div><a class="slider-prev" href="#взаимная-блокировка-deadlock"></a><a class="slider-next" href="#условные-переменные-condvar-1"></a></div>
+<section id="условные-переменные-condvar-1" class="slide level1">
+<h1>Условные переменные (condvar)</h1>
+<div class="fullwidth">
+<p><img src="tikz-images/d78b787f35aeb13a2ad5111a64bdda0334795bbd.svg"></p>
+</div>
+<p>(W) — wait, (S) — signal, (B) — broadcast</p>
+</section><div><a class="slider-prev" href="#условные-переменные-condvar"></a><a class="slider-next" href="#барьеры-barrier"></a></div>
+<section id="барьеры-barrier" class="slide level1">
+<h1>Барьеры (barrier)</h1>
+<p>Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,
+    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);
+<span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);
+
+<span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</code></pre></div>
+<p><code>count</code> — количество потоков</p>
+<p>Барьеры — наиболее простой примитив синхронизации, я советую использовать в задачах именно его.</p>
+</section><div><a class="slider-prev" href="#условные-переменные-condvar-1"></a><a class="slider-next" href="#барьеры-barrier-1"></a></div>
+<section id="барьеры-barrier-1" class="slide level1">
+<h1>Барьеры (barrier)</h1>
+<div class="fullwidth">
+<p><img src="tikz-images/644cdab10ab35302b26938b11b91b77376517f42.svg"></p>
+</div>
+<p>(A) wait (barrier count = 2)<br>
+(B) wait (barrier count = 3)</p>
+</section><div><a class="slider-prev" href="#барьеры-barrier"></a><a class="slider-next" href="#схема-распараллеливания-задач"></a></div>
+<section id="схема-распараллеливания-задач" class="slide level1">
+<h1>Схема распараллеливания задач</h1>
+<p>Количество потоков <span class="math inline"><em>P</em></span> передаётся как аргумент командной строки.<br>
+В <code>main</code> создаётся <span class="math inline"><em>P</em></span> потоков с одной функцией, в которую передаются:</p>
+<ul>
+<li class="fragment">общие для всех потоков данные: размер матрицы, указатель на матрицу и обратную матрицу (или правую часть), указатели на дополнительную общую память</li>
+<li class="fragment">данные, специфичные для каждого потока: номер потока, указатели на собственную память.</li>
+</ul>
+<p>Матрица распределяется по потокам-«владельцам» циклически, по строкам или по столбцам (1-я строка — 1-й поток, …, P-я строка — P-й поток; P+1-я строка — 1-й поток, …). Это делается для того, чтобы при уменьшении части матрицы, с которой работает метод, потоки не начинали простаивать. Лучше и распределять по потокам, и хранить элементы матрицы по столбцам.</p>
+</section><div><a class="slider-prev" href="#барьеры-barrier-1"></a><a class="slider-next" href="#псевдокод-main"></a></div>
+<section id="псевдокод-main" class="slide level1">
+<h1>Псевдокод main</h1>
+<pre class="small"><code>    P, n, ... = получить аргументы командной строки
+    matrix, inverse_matrix, tmp_common, tmp_specific[P] = выделить память
+    matrix, inverse_matrix = считать входные данные
+    threads = new pthread_t[P]
+    thread_args = new thread_args[P]
+    pthread_barrier_t barrier;
+    pthread_barrier_init(&amp;barrier, NULL, P)
+    for p=[0…P):
+      thread_args[p] ⟵ n, P, matrix, inverse_matrix, tmp_common, barrier
+      thread_args[p] ⟵ tmp_specific[p], p
+      pthread_create(threads+p, NULL, Func, thread_args+p)
+
+    for i=[0, P):
+      pthread_join(threads[p], NULL);
+
+    очищаем память, уничтожаем потоки, барьер и т.п.</code></pre>
+</section><div><a class="slider-prev" href="#схема-распараллеливания-задач"></a><a class="slider-next" href="#псевдокод-func"></a></div>
+<section id="псевдокод-func" class="slide level1">
+<h1>Псевдокод func</h1>
+<pre class="small tall"><code>void* func(void* args) {
+  thread_args A = (thread_args) args;
+  n, P, matrix, inverse_matrix, tmp_common, barrier, tmp_specific, p ⟵ A
+
+  for i=[0…n): - цикл по диагональным элементам
+    j0 = i
+    if i%P == p: — текущий поток — владелец текущего столбца
+      подготовить в tmp_common данные для обнуления i-го столбца
+      обнулить i-й столбец, j0 = i+1
+
+    pthread_barrier_wait(barrier)
+
+    for j=[j0…n):
+      применить преобразование из tmp_common к своим столбцам матрицы
+    for j=[0…n): — если обращение матрицы, иначе - без цикла
+      применить преобразование из tmp_common к правой части
+
+    pthread_barrier_wait(barrier) — можно убрать, если чередовать tmp_common
+        по чётным-нечётным шагам
+
+  for i=[0…n):
+    обратный ход метода Гаусса
+    pthread_barrier_wait(barrier)
+
+  return NULL;
+}</code></pre>
+</section><div><a class="slider-prev" href="#псевдокод-main"></a><a class="slider-next" href="#замечания"></a></div>
+<section id="замечания" class="slide level1">
+<h1>Замечания</h1>
+<ol type="1">
+<li class="fragment">Если многопоточная программа, в которой не используются циклы <code>while</code> не завершается, скорее всего, имеет место блокировка (deadlock, не все потоки доходят до барьера и т.п.)</li>
+<li class="fragment">Чем больше синхронизаций, тем хуже ускоряется программа.</li>
+<li class="fragment">Если программа при нескольких запусках на нескольких потоках возвращает недетерминированный результат (при каждом запуске разный с одними и теми же входными данными), то проблема в несинхронизированном чтении.</li>
+<li class="fragment"><strong>Внимание:</strong> самостоятельно нужно сделать обработку ошибок, чтобы, если один поток решил, что матрица вырожденная, другие тоже об этом узнавали и заканчивали выполнение. Main тоже нужно как-то уведомить — через общую память в tmp_common, например.</li>
+<li class="fragment">Желательно распараллелить и умножение матрицы для вычисления невязки, чтобы можно было, например, дождаться результатов на 4000x4000</li>
+</ol>
+</section><div><a class="slider-prev" href="#псевдокод-func"></a><a class="slider-next"></a></div>
+
+<!-- start page -->
+   <div id="slider">
+       <a href="#добрый-день-группа-312" class="slider-start">PLAY</a>
+   </div>
+
+   <!-- progressbar container -->
+   <div class="slider-progress"></div>
+   </article>
+  </div>
+
+  
+  <script type="text/javascript">
+  document.addEventListener("keydown", function(e) {
+     if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
+     switch (e.keyCode) {
+       case 35: // End
+          var arr = document.querySelectorAll("a.slider-next:link");
+          var a = arr[arr.length - 1];
+          if (a && a.href) {
+            window.location = a.href;
+          }
+          break;
+       case 36: // Home
+          var a = document.querySelector("a.slider-start");
+          if (a && a.href) {
+            window.location = a.href;
+          }
+          break;
+       case 37: // left arrow
+         var a = document.querySelector("section:target ~ div a.slider-prev");
+         if (a && a.href) {
+           window.location = a.href;
+         }
+         break;
+       case 39: // right arrow
+         var a = document.querySelector("section:target ~ div a.slider-next");
+         if (a && a.href) {
+           window.location = a.href;
+         }
+         break;
+     }
+  });
+  </script>
+  
+
+</body></html>
