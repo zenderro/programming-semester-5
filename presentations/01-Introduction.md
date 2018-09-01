@@ -28,12 +28,12 @@ section.slide > pre {
 ## Курс «Практикум на ЭВМ» (по численным методам)
 
 ### Осенний семестр. Методы решения линейных систем нахождений собственных значений
-Я — **Максим Александрович Кривчиков**
+Я — **Андрей Александрович Зензинов**
 
 
-email: [maxim.krivchikov@gmail.com](mailto:maxim.krivchikov@gmail.com)
+email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 
-Материалы к занятиям: https://maxxk.github.io/programming-semester-5/
+Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
 
 В дисплейных классах рекомендуется просматривать в браузере Firefox.
 В нём установлено расширение [NoScript](http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html), обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.
@@ -249,4 +249,4 @@ member of
 </div>
 
 # Заключение
-В конце занятия нужно выслать исходный код ваших программ мне на электронную почту (maxim.krivchikov@gmail.com)
+В конце занятия нужно выслать исходный код ваших программ мне на электронную почту (andrey.zenzinov@gmail.com)
