@@ -31,8 +31,8 @@ section.slide > pre {
 - умножение квадратных матриц
 - первая задача
 
-Материалы к занятиям: https://maxxk.github.io/programming-semester-5/
-email: [maxim.krivchikov@gmail.com](mailto:maxim.krivchikov@gmail.com)
+Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
+email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 
 В дисплейных классах рекомендуется просматривать в браузере Firefox.
 В нём установлено расширение [NoScript](http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html), обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.

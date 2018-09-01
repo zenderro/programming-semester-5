@@ -150,7 +150,7 @@ section.slide > pre {
 </ul>
 <p>Материалы по практике:</p>
 <ul>
-<li><em>Язык программирования C</em>: <a href="http://people.toiit.sgu.ru/Sinelnikov/PT/C/Kern_Ritch.pdf">Б. Керниган, Д. Ритчи. Язык программирования C</a> (а также <a href="https://ru.wikibooks.org/wiki/Язык_Си_в_примерах">С. Прата. «Язык программирования C. Лекции и упражнения» и online-ресурсы</a>);</li>
+<li><em>Язык программирования C</em>: Б. Керниган, Д. Ритчи. Язык программирования C, <a href="http://stolyarov.info/books/programming_intro">А.В.Столяров. Программирование: введение в профессию</a>, С. Прата. «Язык программирования C. Лекции и упражнения», <a href="https://ru.wikibooks.org/wiki/Язык_Си_в_примерах">Викиучебник «Язык Си в примерах»</a>;</li>
 <li><em>Отладчик GDB:</em> <a href="http://rus-linux.net/nlib.php?name=/MyLDP/algol/gdb/otladka-s-gdb.html">Руководство по использованию отладчика GDB</a>, Н.Н. Иванов «Программирование в Linux. Самоучитель» (глава 28)</li>
 <li><p><em>Командная оболочка Linux:</em> Д. Тейнсли. Linux и Unix: программирование в Shell. Руководство разработчика.</p></li>
 <li><p>К. Ю. Богачёв. Основы параллельного программирования (для третьей задачи и для следующего семестра).</p></li>
@@ -209,7 +209,7 @@ section.slide > pre {
 <p>Для редактирования исходного кода лучше всего использовать:</p>
 <ul>
 <li>Qt Creator</li>
-<li>или gedit</li>
+<li>Kate или gedit</li>
 </ul>
 <p>В терминале:</p>
 <ul>
@@ -231,6 +231,7 @@ section.slide > pre {
 <li><code>..</code> — переход на один уровень вверх</li>
 </ul>
 <p>Вывод содержимого каталога: <code>ls</code></p>
+<p><a href="http://serg.tk/static/docs/1/memosheet.pdf">Шпаргалка по командам ОС и редактору vim</a></p>
 </section>
 <section id="сборка-программы" class="slide level1">
 <h1>Сборка программы</h1>
@@ -241,8 +242,8 @@ section.slide > pre {
 <p><code>gcc -o task-19 main.o task-19.o</code></p>
 <p>Аргументы командной строки для компилятора:</p>
 <ul>
-<li>-O0, ..., -O3, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;</li>
-<li>-g — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;</li>
+<li>-O0, ..., <strong>-O3</strong>, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;</li>
+<li><strong>-g</strong> — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;</li>
 <li>-lm — подключение библиотеки math (для компоновки, последняя команда, если выводятся ошибки о ненайденных символах _sqrt, _fmax, ...)</li>
 </ul>
 </section>
@@ -256,15 +257,15 @@ section.slide > pre {
 <li><code>&quot;w&quot;</code> — запись (если файл уже существует, он будет перезаписан, т.е. его содержмое будет удалено)</li>
 <li><code>&quot;a&quot;</code> — добавление в конец файла При ошибке <code>f == 0</code>.</li>
 </ul>
-<pre><code>fclose(f) // закрыть файл</code></pre>
+<pre><code>fclose(f); // закрыть файл</code></pre>
 <p>при ошибке возвращает <code>EOF</code></p>
 </section>
 <section id="вводвывод" class="slide level1">
 <h1>Ввод/вывод</h1>
 <p>Вывод:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1">printf(<span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// на экран</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// в файл `f`</span></a></code></pre></div>
-<p>Чтение: <code>fscanf(f, &quot; %lf &quot;, &amp;x)</code> возвращает количество успешно считанных аргументов, EOF при ошибке перед первым аргументом.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1">printf(<span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// на экран</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// в файл `f`</span></a></code></pre></div>
+<p>Чтение: <code>fscanf(f, &quot; %lf &quot;, &amp;x);</code> возвращает количество успешно считанных аргументов, EOF при ошибке перед первым аргументом.</p>
 <p>Спецификаторы форматирования:</p>
 <ul>
 <li><code>%c</code> — <code>char</code></li>
@@ -286,14 +287,6 @@ fabs(a - b) &lt; EPS</code></pre>
 <p>max(a, b) ⟼ <code>fmax(a, b)</code>; min(a, b) ⟼ <code>fmin(a, b)</code> (-std=c99) <span class="math inline"><em>e</em><sup><em>x</em></sup></span> ⟼ <code>exp(x)</code>; ln x ⟼ <code>log(x)</code>; <span class="math inline"><em>x</em><sup><em>y</em></sup></span> ⟼ <code>pow(x, y)</code> <code>sin, cos, tan, asin, acos, atan, sinh, ...</code></p>
 <p><span class="math inline">$\sqrt{x}$</span> ⟼ <code>sqrt(x)</code>; <span class="math inline">$\sqrt{x^2+y^2}$</span> ⟼ <code>hypot(x, y)</code> <span class="math inline">⌈<em>x</em>⌉</span> ⟼ <code>ceil(x)</code>; <span class="math inline">⌊<em>x</em>⌋</span> ⟼ <code>floor(x)</code> $ x · sgn^*(y)$ ⟼ <code>copysign(x, y)</code> (<span class="math inline"><em>s</em><em>g</em><em>n</em><sup>*</sup>(0) ≡ 1</span>) <span class="math inline"><em>x</em> · <em>y</em> + <em>z</em>⟼</span> <code>fma(x, y ,z)</code> (округляется только результат) $ y = [x], z = { x } ⟼$ <code>z = modf(x, \&amp;y)</code></p>
 <p><a href="http://en.cppreference.com/w/c/numeric/math" class="uri">http://en.cppreference.com/w/c/numeric/math</a></p>
-</section>
-<section id="некоторые-английские-термины" class="slide level1">
-<h1>Некоторые английские термины</h1>
-<div class="twocolumn">
-<p>sequence последовательность min (minimum), max (maximum) Fibbonacci, Pell average среднее monotonic монотонная increasing возрастающая decreasing убывающая non-increasing, non-decreasing constant постоянная element элемент greater than, less than</p>
-next, previous first, last<br />
-number, count количество arithmetic progression, common difference geometric progression, common ratio local, global equals to contains, contained member of
-</div>
 </section>
 <section id="заключение" class="slide level1">
 <h1>Заключение</h1>

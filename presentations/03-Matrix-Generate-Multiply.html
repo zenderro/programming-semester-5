@@ -3,48 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
+  <title>03-Matrix-Generate-Multiply</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
   <link rel="stylesheet" href="additional.css"/>
@@ -102,39 +128,26 @@ section.slide > pre {
 <li>умножение квадратных матриц</li>
 <li>первая задача</li>
 </ul>
-<p>Материалы к занятиям: <a href="https://maxxk.github.io/programming-semester-5/" class="uri">https://maxxk.github.io/programming-semester-5/</a><br />
-email: <script type="text/javascript">
-<!--
-h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
-// -->
-</script><noscript>&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript></p>
-<p>В дисплейных классах рекомендуется просматривать в браузере Firefox.<br />
-В нём установлено расширение <a href="http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html">NoScript</a>, обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.</p>
+<p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a> email: <a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
+<p>В дисплейных классах рекомендуется просматривать в браузере Firefox. В нём установлено расширение <a href="http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html">NoScript</a>, обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.</p>
 </section>
 <section id="числа-с-плавающей-точкой" class="slide level1">
 <h1>Числа с плавающей точкой</h1>
 <p>Плавающая точка — метод представления подмножества рациональных чисел (бывает тип комплексных чисел с плавающей точкой):</p>
-<p>$<br />
-x = (-1)^{{\color{#0CC}{sign}}} · 1.\overline{{\color{#F00} {significand}}} · 2^{{\color{#0C2}{exponent - bias}}}$</p>
-<p>32-битное число (float):<br />
-<img src="images/Float_example.svg" alt="floating-point" /></p>
+<p>$ x = (-1)^{ {\color{#0CC}{sign} } } · 1.\overline{ {\color{#F00} {significand} } } · 2^{ {\color{#0C2}{exponent - bias} } }$</p>
+<p>32-битное число (float): <img data-src="images/Float_example.svg" alt="floating-point" /></p>
 <p>Смещенный порядок (biased exponent): <span class="math inline"><em>p</em> = <em>e</em><em>x</em><em>p</em> − 127</span></p>
 <p>Нормированная мантисса (normalized significand): ведущий бит опускается и считается равным единице</p>
 <p>На картинке мантисса — $ \color{#444}{1}.01000…0 $</p>
-<p><a href="http://floating-point-gui.de/basic/">Подробнее</a><br />
-<a href="https://en.wikipedia.org/wiki/Floating_point">Подробнее на Wikipedia</a> (и далее — про стандарт <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a>)</p>
+<p><a href="http://floating-point-gui.de/basic/">Подробнее</a> <a href="https://en.wikipedia.org/wiki/Floating_point">Подробнее на Wikipedia</a> (и далее — про стандарт <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a>)</p>
 </section>
 <section id="особые-значения" class="slide level1">
 <h1>Особые значения</h1>
 <ol type="1">
-<li><p>Мантисса — двоичная дробь. Не всякая десятичная дробь представляется как конечная двоичная.<br />
-<span class="math inline">1/5</span> (<span class="math inline">0.2</span>) записывается в <code>double</code> как:<br />
-<span class="math inline">$0.2000000000000000\color{red}{11102230246251565404236316680908203125}$</span><br />
-<span class="math inline">⇒</span> для финансовых приложений нужно использовать десятичную запись с фиксированной точкой и строго заданными правилами округления</p></li>
+<li><p>Мантисса — двоичная дробь. Не всякая десятичная дробь представляется как конечная двоичная. <span class="math inline">1/5</span> (<span class="math inline">0.2</span>) записывается в <code>double</code> как: <span class="math inline">$0.2000000000000000\color{red}{11102230246251565404236316680908203125}$</span> <span class="math inline">⇒</span> для финансовых приложений нужно использовать десятичную запись с фиксированной точкой и строго заданными правилами округления</p></li>
 <li><p>Денормализованные числа — порядок = 0, но мантисса не может быть записана в нормированном виде — число записывается в денормализованном виде, что вызывает потерю точности значащих цифр.</p></li>
 <li><p><strong>NaN</strong> (не-число) (все биты поряка установлены) — возвращается в операциях, результат которых не определён (<span class="math inline">0/0</span>, <span class="math inline">$\sqrt{-1}$</span>)</p></li>
-<li><p><strong>Infinity</strong> (<span class="math inline">±∞</span>) — возвращается при делении на 0 или переполнении (в дисплейных классах вместо ∞ — исключение)</p></li>
+<li><p><strong>Infinity</strong> (<span class="math inline"> ± ∞</span>) — возвращается при делении на 0 или переполнении (в дисплейных классах вместо ∞ — исключение)</p></li>
 </ol>
 </section>
 <section id="исключения" class="slide level1">
@@ -154,15 +167,12 @@ x = (-1)^{{\color{#0CC}{sign}}} · 1.\overline{{\color{#F00} {significand}}} · 
 </section>
 <section id="постановка-задачи" class="slide level1">
 <h1>Постановка задачи</h1>
-<p>𝐌<span class="math inline"><sub><em>n</em></sub></span> — кольцо матриц n×n над ℂ (со сложением и умножением на константу можно рассматривать как векторное пространство над ℂ)<br />
-I — единичная матрица (E — матрица погрешности)</p>
+<p>𝐌<span class="math inline"><sub><em>n</em></sub></span> — кольцо матриц n×n над ℂ (со сложением и умножением на константу можно рассматривать как векторное пространство над ℂ) I — единичная матрица (E — матрица погрешности)</p>
 <ol type="1">
-<li>Решение линейной системы:<br />
-найти вектор <span class="math inline"><em>x</em></span>, такой, что <span class="math inline"><em>A</em><em>x</em> = <em>b</em></span></li>
-<li>Обращение матрицы:<br />
-найти матрицу <span class="math inline"><em>A</em><sup>−1</sup></span>, такую, что <span class="math inline"><em>A</em><em>A</em><sup>−1</sup> = <em>I</em></span></li>
+<li>Решение линейной системы: найти вектор <span class="math inline"><em>x</em></span>, такой, что <span class="math inline"><em>A</em><em>x</em> = <em>b</em></span></li>
+<li>Обращение матрицы: найти матрицу <span class="math inline"><em>A</em><sup> − 1</sup></span>, такую, что <span class="math inline"><em>A</em><em>A</em><sup> − 1</sup> = <em>I</em></span></li>
 </ol>
-<p>Для численных методов задача осложняется: даны значения <span class="math inline">$\hat{A}, \hat{b}$</span> с погрешностью, т.к. на практике не все действительные числа могут быть точно представлены в виде чисел с плавающей точкой; арифметические операции тоже вносят погрешность.</p>
+<p>Для численных методов задача осложняется: даны значения <span class="math inline"><em>Â</em>, <em>b̂</em></span> с погрешностью, т.к. на практике не все действительные числа могут быть точно представлены в виде чисел с плавающей точкой; арифметические операции тоже вносят погрешность.</p>
 </section>
 <section id="векторные-и-матричные-нормы" class="slide level1">
 <h1>Векторные и матричные нормы</h1>
@@ -174,62 +184,58 @@ I — единичная матрица (E — матрица погрешнос
 </ol>
 <p>Матричная норма — п.1–3 и:</p>
 <ol start="4" type="1">
-<li>Удовлетворяет неравенству треугольника по произведению: <span class="math inline">‖<em>A</em><em>B</em>‖⩽‖<em>A</em>‖·‖<em>B</em>‖</span><br />
-(получается, что не всякая векторная норма является матричной)</li>
+<li>Удовлетворяет неравенству треугольника по произведению: <span class="math inline">‖<em>A</em><em>B</em>‖ ⩽ ‖<em>A</em>‖ · ‖<em>B</em>‖</span> (получается, что не всякая векторная норма является матричной)</li>
 </ol>
 <p>Свойства:</p>
 <ul>
-<li><span class="math inline">‖<em>I</em>‖⩾1</span></li>
-<li><span class="math inline">‖<em>A</em><sup>−1</sup>‖·‖<em>A</em>‖⩾1</span></li>
+<li><span class="math inline">‖<em>I</em>‖ ⩾ 1</span></li>
+<li><span class="math inline">‖<em>A</em><sup> − 1</sup>‖ · ‖<em>A</em>‖ ⩾ 1</span></li>
 </ul>
 </section>
 <section id="подчинённые-матричные-нормы" class="slide level1">
 <h1>Подчинённые матричные нормы</h1>
-<p>Для нормы <span class="math inline">‖ · ‖</span> на ℂ<span class="math inline"><sup><em>n</em></sup></span> определим матричную (<em>подчинённую</em>, <em>индуцированную</em>) норму на 𝐌<span class="math inline"><sub><em>n</em></sub></span> по формуле:<br />
-<br /><span class="math display">‖<em>A</em>‖≡max<sub>‖<em>x</em>‖=1</sub>‖<em>A</em><em>x</em>‖.</span><br /></p>
-<p>Для подчинённой нормы <span class="math inline">‖<em>I</em>‖=1</span> и <span class="math inline">‖<em>A</em><em>x</em>‖⩽‖<em>A</em>‖·‖<em>x</em>‖</span></p>
+<p>Для нормы <span class="math inline">‖ · ‖</span> на ℂ<span class="math inline"><sup><em>n</em></sup></span> определим матричную (<em>подчинённую</em>, <em>индуцированную</em>) норму на 𝐌<span class="math inline"><sub><em>n</em></sub></span> по формуле: <br /><span class="math display">‖<em>A</em>‖ ≡ max<sub>‖<em>x</em>‖ = 1</sub>‖<em>A</em><em>x</em>‖.</span><br /></p>
+<p>Для подчинённой нормы <span class="math inline">‖<em>I</em>‖ = 1</span> и <span class="math inline">‖<em>A</em><em>x</em>‖ ⩽ ‖<em>A</em>‖ · ‖<em>x</em>‖</span></p>
 <p>Основные нормы для этого курса:</p>
 <ol type="1">
 <li>Максимальная столбцовая норма (<span class="math inline"><em>𝐋</em><sup>1</sup></span>): <span class="math inline">$‖A‖_{1} = \max\limits_{1⩽j⩽n} \sum\limits_{i=1}^n |a_{ij}| \qquad ‖x‖_{1} = Σ|x_{i}|$</span></li>
 <li>Максимальная строчная норма (<span class="math inline"><em>𝐋</em><sup>∞</sup></span>): <span class="math inline">$‖A‖_{∞} = \max\limits_i \sum\limits_j |a_{ij}| \qquad ‖x‖_∞ = \max |x_{i}|$</span></li>
-<li>Спектральная норма (<span class="math inline"><em>𝐋</em><sup>2</sup></span>) (<span class="math inline"><em>λ</em></span> — собственное значение):<br />
-<br /><span class="math display">$$‖A‖_{2} = \max \{\sqrt{λ} \; | \; ∃v : Av = λv\} \qquad ‖x‖_2 = \sqrt{Σx_{i}^2}$$</span><br /></li>
+<li>Спектральная норма (<span class="math inline"><em>𝐋</em><sup>2</sup></span>) (<span class="math inline"><em>λ</em></span> — собственное значение): <br /><span class="math display">$$‖A‖_{2} = \max \{\sqrt{λ} \; | \; ∃v : Av = λv\} \qquad ‖x‖_2 = \sqrt{Σx_{i}^2}$$</span><br /></li>
 </ol>
 <p>Спектральная норма в первой задаче не используется.</p>
 </section>
 <section id="вычислительные-ошибки-и-число-обусловленности" class="slide level1">
 <h1>Вычислительные ошибки и число обусловленности</h1>
-<p>Пусть <span class="math inline"><em>x</em></span> — точное решение системы <span class="math inline"><em>A</em><em>x</em> = <em>b</em></span>, а <span class="math inline">$\hat{x}$</span> — приближённое, полученное с помощью численных методов.<br />
-Назовём <strong>числом обусловленности</strong> (<span class="math inline"><em>κ</em>(<em>A</em>)</span>, cond(<span class="math inline"><em>A</em></span>)): $κ(A) ≡ ‖A‖·‖A^{-1}‖ \; \mbox{(для невырожденных матриц)} $</p>
-<p><strong>Невязка</strong>: <span class="math inline">$r ≡ b - A\hat{x}$</span></p>
+<p>Пусть <span class="math inline"><em>x</em></span> — точное решение системы <span class="math inline"><em>A</em><em>x</em> = <em>b</em></span>, а <span class="math inline"><em>x̂</em></span> — приближённое, полученное с помощью численных методов. Назовём <strong>числом обусловленности</strong> (<span class="math inline"><em>κ</em>(<em>A</em>)</span>, cond(<span class="math inline"><em>A</em></span>)): $κ(A) ≡ ‖A‖·‖A^{-1}‖ \; \mbox{(для невырожденных матриц)} $</p>
+<p><strong>Невязка</strong>: <span class="math inline"><em>r</em> ≡ <em>b</em> − <em>A</em><em>x̂</em></span></p>
 <p>Относительная погрешность приближённого решения: $ \dfrac{‖x-\hat{x}‖}{‖x‖} ⩽ κ(A)\dfrac{‖r‖}{‖b‖}. $</p>
 <p>Свойства числа обусловленности:</p>
 <ol type="1">
-<li><span class="math inline"><em>κ</em>(<em>A</em>)⩾1</span></li>
-<li><span class="math inline"><em>κ</em>(<em>A</em>)=<em>κ</em>(<em>A</em><sup>−1</sup>)</span></li>
-<li><span class="math inline"><em>κ</em>(<em>A</em><em>B</em>)⩽<em>κ</em>(<em>A</em>)<em>κ</em>(<em>B</em>)</span></li>
+<li><span class="math inline"><em>κ</em>(<em>A</em>) ⩾ 1</span></li>
+<li><span class="math inline"><em>κ</em>(<em>A</em>) = <em>κ</em>(<em>A</em><sup> − 1</sup>)</span></li>
+<li><span class="math inline"><em>κ</em>(<em>A</em><em>B</em>) ⩽ <em>κ</em>(<em>A</em>)<em>κ</em>(<em>B</em>)</span></li>
 <li><span class="math inline">$κ(A) ⩾ \left| \dfrac{λ_{max}(A)}{λ_{min}(A)} \right|$</span></li>
 </ol>
 </section>
 <section id="умножение-матриц" class="slide level1">
 <h1>Умножение матриц</h1>
-<p><img src="images/Matrix_multiplication_row_column_correspondance.svg" alt="Схема умножения" /></p>
+<p><img data-src="images/Matrix_multiplication_row_column_correspondance.svg" alt="Схема умножения" /></p>
 </section>
 <section id="умножение-квадратных-матриц" class="slide level1">
 <h1>Умножение квадратных матриц</h1>
 <p>Тривиальная реализация:</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">for</span> (i = <span class="dv">0</span>; i &lt; n; i++) {
-  <span class="kw">for</span> (j = <span class="dv">0</span>; j &lt; n; j++) {
-    c[i*n+j] = <span class="dv">0</span>.;
-    <span class="kw">for</span> (k = <span class="dv">0</span>; k &lt; n; k++) {
-      c[i*n+j] = a[i*n+k] * b[k*n+j];</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n; i++) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="cf">for</span> (j = <span class="dv">0</span>; j &lt; n; j++) {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    c[i*n+j] = <span class="fl">0.</span>;</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="cf">for</span> (k = <span class="dv">0</span>; k &lt; n; k++) {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">      c[i*n+j] = a[i*n+k] * b[k*n+j];</a></code></pre></div>
 <p>Блочная реализация (размер блока — порядка <span class="math inline">$\sqrt{\dfrac{L1}{3}}$</span>)</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">for</span> (i = <span class="dv">0</span>; i &lt; n/BLOCK; i++) {
-  <span class="kw">for</span> (j = <span class="dv">0</span>; j &lt; n/BLOCK; j++) {
-    zero_block(c, i, j);
-    <span class="kw">for</span> (k = <span class="dv">0</span>; k &lt; n/BLOCK; k++) {
-      multiply_block(a, b, temp, i, j, k);
-      put_block(c, temp, i, j);</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n/BLOCK; i++) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="cf">for</span> (j = <span class="dv">0</span>; j &lt; n/BLOCK; j++) {</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    zero_block(c, i, j);</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="cf">for</span> (k = <span class="dv">0</span>; k &lt; n/BLOCK; k++) {</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">      multiply_block(a, b, temp, i, j, k);</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">      put_block(c, temp, i, j);</a></code></pre></div>
 </section>
 <section id="умножение-матриц-современное-состояние-исследований" class="slide level1">
 <h1>Умножение матриц (современное состояние исследований)</h1>
@@ -242,12 +248,10 @@ I — единичная матрица (E — матрица погрешнос
 <h1>Невязка</h1>
 <p>Невязка (residual) — вектор (матрица) погрешности вычислений. Нас интересует норма невязки.</p>
 <ul>
-<li>решение линейной системы: <span class="math inline">‖<em>A</em><em>x</em> − <em>b</em>‖</span><br />
-умножить сгенерированную матрицу на какой-то*, тоже сгенерированный, вектор и вычесть правую часть (обычно будет один из векторов стандартного базиса — <span class="math inline">0, …, 0, 1, 0, …, 0</span></li>
-<li>обращение матрицы: <span class="math inline">‖<em>A</em><em>A</em><sup>−1</sup> − <em>I</em>‖</span><br />
-умножить сгенерированную матрицу на другую* сгенерированную матрицу и вычесть единичную</li>
+<li>решение линейной системы: <span class="math inline">‖<em>A</em><em>x</em> − <em>b</em>‖</span> умножить сгенерированную матрицу на какой-то*, тоже сгенерированный, вектор и вычесть правую часть (обычно будет один из векторов стандартного базиса — <span class="math inline">0, …, 0, 1, 0, …, 0</span></li>
+<li><p>обращение матрицы: <span class="math inline">‖<em>A</em><em>A</em><sup> − 1</sup> − <em>I</em>‖</span> умножить сгенерированную матрицу на другую* сгенерированную матрицу и вычесть единичную</p>
+<p>Для «хороших» матриц наша цель по невязке порядка <span class="math inline">10<sup> − 16</sup></span></p></li>
 </ul>
-<p>Для «хороших» матриц наша цель по невязке порядка <span class="math inline">10<sup>−16</sup></span></p>
 </section>
 <section id="задание" class="slide level1">
 <h1>Задание</h1>
@@ -257,17 +261,13 @@ I — единичная матрица (E — матрица погрешнос
 <li><p>Вычислить норму матрицы и вывести её на экран.</p></li>
 <li><p>Измерять не время разбора аргументов командной строки, а время генерации и вычисления нормы матрицы.</p></li>
 </ol>
-<p><a href="tasks-1.pdf">Список задач</a><br />
-или <code>lynx</code> в терминале.</p>
+<p><a href="tasks-1.pdf">Список задач</a> или <code>lynx</code> в терминале.</p>
 </section>
 <section id="формулы-для-матриц" class="slide level1">
 <h1>Формулы для матриц</h1>
 <p><span class="math inline"><em>i</em>, <em>j</em> = 0…(<em>n</em> − 1)</span>:</p>
-<p>Симметричная: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>|</span> — по возможности тестируйте на больших размерах этой или следующей матрицы<br />
-Симметричная без нулей на диагонали: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>|+1</span><br />
-Матрица Гильберта: <span class="math inline">$H_{ij} = \dfrac{1}{i+j+1}$</span> — нет смысла тестировать на размерах &gt;100</p>
-<p>Для нормы <span class="math inline"><em>𝐋</em><sup>2</sup></span> число обусловленности матрицы Гильберта <span class="math inline">5 × 5</span>:<br />
-<br /><span class="math display"><em>κ</em>(<em>H</em>)≈4.8 · 10<sup>5</sup></span><br /></p>
+<p>Симметричная: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>|</span> — по возможности тестируйте на больших размерах этой или следующей матрицы Симметричная без нулей на диагонали: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>| + 1</span> Матрица Гильберта: <span class="math inline">$H_{ij} = \dfrac{1}{i+j+1}$</span> — нет смысла тестировать на размерах &gt;100</p>
+<p>Для нормы <span class="math inline"><em>𝐋</em><sup>2</sup></span> число обусловленности матрицы Гильберта <span class="math inline">5 × 5</span>: <br /><span class="math display"><em>κ</em>(<em>H</em>) ≈ 4.8 · 10<sup>5</sup></span><br /></p>
 <p>Сложность алгоритма <span class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>)</span> означает, что для задачи «размера» <span class="math inline"><em>n</em></span> выполнение алгоритма требует не более, чем <span class="math inline"><em>C</em> · <em>n</em><sup><em>k</em></sup></span> (члены младших степеней можно отбросить путём увеличения константы).</p>
 </section>
     </div>

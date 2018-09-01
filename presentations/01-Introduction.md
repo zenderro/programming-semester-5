@@ -59,7 +59,7 @@ email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
   («Методы приближения функций» — в следующем семестре)
 
 Материалы по практике:
-- *Язык программирования C*: [Б. Керниган, Д. Ритчи. Язык программирования C](http://people.toiit.sgu.ru/Sinelnikov/PT/C/Kern_Ritch.pdf) (а также [С. Прата. «Язык программирования C. Лекции и упражнения» и online-ресурсы](https://ru.wikibooks.org/wiki/Язык_Си_в_примерах));
+- *Язык программирования C*: Б. Керниган, Д. Ритчи. Язык программирования C, [А.В.Столяров. Программирование: введение в профессию](http://stolyarov.info/books/programming_intro), С. Прата. «Язык программирования C. Лекции и упражнения», [Викиучебник «Язык Си в примерах»](https://ru.wikibooks.org/wiki/Язык_Си_в_примерах);
 - *Отладчик GDB:* [Руководство по использованию отладчика GDB](http://rus-linux.net/nlib.php?name=/MyLDP/algol/gdb/otladka-s-gdb.html), Н.Н. Иванов «Программирование в Linux. Самоучитель» (глава 28)
 - *Командная оболочка Linux:* Д. Тейнсли. Linux и Unix: программирование в Shell. Руководство разработчика.
 
@@ -116,7 +116,7 @@ fenableexcept(FE_DIVBYZERO | FE_INVALID
 # Работа в системе
 Для редактирования исходного кода лучше всего использовать:
 - Qt Creator
-- или gedit
+- Kate или gedit
 
 В терминале:
 - vim (нужно прочитать хотя бы [какое-нибудь](https://ru.wikibooks.org/wiki/Vim) [руководство](http://rus-linux.net/MyLDP/BOOKS/Vim/prosto-o-vim.pdf))
@@ -142,6 +142,8 @@ fenableexcept(FE_DIVBYZERO | FE_INVALID
 
 Вывод содержимого каталога: `ls`
 
+[Шпаргалка по командам ОС и редактору vim](http://serg.tk/static/docs/1/memosheet.pdf)
+
 # Сборка программы
 Сборка программы из нескольких файлов:
 
@@ -154,8 +156,8 @@ fenableexcept(FE_DIVBYZERO | FE_INVALID
 `gcc -o task-19 main.o task-19.o`
 
 Аргументы командной строки для компилятора:
-- -O0, ..., -O3, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;
-- -g — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;
+- -O0, ..., **-O3**, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;
+- **-g** — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;
 - -lm — подключение библиотеки math (для компоновки, последняя команда, если выводятся ошибки о ненайденных символах _sqrt, _fmax, ...)
 
 # Работа с файлами
@@ -173,18 +175,18 @@ f = fopen(fileName, mode); // открыть файл
 При ошибке `f == 0`.
 
 ```
-fclose(f) // закрыть файл
+fclose(f); // закрыть файл
 ```
 при ошибке возвращает `EOF`
 
 # Ввод/вывод
 Вывод:
 ```c
-printf("x = %e", x) // на экран
-fprintf(f, "x = %e", x) // в файл `f`
+printf("x = %e", x); // на экран
+fprintf(f, "x = %e", x); // в файл `f`
 ```
 
-Чтение: `fscanf(f, " %lf ", &x)`
+Чтение: `fscanf(f, " %lf ", &x);`
 возвращает количество успешно считанных аргументов,
 EOF при ошибке перед первым аргументом.
 
@@ -222,31 +224,6 @@ $ y = [x], z = \{ x \}  ⟼$ `z = modf(x, \&y)`
 
 http://en.cppreference.com/w/c/numeric/math
 
-
-# Некоторые английские термины
-<div class="twocolumn">
-sequence последовательность
-min (minimum), max (maximum)
-Fibbonacci, Pell
-average среднее
-monotonic монотонная
-increasing возрастающая
-decreasing убывающая
-non-increasing, non-decreasing
-constant постоянная
-element элемент
-greater than, less than
-
-next, previous
-first, last  
-number, count количество
-arithmetic progression, common difference
-geometric progression, common ratio
-local, global
-equals to
-contains, contained
-member of
-</div>
 
 # Заключение
 В конце занятия нужно выслать исходный код ваших программ мне на электронную почту (andrey.zenzinov@gmail.com)

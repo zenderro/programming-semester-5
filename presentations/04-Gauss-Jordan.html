@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
+  <title>04-Gauss-Jordan</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -83,9 +83,7 @@ section.slide > p {
   &amp; a^{(1)}_{n-1, 2} &amp; \dots &amp; a^{(1)}_{n-1, n-1} &amp; a^{(1)}_{n-1, n} &amp; b^{(1)}_{n-1} \\
   &amp; a^{(1)}_{n, 2} &amp; \dots &amp; a^{(1)}_{n, n-1} &amp; a^{(1)}_{n,n} &amp;b^{(1)}_n
 \end{array}
-$$</span><br /><br />
-В каждом столбце обнуляем часть под диагональю с использованием элементарного преобразования «вычесть строку с коэффициентом» (метод применим только в случае <span class="math inline">det <em>A</em><sub><em>k</em></sub> ≠ 0</span>). Сложность — $2/3 n^3 + O(n^2) $<br />
-<br /><span class="math display">$$ \mathbf{a}_k = \dfrac{\mathbf{a}_k}{a_{k,k}}, \qquad y_k = \dfrac{b_k}{a_{k,k}}; \qquad \mathbf{a}_i = \mathbf{a}_i - \dfrac{a_{i,k}}{a_{k,k}} \mathbf{a}_k, \qquad b_i = b_i - \dfrac{a_{i,k}}{a_{k,k}} y_k $$</span><br /></p>
+$$</span><br /> В каждом столбце обнуляем часть под диагональю с использованием элементарного преобразования «вычесть строку с коэффициентом» (метод применим только в случае <span class="math inline">det  <em>A</em><sub><em>k</em></sub> ≠ 0</span>). Сложность — $2/3 n^3 + O(n^2) $ <br /><span class="math display">$$ \mathbf{a}_k = \dfrac{\mathbf{a}_k}{a_{k,k}}, \qquad y_k = \dfrac{b_k}{a_{k,k}}; \qquad \mathbf{a}_i = \mathbf{a}_i - \dfrac{a_{i,k}}{a_{k,k}} \mathbf{a}_k, \qquad b_i = b_i - \dfrac{a_{i,k}}{a_{k,k}} y_k $$</span><br /></p>
 </section>
 <section id="реализация-метода-гаусса" class="slide level1">
 <h1>Реализация метода Гаусса</h1>
@@ -145,17 +143,11 @@ $$</span><br /></p>
 </section>
 <section id="lu-разложение-iii" class="slide level1">
 <h1>LU-разложение (III)</h1>
-<p>Таким образом, применение прямого хода метода Гаусса можно представить как:<br />
-<br /><span class="math display"><em>L</em><sub><em>n</em></sub> · <em>D</em><sub><em>n</em></sub> · … · <em>L</em><sub>1</sub> · <em>D</em><sub>1</sub> · <em>A</em> = <em>U</em></span><br /></p>
-<p>где $U $ — верхнетреугольная матрица с единицами на диагонали.<br />
-Тогда $A = LU $, где $L = (L_n · D_n · … · L_1 · D_1)^{-1} $ — нижнетреугольная матрица (т.к. нижнетреугольные матрицы замкнуты по умножению).<br />
-С использованием такого разложения можно далее решать линейные системы с правой частью $A $ и произвольной левой частью за $O(n^2) $ операций:<br />
-<br /><span class="math display"><em>L</em> · <em>U</em> · <em>x</em> = <em>b</em></span><br /></p>
+<p>Таким образом, применение прямого хода метода Гаусса можно представить как: <br /><span class="math display"><em>L</em><sub><em>n</em></sub> · <em>D</em><sub><em>n</em></sub> · … · <em>L</em><sub>1</sub> · <em>D</em><sub>1</sub> · <em>A</em> = <em>U</em></span><br /></p>
+<p>где $U $ — верхнетреугольная матрица с единицами на диагонали. Тогда $A = LU $, где $L = (L_n · D_n · … · L_1 · D_1)^{-1} $ — нижнетреугольная матрица (т.к. нижнетреугольные матрицы замкнуты по умножению). С использованием такого разложения можно далее решать линейные системы с правой частью $A $ и произвольной левой частью за $O(n^2) $ операций: <br /><span class="math display"><em>L</em> · <em>U</em> · <em>x</em> = <em>b</em></span><br /></p>
 <ol type="1">
-<li>Обратным ходом метода Гаусса решаем систему с треугольной матрицей<br />
-<br /><span class="math display"><em>L</em> · <em>y</em> = <em>b</em></span><br /></li>
-<li>Обратным ходом метода Гаусса решаем вторую систему с треугольной матрицей:<br />
-<br /><span class="math display"><em>U</em> · <em>x</em> = <em>y</em></span><br /></li>
+<li>Обратным ходом метода Гаусса решаем систему с треугольной матрицей <br /><span class="math display"><em>L</em> · <em>y</em> = <em>b</em></span><br /></li>
+<li>Обратным ходом метода Гаусса решаем вторую систему с треугольной матрицей: <br /><span class="math display"><em>U</em> · <em>x</em> = <em>y</em></span><br /></li>
 </ol>
 </section>
 <section id="реализация-lu-разложения" class="slide level1">
@@ -163,10 +155,7 @@ $$</span><br /></p>
 <p>Формулы построены таким образом, что обе матрицы $L, U $ можно (и нужно для выполнения требований) хранить на месте исходной матрицы $A $ (единичная диагональ $U $ не хранится).</p>
 <ol type="1">
 <li>$l_{i,1} = a_{i,1} \qquad (i = 1…n) \qquad \qquad u_{1,k} = a_{1,k} \big/ l_{1,1} \qquad (k = 2…n) $</li>
-<li>$\bbox[#faa,3px]{l_{i, k}} = \bbox[#faa,3px]{a_{i,k}} - \sum\limits_{j=1}^{k-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#faf,3px]{ u_{j,k}}<br />
-\qquad (1 &lt; k ⩽ i, \quad i,k = 2…n) $<br />
-$\bbox[#afa,3px]{u_{i,k}} = \left(\bbox[#afa,3px]{a_{i, k}} - \sum\limits_{j=1}^{i-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#ffa,3px]{u_{j,k}} \right) \big/ \, \bbox[#faa,3px]{l_{i,i}}<br />
-\qquad (k &gt; i &gt; 1, \quad i, k = 2 … n) $</li>
+<li>$\bbox[#faa,3px]{l_{i, k}} = \bbox[#faa,3px]{a_{i,k}} - \sum\limits_{j=1}^{k-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#faf,3px]{ u_{j,k}} \qquad (1 &lt; k ⩽ i, \quad i,k = 2…n) $ $\bbox[#afa,3px]{u_{i,k}} = \left(\bbox[#afa,3px]{a_{i, k}} - \sum\limits_{j=1}^{i-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#ffa,3px]{u_{j,k}} \right) \big/ \, \bbox[#faa,3px]{l_{i,i}} \qquad (k &gt; i &gt; 1, \quad i, k = 2 … n) $</li>
 </ol>
 <p><br /><span class="math display">$$
 \begin{pmatrix}
@@ -242,15 +231,12 @@ for <span class=green-box>i := 0…(n-1)</span>
 <p>Например, метод не сработает если <span class="math inline"><em>a</em><sub>1, 1</sub> = 0</span></p>
 <p>Для исправления ситуации можно использовать элементарные преобразования вида «перестановка строк» или «перестановка столбцов» — переставим на нужное место строку (столбец), где нужный элемент отличен от нуля.</p>
 <p>Как выбирать какую именно строку или столбец переставлять?</p>
-<p>По итогам первого шага (деление строки на диагональный элемент) погрешность изменяется обратно пропорционально модулю диагонального элемента:<br />
-<br /><span class="math display">$$  ε^{(1)}_{i,j} = ε_{i,j} - ε_{1,j} · \dfrac{a_{i,1}}{a_{1,1}} $$</span><br /></p>
+<p>По итогам первого шага (деление строки на диагональный элемент) погрешность изменяется обратно пропорционально модулю диагонального элемента: <br /><span class="math display">$$  ε^{(1)}_{i,j} = ε_{i,j} - ε_{1,j} · \dfrac{a_{i,1}}{a_{1,1}} $$</span><br /></p>
 </section>
 <section id="выбор-главного-элемента" class="slide level1">
 <h1>Выбор главного элемента</h1>
 <p>⇒ выгоднее выбирать наибольший по модулю элемент</p>
-<p>Переставляем строки — «с выбором главного элемента по столбцу»<br />
-Переставляем столбцы — «с выбором главного элемента по строке»<br />
-И строки и столбцы — «с выбором главного элемента по всей матрице»</p>
+<p>Переставляем строки — «с выбором главного элемента по столбцу» Переставляем столбцы — «с выбором главного элемента по строке» И строки и столбцы — «с выбором главного элемента по всей матрице»</p>
 <p>Асимптотика — по столбцу или по строке сохраняется (<span class="math inline">$2 \big/ 3 n^3 + O(n^2)$</span>), по всей матрице — <span class="math inline"><em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>). Перестановка элементов в памяти требует лишние <span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> операций.</p>
 <p>Возможен вариант (используется в реализациях с распределенной памятью), при котором перестановка не выполняется, а используется массив индексов перестановок.</p>
 <p>Все методы с выбором главного элемента применимы к любым невырожденным матрицам.</p>
@@ -262,9 +248,8 @@ for <span class=green-box>i := 0…(n-1)</span>
 <li>перестановка строк — переставляются строки (просто меняем местами уравнения)</li>
 <li>перестановка столбцов — перенумеруются переменные (правая часть не меняется, но требуется постобработка)</li>
 </ul>
-<p>Если мы делаем перестановку столбцов, нужно запоминать все транспозиции (<span class="math inline"><em>τ</em><sub><em>i</em></sub></span> — транспозиция $i ↔ $ <номер столбца, в котором находится главный элемент $i$-го шага>):<br />
-<br /><span class="math display"><em>σ</em> = <em>τ</em><sub>1</sub> · <em>τ</em><sub>2</sub> · … · <em>τ</em><sub><em>n</em></sub></span><br /></p>
-<p>Для получения переменных в правильной последовательности нужно делать обратные транспозиции, начиная с последней (<span class="math inline"><em>τ</em><sub><em>n</em></sub><sup>−1</sup> · <em>τ</em><sub><em>n</em> − 1</sub><sup>−1</sup> · …</span>) — фактически, перемешать строки правой части согласно обратной перестановке столбцов левой.</p>
+<p>Если мы делаем перестановку столбцов, нужно запоминать все транспозиции (<span class="math inline"><em>τ</em><sub><em>i</em></sub></span> — транспозиция $i ↔ $ &lt;номер столбца, в котором находится главный элемент <span class="math inline"><em>i</em></span>-го шага&gt;): <br /><span class="math display"><em>σ</em> = <em>τ</em><sub>1</sub> · <em>τ</em><sub>2</sub> · … · <em>τ</em><sub><em>n</em></sub></span><br /></p>
+<p>Для получения переменных в правильной последовательности нужно делать обратные транспозиции, начиная с последней (<span class="math inline"><em>τ</em><sub><em>n</em></sub><sup> − 1</sup> · <em>τ</em><sub><em>n</em> − 1</sub><sup> − 1</sup> · …</span>) — фактически, перемешать строки правой части согласно обратной перестановке столбцов левой.</p>
 </section>
 <section id="выбор-главного-элемента-1" class="slide level1">
 <h1>Выбор главного элемента</h1>

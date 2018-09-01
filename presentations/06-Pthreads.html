@@ -1,56 +1,97 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>06-Pthreads</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="slider.css">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="additional.css"/>
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
 </head>
 <body>
-  <div style="width: 640px;height: 400px;">
-  <input id="slider-max" type="checkbox" checked="">
-   <article class="slider slider-indicator">
-   <a id="slider-default"></a>
-   <label for="slider-max" title="Maximize"></label>
+  <div class="reveal">
+    <div class="slides">
 
 
 <section id="добрый-день-группа-312" class="slide level1">
@@ -59,8 +100,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="параллельное-программирование-с-общей-памятью">Параллельное программирование с общей памятью</h3>
 <h3 id="библиотека-pthreads">Библиотека pthreads</h3>
 <h3 id="средства-синхронизации-библиотеки-pthreads">Средства синхронизации библиотеки pthreads</h3>
-<p><a href="mailto:maxim.krivchikov@gmail.com" class="email">maxim.krivchikov@gmail.com</a></p>
-<p><a href="https://maxxk.github.io/programming-semester-5/" class="uri">https://maxxk.github.io/programming-semester-5/</a></p>
+<p><a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
+<p><a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
 <style>
 div.left-column {
   width: 44%;
@@ -77,183 +118,301 @@ div.fullwidth img {
   width: 100% !important;
 }
 </style>
-</section><div><a class="slider-prev"></a><a class="slider-next" href="#вторая-и-третья-задачи-1"></a></div>
+</section>
 <section id="вторая-и-третья-задачи-1" class="slide level1">
 <h1>Вторая и третья задачи</h1>
 <p>Если вы не получили вторую задачу — подойдите после презентации.</p>
 <p>Третья задача — параллельная реализация алгоритма решения линейной системы (решения матрицы) с использованием библиотеки pthreads. Нужно реализовать параллельную версию вашего метода из первой задачи. При этом программа должна принимать в качестве одного из агрументов количество потоков.</p>
 <p>При увеличении потоков на достаточно больших матрицах (2000x2000, 4000x4000) программа должна ускоряться, на 2 потоках — хотя бы в 1.6 раза, на 4 потоках — в 3 раза. На одном потоке программа не должна быть существенно медленнее, чем однопоточная реализация</p>
-</section><div><a class="slider-prev" href="#добрый-день-группа-312"></a><a class="slider-next" href="#литература"></a></div>
+</section>
 <section id="литература" class="slide level1">
 <h1>Литература</h1>
 <ol type="1">
-<li class="fragment">К.Ю. Богачёв. Основы параллельного программирования.</li>
-<li class="fragment"><a href="http://www.intuit.ru/studies/courses/53/53/lecture/1569">Мобильное программирование приложений реального времени, Лекции 1,2</a></li>
+<li>К.Ю. Богачёв. Основы параллельного программирования.</li>
+<li><a href="http://www.intuit.ru/studies/courses/53/53/lecture/1569">Мобильное программирование приложений реального времени, Лекции 1,2</a></li>
 </ol>
 <p>Небольшие примеры, введения, презентации:</p>
 <ul>
-<li class="fragment"><a href="http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf" class="uri">http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf</a></li>
-<li class="fragment"><a href="https://computing.llnl.gov/tutorials/pthreads/" class="uri">https://computing.llnl.gov/tutorials/pthreads/</a></li>
+<li><a href="http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf" class="uri">http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf</a></li>
+<li><a href="https://computing.llnl.gov/tutorials/pthreads/" class="uri">https://computing.llnl.gov/tutorials/pthreads/</a></li>
 </ul>
-</section><div><a class="slider-prev" href="#вторая-и-третья-задачи-1"></a><a class="slider-next" href="#программы-исполняются-последовательно"></a></div>
+</section>
 <section id="программы-исполняются-последовательно" class="slide level1">
 <h1>Программы исполняются последовательно</h1>
 <p>Программы на языке C транслируются в машинный код — последовательность простых команд для процессора:</p>
 <div class="left-column">
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">void</span> foo(<span class="dt">int</span> x) {
-    <span class="kw">if</span> (x == <span class="dv">0</span>) {
-       printf(<span class="st">"testing</span><span class="ch">\n</span><span class="st">"</span>);
-    }
-}</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">void</span> foo(<span class="dt">int</span> x) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="cf">if</span> (x == <span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">       printf(<span class="st">&quot;testing</span><span class="sc">\n</span><span class="st">&quot;</span>);</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    }</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">}</a></code></pre></div>
 Процессор затем исполняет эти команды по порядку.
 </div>
 <div class="right-column">
-<div class="sourceCode"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span class="kw">.globl</span>  _foo
-<span class="kw">_foo:</span>        <span class="co">## @foo</span>
-    testl   %edi, %edi
-    je  LBB0_2
-    retq
-  <span class="kw">LBB0_2:</span>
-    leaq    L_str(%rip), %rdi
-    jmp _puts                
-
-<span class="kw">L_str:</span>        <span class="co">## @str</span>
-<span class="kw">.asciz</span>  <span class="st">"testing"</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">.globl</span>  _foo</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">_foo:</span>        <span class="co">## @foo</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    testl   %edi, %edi</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    je  LBB0_2</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    retq</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">LBB0_2:</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    leaq    L_str(%rip), %rdi</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    jmp _puts                </a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">L_str:</span>        <span class="co">## @str</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">.asciz</span>  <span class="st">&quot;testing&quot;</span></a></code></pre></div>
 </div>
-</section><div><a class="slider-prev" href="#литература"></a><a class="slider-next" href="#современные-процессоры-имеют-несколько-ядер"></a></div>
+</section>
 <section id="современные-процессоры-имеют-несколько-ядер" class="slide level1">
 <h1>Современные процессоры имеют несколько ядер</h1>
-<p>— т.е. они могут выполнять несколько «потоков команд» (программ) одновременно.<br>
-<img src="images/inside_intel_sandy_bridge_quad_core_processor.jpg"></p>
-</section><div><a class="slider-prev" href="#программы-исполняются-последовательно"></a><a class="slider-next" href="#потоки-threads"></a></div>
+<p>— т.е. они могут выполнять несколько «потоков команд» (программ) одновременно. <img data-src="images/inside_intel_sandy_bridge_quad_core_processor.jpg" /></p>
+</section>
 <section id="потоки-threads" class="slide level1">
 <h1>Потоки (threads)</h1>
-<p>— способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами.<br>
-Т.е. можно обмениваться указателями, выполнять одновременное чтение и запись, и так далее. Если просто запустить несколько копий программы, у каждой копии будет своё пространство памяти и они не смогут взаимодействовать.<br>
-Для использования потоков нужно дать специальную команду «создать поток» и указать, какие команды этот поток должен исполнять.</p>
-<p>В Linux (и на Mac) потоки реализованы согласно спецификации POSIX Threads.<br>
-В командную строку при компиляции добавить: <code>-pthreads</code> или <code>-lpthreads</code><br>
-В исходный код:</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;pthread.h&gt;</span></code></pre></div>
+<p>— способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами. Т.е. можно обмениваться указателями, выполнять одновременное чтение и запись, и так далее. Если просто запустить несколько копий программы, у каждой копии будет своё пространство памяти и они не смогут взаимодействовать. Для использования потоков нужно дать специальную команду «создать поток» и указать, какие команды этот поток должен исполнять.</p>
+<p>В Linux (и на Mac) потоки реализованы согласно спецификации POSIX Threads. В командную строку при компиляции добавить: <code>-pthreads</code> или <code>-lpthreads</code> В исходный код:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></a></code></pre></div>
 <div class="small">
 POSIX (Portable Operating System Interface for Unix) — серия стандартов, описывающая интерфейсы операционной системы для разработки портируемых приложений.
 </div>
-</section><div><a class="slider-prev" href="#современные-процессоры-имеют-несколько-ядер"></a><a class="slider-next" href="#потоки-и-общая-память"></a></div>
+</section>
 <section id="потоки-и-общая-память" class="slide level1">
 <h1>Потоки и общая память</h1>
 <p>Когда программа использует потоки, можно считать, что в этой программе одновременно выполняется несколько функций (или несколько копий одной функции). При этом в общем случае про взаимную последовательность выполнения команд функций (какой поток раньше считает элемент матрицы) ничего неизвестно.</p>
-<p><img src="images/5-4-figure-1.gif"></p>
-</section><div><a class="slider-prev" href="#потоки-threads"></a><a class="slider-next" href="#создание-потока"></a></div>
+<p><img data-src="images/5-4-figure-1.gif" /></p>
+</section>
 <section id="создание-потока" class="slide level1">
 <h1>Создание потока</h1>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">pthread_t thread;
-<span class="dt">int</span>  pthread_create(pthread_t *thread,
-     <span class="dt">const</span> pthread_attr_t *attr,
-     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),
-     <span class="dt">void</span> *arg);
-<span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);
-<span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb4-1" data-line-number="1">pthread_t thread;</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">     <span class="dt">const</span> pthread_attr_t *attr,</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">     <span class="dt">void</span> *arg);</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</a></code></pre></div>
 <div class="fullwidth">
-<p><img src="tikz-images/a44700b63e0c29edc5bd8299e12a1e42348512ac.svg"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb5-1" data-line-number="1">[line width=1pt, node distance=8cm, font=<span class="fu">\Huge</span>]</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="fu">\usetikzlibrary</span>{positioning,shapes,arrows}</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="fu">\usetikzlibrary</span>{fit}</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">        <span class="fu">\node</span> (main) {main()};</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">        <span class="fu">\coordinate</span> [right = of main] (fork);</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">        <span class="fu">\coordinate</span> [above right = of fork] (threadStart);</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">        <span class="fu">\node</span> [right = of threadStart] (threadEnd) {pthread<span class="fu">\_</span>exit};</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">        <span class="fu">\coordinate</span> [right = of fork, below right = of threadEnd] (join);</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">        <span class="fu">\node</span> [right = of join] (exit) {process exit};</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">        <span class="fu">\draw</span> (main) -- (fork);</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">        <span class="fu">\draw</span> (fork) -- node[sloped, anchor=center, above] {pthread<span class="fu">\_</span>create} (threadStart);</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">        <span class="fu">\draw</span> (fork) -- node[above] {<span class="fu">\textbf</span>{Main thread} (main)} (join);</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">        <span class="fu">\draw</span> (threadStart) -- node[above] {<span class="fu">\textbf</span>{Child thread} (start<span class="fu">\_</span>routine)} (threadEnd);</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">        <span class="fu">\draw</span> [densely dashed] (threadEnd) -- node[sloped, anchor=center, above] {pthread<span class="fu">\_</span>join} (join);</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">        <span class="fu">\draw</span> (join) -- (exit);</a></code></pre></div>
 </div>
-</section><div><a class="slider-prev" href="#потоки-и-общая-память"></a><a class="slider-next" href="#создание-потока-1"></a></div>
+</section>
 <section id="создание-потока-1" class="slide level1">
 <h1>Создание потока</h1>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_create(pthread_t *thread,
-     <span class="dt">const</span> pthread_attr_t *attr,
-     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),
-     <span class="dt">void</span> *arg);</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">     <span class="dt">const</span> pthread_attr_t *attr,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">     <span class="dt">void</span> *arg);</a></code></pre></div>
 <dl>
-<dt class="fragment"><code>thread</code></dt>
-<dd class="fragment">(выходной аргумент) — идентификатор потока
+<dt><code>thread</code></dt>
+<dd>(выходной аргумент) — идентификатор потока
 </dd>
-<dt class="fragment"><code>attr</code></dt>
-<dd class="fragment">атрибуты, можно оставить <code>NULL</code>
+<dt><code>attr</code></dt>
+<dd>атрибуты, можно оставить <code>NULL</code>
 </dd>
-<dt class="fragment"><code>start_routine</code></dt>
-<dd class="fragment">указатель на функцию, главную для потока<br>
-<code class="sourceCode c"><span class="dt">void</span> *child_thread_func(<span class="dt">void</span>* arg)</code>
+<dt><code>start_routine</code></dt>
+<dd>указатель на функцию, главную для потока <code class="sourceCode c"><span class="dt">void</span> *child_thread_func(<span class="dt">void</span>* arg)</code>
 </dd>
-<dt class="fragment"><code>arg</code></dt>
-<dd class="fragment">указатель на аргумент, передаваемый главной функции
+<dt><code>arg</code></dt>
+<dd>указатель на аргумент, передаваемый главной функции
 </dd>
 </dl>
-<p><code>pthread_exit</code> вызывать необязательно, можно просто возвращаьт значение через <code class="sourceCode c"><span class="kw">return</span></code></p>
+<p><code>pthread_exit</code> вызывать необязательно, можно просто возвращаьт значение через <code class="sourceCode c"><span class="cf">return</span></code></p>
 <p><code>pthread_join</code> ожидает завершения потока-аргумента и возвращает ненулевое значение, если поток вернул результат, который будет записан по адресу <code>retval</code></p>
-</section><div><a class="slider-prev" href="#создание-потока"></a><a class="slider-next" href="#мьютэксы-mutex"></a></div>
+</section>
 <section id="мьютэксы-mutex" class="slide level1">
 <h1>Мьютэксы (mutex)</h1>
-<p>Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">pthread_mutex_t mutex;
-<span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,
-     <span class="dt">const</span> pthread_mutexattr_t *attr);
-<span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</code></pre></div>
+<p>Мьютэкс — это базовый элемент синхронизации потоков с двумя атомарными операциями — Lock (захватить мьютэкс) и Unlock (освободить мьютэкс). Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1">pthread_mutex_t mutex;</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">     <span class="dt">const</span> pthread_mutexattr_t *attr);</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</a></code></pre></div>
 <p><code>attr</code> может быть <code>NULL</code></p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);
-<span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</code></pre></div>
-</section><div><a class="slider-prev" href="#создание-потока-1"></a><a class="slider-next" href="#мьютэксы"></a></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</a></code></pre></div>
+</section>
 <section id="мьютэксы" class="slide level1">
 <h1>Мьютэксы</h1>
 <div class="fullwidth">
-<p><img src="tikz-images/9ee7cc28b01a91232319eefb01452a8a774f6ba7.svg"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">\node</span> (SR) {Thread Red};</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="fu">\draw</span> [dotted] (SR) -- (ER);</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="fu">\draw</span> [dotted] (SB) -- (EB);</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="fu">\node</span> [right = 1cm of SR, fill=white] (R1) {(<span class="ss">$L1$</span>)};</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="fu">\node</span> [right = 2cm of SB, fill=white] (B1) {(<span class="ss">$L1$</span>)};</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="fu">\node</span> [right = 3cm of R1, fill=white] (R2) {(<span class="ss">$U1$</span>)};</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="fu">\coordinate</span> [right = 3cm of B1] (B2);</a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="fu">\node</span> [right = 1cm of B2] (B3) {(<span class="ss">$U1$</span>)};</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="fu">\draw</span> [line width=1em, color=red] (SR) -- (R1);</a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="fu">\draw</span> [line width=1em, color=red] (R1) -- (R2);</a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="fu">\draw</span> [line width=1em, color=red] (R2) -- (ER);</a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="fu">\draw</span> [line width=1em, color=blue] (SB) -- (B1);</a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="fu">\draw</span> [line width=1em, color=blue] (B2) -- (B3);</a>
+<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="fu">\draw</span> [line width=1em, color = blue] (B3) -- (EB);</a></code></pre></div>
 </div>
 <p>(<span class="math inline"><em>L</em><em>i</em></span>) <code>lock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code> <span class="four-em"></span> (<span class="math inline"><em>U</em><em>i</em></span>) <code>unlock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code></p>
-</section><div><a class="slider-prev" href="#мьютэксы-mutex"></a><a class="slider-next" href="#взаимная-блокировка-deadlock"></a></div>
+</section>
 <section id="взаимная-блокировка-deadlock" class="slide level1">
 <h1>Взаимная блокировка (deadlock)</h1>
 <div class="fullwidth">
-<p><img src="tikz-images/7d187ceafe9d01a68640e7920b857bacdb98e497.svg"></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">\node</span> (SR) {Thread Red};</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="fu">\draw</span> [dotted] (SR) -- (ER);</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="fu">\draw</span> [dotted] (SB) -- (EB);</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="fu">\node</span> [right = 1cm of SR, fill=white] (R1) {(<span class="ss">$L1$</span>)};</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="fu">\node</span> [right = 2cm of SB, fill=white] (B1) {(<span class="ss">$L2$</span>)};</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="fu">\node</span> [right = 3cm of R1, fill=white] (R2) {(<span class="ss">$L2$</span>)};</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="fu">\node</span> [right = 2cm of B1] (B2) {(<span class="ss">$L1$</span>)};</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="fu">\node</span> [right = 1cm of B2] (B3) {(<span class="ss">$U2$</span>) - won&#39;t run};</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="fu">\draw</span> [line width=1em, color=red] (SR) -- (R1);</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="fu">\draw</span> [line width=1em, color=red] (R1) -- (R2);</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="fu">\draw</span> [line width=1em, color=blue] (SB) -- (B1);</a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="fu">\draw</span> [line width=1em, color=blue] (B1) -- (B2);</a></code></pre></div>
 </div>
 <p>При использовании более чем одного мьютэкса возможна ситуация, когда потоки блокируют друг друга — синий поток ожидает мьютэкс <span class="math inline">1</span> для того, чтобы потом разблокировать мьютэкс <span class="math inline">2</span>, который требуется красному потоку для разблокировки мьютэкса <span class="math inline">1</span>.</p>
-</section><div><a class="slider-prev" href="#мьютэксы"></a><a class="slider-next" href="#условные-переменные-condvar"></a></div>
+</section>
 <section id="условные-переменные-condvar" class="slide level1">
 <h1>Условные переменные (condvar)</h1>
 <p>С помощью условных переменных потоки могут передавать сигналы о готовности данных и т.п. Потоки, вызывающие <code>pthread_cond_wait</code> блокируются до момента, когда какой-либо активный поток вызовет <code>pthread_cond_signal</code> (разблокирует один поток) или <code>pthread_cond_broadcast</code> (разблокирует все ожидающие потоки)</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,
-     <span class="dt">const</span> pthread_condattr_t *attr);
-<span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,
-     pthread_mutex_t *mutex);
-<span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);
-<span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">     <span class="dt">const</span> pthread_condattr_t *attr);</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">     pthread_mutex_t *mutex);</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</a></code></pre></div>
 <p><code>mutex</code> — один и тот же для всех операций с фиксированной условной переменной</p>
-</section><div><a class="slider-prev" href="#взаимная-блокировка-deadlock"></a><a class="slider-next" href="#условные-переменные-condvar-1"></a></div>
+</section>
 <section id="условные-переменные-condvar-1" class="slide level1">
 <h1>Условные переменные (condvar)</h1>
 <div class="fullwidth">
-<p><img src="tikz-images/d78b787f35aeb13a2ad5111a64bdda0334795bbd.svg"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb13-1" data-line-number="1">[line width=1em]</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="fu">\tikzset</span>{every node/.style={fill=white}}</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="fu">\node</span> (SR) {Thread Red};</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="fu">\node</span> [below = 1cm of SR] (SG) {Thread Green};</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SG] (EG);</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SR) -- (ER);</a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SB) -- (EB);</a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SG) -- (EG);</a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="fu">\node</span> [right=1cm of SB] (BW) {(W)};</a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="fu">\node</span> [right=1.5cm of SG] (GW) {(W)};</a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="fu">\node</span> [right=2.5cm of SR] (RS) {(S)};</a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="fu">\draw</span> [color=blue] (SB) -- (BW);</a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="fu">\draw</span> [color=green] (SG) -- (GW);</a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="fu">\draw</span> [color=red] (SR) -- (RS);</a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="fu">\coordinate</span> [right=1cm of BW] (BC);</a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="fu">\node</span> [right=1cm of BC] (BW2) {(W)};</a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="fu">\draw</span> [color=blue] (BC) -- (BW2);</a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="fu">\node</span> [right=2cm of RS] (RB) {(B)};</a>
+<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="fu">\coordinate</span>[right=3.6cm of GW] (GR);</a>
+<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="fu">\coordinate</span>[right=1.1cm of BW2] (BR);</a>
+<a class="sourceLine" id="cb13-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="fu">\draw</span> [color=blue] (BR) -- (EB);</a>
+<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="fu">\draw</span>[color=red] (RS) -- (RB);</a>
+<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="fu">\draw</span> [color=red] (RB) -- (ER);</a>
+<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="fu">\draw</span> [color=green] (GR) -- (EG);</a></code></pre></div>
 </div>
 <p>(W) — wait, (S) — signal, (B) — broadcast</p>
-</section><div><a class="slider-prev" href="#условные-переменные-condvar"></a><a class="slider-next" href="#барьеры-barrier"></a></div>
+</section>
 <section id="барьеры-barrier" class="slide level1">
 <h1>Барьеры (barrier)</h1>
 <p>Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,
-    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);
-<span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);
-
-<span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</a></code></pre></div>
 <p><code>count</code> — количество потоков</p>
 <p>Барьеры — наиболее простой примитив синхронизации, я советую использовать в задачах именно его.</p>
-</section><div><a class="slider-prev" href="#условные-переменные-condvar-1"></a><a class="slider-next" href="#барьеры-barrier-1"></a></div>
+</section>
 <section id="барьеры-barrier-1" class="slide level1">
 <h1>Барьеры (barrier)</h1>
 <div class="fullwidth">
-<p><img src="tikz-images/644cdab10ab35302b26938b11b91b77376517f42.svg"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb15-1" data-line-number="1">[line width=1em]</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="fu">\tikzset</span>{every node/.style={fill=white}}</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="fu">\node</span> (SR) {Thread Red};</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="fu">\node</span> [below = 1cm of SR] (SG) {Thread Green};</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SG] (EG);</a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SR) -- (ER);</a>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SB) -- (EB);</a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SG) -- (EG);</a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="fu">\node</span> [right = 2cm of SB] (BB) {(B)};</a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="fu">\node</span> [right = 1cm of SR] (RA) {(A)};</a>
+<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="fu">\node</span> [right = 2.5cm of SG] (GA) {(A)};</a>
+<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="fu">\node</span> [right = 3cm of RA] (RB) {(B)};</a>
+<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="fu">\node</span> [right = 2.5cm of GA] (GB) {(B)};</a>
+<a class="sourceLine" id="cb15-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="fu">\draw</span> [color=red] (SR) -- (RA);</a>
+<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="fu">\draw</span> [color=green] (SG) -- (GA);</a>
+<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="fu">\draw</span> [color=blue] (SB) -- (BB);</a>
+<a class="sourceLine" id="cb15-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="fu">\coordinate</span> [right = 1.7cm of RA] (CR1);</a>
+<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="fu">\coordinate</span> [right = 1.1cm of RB] (CR2);</a>
+<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="fu">\coordinate</span> [right = 4cm of BB] (CB);</a>
+<a class="sourceLine" id="cb15-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb15-29" data-line-number="29"><span class="fu">\draw</span>[color = red] (CR1) -- (RB);</a>
+<a class="sourceLine" id="cb15-30" data-line-number="30"><span class="fu">\draw</span>[color = red] (CR2) -- (ER);</a>
+<a class="sourceLine" id="cb15-31" data-line-number="31"><span class="fu">\draw</span> [color=green] (GB) -- (EG);</a>
+<a class="sourceLine" id="cb15-32" data-line-number="32"><span class="fu">\draw</span> [color=blue] (CB) -- (EB);</a>
+<a class="sourceLine" id="cb15-33" data-line-number="33"><span class="fu">\draw</span> [color=green] (GA) -- (GB);</a>
+<a class="sourceLine" id="cb15-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb15-35" data-line-number="35"><span class="fu">\coordinate</span> [above = 0.5cm of CR1] (B1T);</a>
+<a class="sourceLine" id="cb15-36" data-line-number="36"><span class="fu">\coordinate</span> [below = 2.3cm of CR1] (B1B);</a>
+<a class="sourceLine" id="cb15-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb15-38" data-line-number="38"><span class="fu">\coordinate</span> [above = 2.3cm of CR2] (B2T);</a>
+<a class="sourceLine" id="cb15-39" data-line-number="39"><span class="fu">\coordinate</span> [below = 2.3cm of CR2] (B2B);</a>
+<a class="sourceLine" id="cb15-40" data-line-number="40"></a>
+<a class="sourceLine" id="cb15-41" data-line-number="41"><span class="fu">\draw</span> [color=gray, line width=3pt] (B1T) -- (B1B);</a>
+<a class="sourceLine" id="cb15-42" data-line-number="42"><span class="fu">\draw</span> [color=gray, line width=3pt] (B2T) -- (B2B);</a></code></pre></div>
 </div>
-<p>(A) wait (barrier count = 2)<br>
-(B) wait (barrier count = 3)</p>
-</section><div><a class="slider-prev" href="#барьеры-barrier"></a><a class="slider-next" href="#схема-распараллеливания-задач"></a></div>
+<p>(A) wait (barrier count = 2) (B) wait (barrier count = 3)</p>
+</section>
 <section id="схема-распараллеливания-задач" class="slide level1">
 <h1>Схема распараллеливания задач</h1>
-<p>Количество потоков <span class="math inline"><em>P</em></span> передаётся как аргумент командной строки.<br>
-В <code>main</code> создаётся <span class="math inline"><em>P</em></span> потоков с одной функцией, в которую передаются:</p>
+<p>Количество потоков <span class="math inline"><em>P</em></span> передаётся как аргумент командной строки. В <code>main</code> создаётся <span class="math inline"><em>P</em></span> потоков с одной и той же функцией, в которую передаются:</p>
 <ul>
-<li class="fragment">общие для всех потоков данные: размер матрицы, указатель на матрицу и обратную матрицу (или правую часть), указатели на дополнительную общую память</li>
-<li class="fragment">данные, специфичные для каждого потока: номер потока, указатели на собственную память.</li>
+<li>общие для всех потоков данные: размер матрицы, указатель на матрицу и обратную матрицу (или правую часть), указатели на дополнительную общую память</li>
+<li>данные, специфичные для каждого потока: номер потока, указатели на собственную память.</li>
 </ul>
 <p>Матрица распределяется по потокам-«владельцам» циклически, по строкам или по столбцам (1-я строка — 1-й поток, …, P-я строка — P-й поток; P+1-я строка — 1-й поток, …). Это делается для того, чтобы при уменьшении части матрицы, с которой работает метод, потоки не начинали простаивать. Лучше и распределять по потокам, и хранить элементы матрицы по столбцам.</p>
-</section><div><a class="slider-prev" href="#барьеры-barrier-1"></a><a class="slider-next" href="#псевдокод-main"></a></div>
+</section>
 <section id="псевдокод-main" class="slide level1">
 <h1>Псевдокод main</h1>
 <pre class="small"><code>    P, n, ... = получить аргументы командной строки
@@ -272,7 +431,7 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
       pthread_join(threads[p], NULL);
 
     очищаем память, уничтожаем потоки, барьер и т.п.</code></pre>
-</section><div><a class="slider-prev" href="#схема-распараллеливания-задач"></a><a class="slider-next" href="#псевдокод-func"></a></div>
+</section>
 <section id="псевдокод-func" class="slide level1">
 <h1>Псевдокод func</h1>
 <pre class="small tall"><code>void* func(void* args) {
@@ -301,61 +460,53 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 
   return NULL;
 }</code></pre>
-</section><div><a class="slider-prev" href="#псевдокод-main"></a><a class="slider-next" href="#замечания"></a></div>
+</section>
 <section id="замечания" class="slide level1">
 <h1>Замечания</h1>
 <ol type="1">
-<li class="fragment">Если многопоточная программа, в которой не используются циклы <code>while</code> не завершается, скорее всего, имеет место блокировка (deadlock, не все потоки доходят до барьера и т.п.)</li>
-<li class="fragment">Чем больше синхронизаций, тем хуже ускоряется программа.</li>
-<li class="fragment">Если программа при нескольких запусках на нескольких потоках возвращает недетерминированный результат (при каждом запуске разный с одними и теми же входными данными), то проблема в несинхронизированном чтении.</li>
-<li class="fragment"><strong>Внимание:</strong> самостоятельно нужно сделать обработку ошибок, чтобы, если один поток решил, что матрица вырожденная, другие тоже об этом узнавали и заканчивали выполнение. Main тоже нужно как-то уведомить — через общую память в tmp_common, например.</li>
-<li class="fragment">Желательно распараллелить и умножение матрицы для вычисления невязки, чтобы можно было, например, дождаться результатов на 4000x4000</li>
+<li>Если многопоточная программа, в которой не используются циклы <code>while</code> не завершается, скорее всего, имеет место блокировка (deadlock, не все потоки доходят до барьера и т.п.)</li>
+<li>Чем больше синхронизаций, тем хуже ускоряется программа.</li>
+<li>Если программа при нескольких запусках на нескольких потоках возвращает недетерминированный результат (при каждом запуске разный с одними и теми же входными данными), то проблема в несинхронизированном чтении.</li>
+<li><strong>Внимание:</strong> самостоятельно нужно сделать обработку ошибок, чтобы, если один поток решил, что матрица вырожденная, другие тоже об этом узнавали и заканчивали выполнение. Main тоже нужно как-то уведомить — через общую память в tmp_common, например.</li>
+<li>Желательно распараллелить и умножение матрицы для вычисления невязки, чтобы можно было, например, дождаться результатов на 4000x4000</li>
 </ol>
-</section><div><a class="slider-prev" href="#псевдокод-func"></a><a class="slider-next"></a></div>
-
-<!-- start page -->
-   <div id="slider">
-       <a href="#добрый-день-группа-312" class="slider-start">PLAY</a>
-   </div>
-
-   <!-- progressbar container -->
-   <div class="slider-progress"></div>
-   </article>
+</section>
+    </div>
   </div>
 
-  
-  <script type="text/javascript">
-  document.addEventListener("keydown", function(e) {
-     if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
-     switch (e.keyCode) {
-       case 35: // End
-          var arr = document.querySelectorAll("a.slider-next:link");
-          var a = arr[arr.length - 1];
-          if (a && a.href) {
-            window.location = a.href;
-          }
-          break;
-       case 36: // Home
-          var a = document.querySelector("a.slider-start");
-          if (a && a.href) {
-            window.location = a.href;
-          }
-          break;
-       case 37: // left arrow
-         var a = document.querySelector("section:target ~ div a.slider-prev");
-         if (a && a.href) {
-           window.location = a.href;
-         }
-         break;
-       case 39: // right arrow
-         var a = document.querySelector("section:target ~ div a.slider-next");
-         if (a && a.href) {
-           window.location = a.href;
-         }
-         break;
-     }
-  });
-  </script>
-  
 
-</body></html>
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>

@@ -5,9 +5,9 @@
 ### Библиотека pthreads
 ### Средства синхронизации библиотеки pthreads
 
-maxim.krivchikov@gmail.com  
+andrey.zenzinov@gmail.com  
 
-https://maxxk.github.io/programming-semester-5/
+https://zenderro.github.io/programming-semester-5/
 
 <style>
 div.left-column {
