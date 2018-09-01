@@ -3,48 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
+  <title>01-Introduction</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
   <link rel="stylesheet" href="additional.css"/>
@@ -62,7 +88,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
 </head>
 <body>
   <div class="reveal">
@@ -98,16 +123,10 @@ section.slide > pre {
 </style>
 <h2 id="курс-практикум-на-эвм-по-численным-методам">Курс «Практикум на ЭВМ» (по численным методам)</h2>
 <h3 id="осенний-семестр.-методы-решения-линейных-систем-нахождений-собственных-значений">Осенний семестр. Методы решения линейных систем нахождений собственных значений</h3>
-<p>Я — <strong>Максим Александрович Кривчиков</strong></p>
-<p>email: <script type="text/javascript">
-<!--
-h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
-// -->
-</script><noscript>&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript></p>
-<p>Материалы к занятиям: <a href="https://maxxk.github.io/programming-semester-5/" class="uri">https://maxxk.github.io/programming-semester-5/</a></p>
-<p>В дисплейных классах рекомендуется просматривать в браузере Firefox.<br />
-В нём установлено расширение <a href="http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html">NoScript</a>, обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.</p>
+<p>Я — <strong>Андрей Александрович Зензинов</strong></p>
+<p>email: <a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
+<p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
+<p>В дисплейных классах рекомендуется просматривать в браузере Firefox. В нём установлено расширение <a href="http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html">NoScript</a>, обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.</p>
 </section>
 <section id="как-получить-зачёт" class="slide level1">
 <h1>Как получить зачёт</h1>
@@ -127,8 +146,7 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <h1>Литература</h1>
 <p>Основной курс со списком вопросов к зачёту:</p>
 <ul>
-<li>К. Ю. Богачёв. <strong>Практикум на ЭВМ. Методы решения линейных систем и нахождения собственных значений.</strong><br />
-(«Методы приближения функций» — в следующем семестре)</li>
+<li>К. Ю. Богачёв. <strong>Практикум на ЭВМ. Методы решения линейных систем и нахождения собственных значений.</strong> («Методы приближения функций» — в следующем семестре)</li>
 </ul>
 <p>Материалы по практике:</p>
 <ul>
@@ -153,22 +171,24 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <h1>Настройки компилятора</h1>
 <p>В дисплейных классах установлены специальные настройки компилятора — более строго, чем обычно, контролируется соответствие программ стандарту, кроме того, более широкий класс ошибок приводит к аварийному завершению программы. Как получить близкое поведение на своей машине:</p>
 <ul>
-<li><p>Добавить к командной строке флаги:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">gcc</span> -std=c99 -Wall -Werror -Wshadow -pedantic-errors \
--Wpointer-arith -Waggregate-return \
--Wstrict-prototypes -Wmissing-declarations \
--Wlong-long -Winline -Wredundant-decls \
--Wcast-qual -Wcast-align -D__STRICT_ANSI__</code></pre></div></li>
-<li><p>Активировать исключения underflow для чисел с плавающей точкой:</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="co">// В начале файла:</span>
-<span class="ot">#include &lt;fenv.h&gt;</span>
-<span class="co">// В начале функции main:</span>
-fenableexcept(FE_DIVBYZERO | FE_INVALID
-  | FE_OVERFLOW | FE_UNDERFLOW);</code></pre></div>
+<li>Добавить к командной строке флаги:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">gcc</span> -std=c99 -Wall -Werror -Wshadow -pedantic-errors \</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">-Wpointer-arith -Waggregate-return \</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">-Wstrict-prototypes -Wmissing-declarations \</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">-Wlong-long -Winline -Wredundant-decls \</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">-Wcast-qual -Wcast-align -D__STRICT_ANSI__</a></code></pre></div>
+<ul>
+<li>Активировать исключения underflow для чисел с плавающей точкой:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// В начале файла:</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;fenv.h&gt;</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">// В начале функции main:</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">fenableexcept(FE_DIVBYZERO | FE_INVALID</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  | FE_OVERFLOW | FE_UNDERFLOW);</a></code></pre></div>
 <!--
 ```
---></li>
-</ul>
+-->
 </section>
 <section id="вход-в-систему" class="slide level1">
 <h1>Вход в систему</h1>
@@ -228,14 +248,13 @@ fenableexcept(FE_DIVBYZERO | FE_INVALID
 </section>
 <section id="работа-с-файлами" class="slide level1">
 <h1>Работа с файлами</h1>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;stdio.h&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">FILE *f;
-f = fopen(fileName, mode); <span class="co">// открыть файл</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="dt">FILE</span> *f;</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">f = fopen(fileName, mode); <span class="co">// открыть файл</span></a></code></pre></div>
 <ul>
 <li><code>&quot;r&quot;</code> — чтение</li>
 <li><code>&quot;w&quot;</code> — запись (если файл уже существует, он будет перезаписан, т.е. его содержмое будет удалено)</li>
-<li><code>&quot;a&quot;</code> — добавление в конец файла<br />
-При ошибке <code>f == 0</code>.</li>
+<li><code>&quot;a&quot;</code> — добавление в конец файла При ошибке <code>f == 0</code>.</li>
 </ul>
 <pre><code>fclose(f) // закрыть файл</code></pre>
 <p>при ошибке возвращает <code>EOF</code></p>
@@ -243,11 +262,9 @@ f = fopen(fileName, mode); <span class="co">// открыть файл</span></c
 <section id="вводвывод" class="slide level1">
 <h1>Ввод/вывод</h1>
 <p>Вывод:</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">printf(<span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// на экран</span>
-fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// в файл `f`</span></code></pre></div>
-<p>Чтение: <code>fscanf(f, &quot; %lf &quot;, &amp;x)</code><br />
-возвращает количество успешно считанных аргументов,<br />
-EOF при ошибке перед первым аргументом.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1">printf(<span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// на экран</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x) <span class="co">// в файл `f`</span></a></code></pre></div>
+<p>Чтение: <code>fscanf(f, &quot; %lf &quot;, &amp;x)</code> возвращает количество успешно считанных аргументов, EOF при ошибке перед первым аргументом.</p>
 <p>Спецификаторы форматирования:</p>
 <ul>
 <li><code>%c</code> — <code>char</code></li>
@@ -260,55 +277,27 @@ EOF при ошибке перед первым аргументом.</p>
 </section>
 <section id="операции-с-числами-с-плавающей-точкой" class="slide level1">
 <h1>Операции с числами с плавающей точкой</h1>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;math.h&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;math.h&gt;</span></a></code></pre></div>
 <p>Сравнение: <code>a == b</code> — для чисел с плавающей точкой использовать нельзя.</p>
 <pre><code>// в начале файла:
 #define EPS 1e-16
 // в программе: | a - b | &lt; ε
 fabs(a - b) &lt; EPS</code></pre>
-<p>max(a, b) ⟼ <code>fmax(a, b)</code>; min(a, b) ⟼ <code>fmin(a, b)</code> (-std=c99)<br />
-<span class="math inline">\(e^x\)</span> ⟼ <code>exp(x)</code>; ln x ⟼ <code>log(x)</code>; <span class="math inline">\(x^y\)</span> ⟼ <code>pow(x, y)</code><br />
-<code>sin, cos, tan, asin, acos, atan, sinh, ...</code></p>
-<p><span class="math inline">\(\sqrt{x}\)</span> ⟼ <code>sqrt(x)</code>; <span class="math inline">\(\sqrt{x^2+y^2}\)</span> ⟼ <code>hypot(x, y)</code><br />
-<span class="math inline">\(⌈x⌉\)</span> ⟼ <code>ceil(x)</code>; <span class="math inline">\(⌊x⌋\)</span> ⟼ <code>floor(x)</code><br />
-$ x · sgn^*(y)$ ⟼ <code>copysign(x, y)</code> (<span class="math inline">\(sgn^*(0) ≡ 1\)</span>)<br />
-<span class="math inline">\(x · y + z ⟼\)</span> <code>fma(x, y ,z)</code> (округляется только результат)<br />
-$ y = [x], z = { x } ⟼$ <code>z = modf(x, \&amp;y)</code></p>
+<p>max(a, b) ⟼ <code>fmax(a, b)</code>; min(a, b) ⟼ <code>fmin(a, b)</code> (-std=c99) <span class="math inline"><em>e</em><sup><em>x</em></sup></span> ⟼ <code>exp(x)</code>; ln x ⟼ <code>log(x)</code>; <span class="math inline"><em>x</em><sup><em>y</em></sup></span> ⟼ <code>pow(x, y)</code> <code>sin, cos, tan, asin, acos, atan, sinh, ...</code></p>
+<p><span class="math inline">$\sqrt{x}$</span> ⟼ <code>sqrt(x)</code>; <span class="math inline">$\sqrt{x^2+y^2}$</span> ⟼ <code>hypot(x, y)</code> <span class="math inline">⌈<em>x</em>⌉</span> ⟼ <code>ceil(x)</code>; <span class="math inline">⌊<em>x</em>⌋</span> ⟼ <code>floor(x)</code> $ x · sgn^*(y)$ ⟼ <code>copysign(x, y)</code> (<span class="math inline"><em>s</em><em>g</em><em>n</em><sup>*</sup>(0) ≡ 1</span>) <span class="math inline"><em>x</em> · <em>y</em> + <em>z</em>⟼</span> <code>fma(x, y ,z)</code> (округляется только результат) $ y = [x], z = { x } ⟼$ <code>z = modf(x, \&amp;y)</code></p>
 <p><a href="http://en.cppreference.com/w/c/numeric/math" class="uri">http://en.cppreference.com/w/c/numeric/math</a></p>
 </section>
 <section id="некоторые-английские-термины" class="slide level1">
 <h1>Некоторые английские термины</h1>
 <div class="twocolumn">
-<p>sequence последовательность<br />
-min (minimum), max (maximum)<br />
-Fibbonacci, Pell<br />
-average среднее<br />
-monotonic монотонная<br />
-increasing возрастающая<br />
-decreasing убывающая<br />
-non-increasing, non-decreasing<br />
-constant постоянная<br />
-element элемент<br />
-greater than, less than</p>
-next, previous<br />
-first, last<br />
-number, count количество<br />
-arithmetic progression, common difference<br />
-geometric progression, common ratio<br />
-local, global<br />
-equals to<br />
-contains, contained<br />
-member of
+<p>sequence последовательность min (minimum), max (maximum) Fibbonacci, Pell average среднее monotonic монотонная increasing возрастающая decreasing убывающая non-increasing, non-decreasing constant постоянная element элемент greater than, less than</p>
+next, previous first, last<br />
+number, count количество arithmetic progression, common difference geometric progression, common ratio local, global equals to contains, contained member of
 </div>
 </section>
 <section id="заключение" class="slide level1">
 <h1>Заключение</h1>
-<p>В конце занятия нужно выслать исходный код ваших программ мне на электронную почту (<script type="text/javascript">
-<!--
-h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
-// -->
-</script><noscript>&#x6d;&#x61;&#120;&#x69;&#x6d;&#46;&#x6b;&#114;&#x69;&#118;&#x63;&#104;&#x69;&#x6b;&#x6f;&#118;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript>)</p>
+<p>В конце занятия нужно выслать исходный код ваших программ мне на электронную почту (<a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a>)</p>
 </section>
     </div>
   </div>
@@ -330,9 +319,9 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
         slideNumber: true,                // Display the page number of the current slide
         theme: 'maxxk', // available themes are in /css/theme
         transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
         math: {
-          mathjax: 'reveal.js/../MathJax-2.5.3/MathJax.js',
-          config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+          config: 'TeX-AMS_HTML-full'
         },
 
         // Optional libraries used to extend on reveal.js
@@ -341,8 +330,10 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
           { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
 //          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
 ]});
     </script>
     </body>
