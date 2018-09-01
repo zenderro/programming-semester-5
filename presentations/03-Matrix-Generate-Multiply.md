@@ -41,7 +41,7 @@ email: [maxim.krivchikov@gmail.com](mailto:maxim.krivchikov@gmail.com)
 Плавающая точка — метод представления подмножества рациональных чисел (бывает тип комплексных чисел с плавающей точкой):
 
 $
-x = (-1)^{{\color{#0CC}{sign} }} · 1.\overline{{\color{#F00} {significand} }} · 2^{{\color{#0C2}{exponent - bias} }}$
+x = (-1)^{ {\color{#0CC}{sign} } } · 1.\overline{ {\color{#F00} {significand} } } · 2^{ {\color{#0C2}{exponent - bias} } }$
 
 32-битное число (float):
 ![floating-point](images/Float_example.svg)
