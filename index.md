@@ -10,6 +10,7 @@ layout: default
 
 ## Стиль написания программ. Разбор аргументов командной строки. Измерение времени выполнения функции. Отладка.
 [презентация — html](presentations/02-CommandLine-Time-Debugging.html)
+[требования к программам](presentations/requirements-2018.pdf)
 
 ## Числа с плавающей точкой. Матричные нормы. Постановка задачи решения линейной системы.
 [презентация — html](presentations/03-Matrix-Generate-Multiply.html)
