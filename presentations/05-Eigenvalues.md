@@ -31,7 +31,7 @@ section.slide > pre {
 
 ## Приведение матрицы к почти треугольному виду унитарными преобразованиями
 
-maxim.krivchikov@gmail.com 
+andrey.zenzinov@gmail.com 
 
 # Точные и итерационные методы
 

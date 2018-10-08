@@ -298,6 +298,7 @@ section.slide > pre {
 <section id="пример-использования-c-или-gnu90-с" class="slide level1">
 <h1>Пример использования (C++ или GNU90 С)</h1>
 <p>Компилировать лучше с <code>-std=c99</code>, т.к. в стандартах C89 и C90 нет типа <code class="sourceCode c"><span class="dt">long</span> <span class="dt">long</span></code>. <a href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h">Источник</a>, там же есть реализация для Mac OS X.</p>
+<p>При компиляции необходимо добавить ключ <code>-D_POSIX_C_SOURCE=199309L</code></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano() {</a>

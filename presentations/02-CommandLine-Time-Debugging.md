@@ -214,6 +214,8 @@ struct timespec {
 Компилировать лучше с `-std=c99`, т.к. в стандартах C89 и C90 нет типа `long long`{.c}. [Источник](https://github.com/olekristensen/LongingFastForward/blob/
 1201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h), там же есть реализация для Mac OS X.
 
+При компиляции необходимо добавить ключ `-D_POSIX_C_SOURCE=199309L`
+
 ```c
 #include <time.h>
 

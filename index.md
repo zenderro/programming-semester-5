@@ -21,6 +21,7 @@ layout: default
 
 ## Методы нахождения собственных значений
 [презентация — html](presentations/05-Eigenvalues.html)
+[список задач](presentations/tasks-2.pdf)
 
 ## Параллельное программирование с использованием библиотеки Pthreads
 [презентация — html](presentations/06-Pthreads.html)
