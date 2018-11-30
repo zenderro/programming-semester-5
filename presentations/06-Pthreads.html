@@ -12,7 +12,7 @@
   <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -25,11 +25,13 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -190,29 +192,15 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</a></code></pre></div>
 <div class="fullwidth">
-<div class="sourceCode" id="cb5"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb5-1" data-line-number="1">[line width=1pt, node distance=8cm, font=<span class="fu">\Huge</span>]</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="fu">\usetikzlibrary</span>{positioning,shapes,arrows}</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="fu">\usetikzlibrary</span>{fit}</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">        <span class="fu">\node</span> (main) {main()};</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">        <span class="fu">\coordinate</span> [right = of main] (fork);</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">        <span class="fu">\coordinate</span> [above right = of fork] (threadStart);</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">        <span class="fu">\node</span> [right = of threadStart] (threadEnd) {pthread<span class="fu">\_</span>exit};</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">        <span class="fu">\coordinate</span> [right = of fork, below right = of threadEnd] (join);</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">        <span class="fu">\node</span> [right = of join] (exit) {process exit};</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">        <span class="fu">\draw</span> (main) -- (fork);</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">        <span class="fu">\draw</span> (fork) -- node[sloped, anchor=center, above] {pthread<span class="fu">\_</span>create} (threadStart);</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">        <span class="fu">\draw</span> (fork) -- node[above] {<span class="fu">\textbf</span>{Main thread} (main)} (join);</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">        <span class="fu">\draw</span> (threadStart) -- node[above] {<span class="fu">\textbf</span>{Child thread} (start<span class="fu">\_</span>routine)} (threadEnd);</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">        <span class="fu">\draw</span> [densely dashed] (threadEnd) -- node[sloped, anchor=center, above] {pthread<span class="fu">\_</span>join} (join);</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">        <span class="fu">\draw</span> (join) -- (exit);</a></code></pre></div>
+<p><img data-src="tikz-images/a44700b63e0c29edc5bd8299e12a1e42348512ac.svg" /></p>
 </div>
 </section>
 <section id="создание-потока-1" class="slide level1">
 <h1>Создание потока</h1>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">     <span class="dt">const</span> pthread_attr_t *attr,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">     <span class="dt">void</span> *arg);</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">     <span class="dt">const</span> pthread_attr_t *attr,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">     <span class="dt">void</span> *arg);</a></code></pre></div>
 <dl>
 <dt><code>thread</code></dt>
 <dd>(выходной аргумент) — идентификатор потока
@@ -233,174 +221,62 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 <section id="мьютэксы-mutex" class="slide level1">
 <h1>Мьютэксы (mutex)</h1>
 <p>Мьютэкс — это базовый элемент синхронизации потоков с двумя атомарными операциями — Lock (захватить мьютэкс) и Unlock (освободить мьютэкс). Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1">pthread_mutex_t mutex;</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">     <span class="dt">const</span> pthread_mutexattr_t *attr);</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1">pthread_mutex_t mutex;</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">     <span class="dt">const</span> pthread_mutexattr_t *attr);</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</a></code></pre></div>
 <p><code>attr</code> может быть <code>NULL</code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</a></code></pre></div>
 </section>
 <section id="мьютэксы" class="slide level1">
 <h1>Мьютэксы</h1>
 <div class="fullwidth">
-<div class="sourceCode" id="cb9"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">\node</span> (SR) {Thread Red};</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="fu">\draw</span> [dotted] (SR) -- (ER);</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="fu">\draw</span> [dotted] (SB) -- (EB);</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="fu">\node</span> [right = 1cm of SR, fill=white] (R1) {(<span class="ss">$L1$</span>)};</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="fu">\node</span> [right = 2cm of SB, fill=white] (B1) {(<span class="ss">$L1$</span>)};</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="fu">\node</span> [right = 3cm of R1, fill=white] (R2) {(<span class="ss">$U1$</span>)};</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="fu">\coordinate</span> [right = 3cm of B1] (B2);</a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="fu">\node</span> [right = 1cm of B2] (B3) {(<span class="ss">$U1$</span>)};</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="fu">\draw</span> [line width=1em, color=red] (SR) -- (R1);</a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="fu">\draw</span> [line width=1em, color=red] (R1) -- (R2);</a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="fu">\draw</span> [line width=1em, color=red] (R2) -- (ER);</a>
-<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="fu">\draw</span> [line width=1em, color=blue] (SB) -- (B1);</a>
-<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="fu">\draw</span> [line width=1em, color=blue] (B2) -- (B3);</a>
-<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="fu">\draw</span> [line width=1em, color = blue] (B3) -- (EB);</a></code></pre></div>
+<p><img data-src="tikz-images/9ee7cc28b01a91232319eefb01452a8a774f6ba7.svg" /></p>
 </div>
 <p>(<span class="math inline"><em>L</em><em>i</em></span>) <code>lock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code> <span class="four-em"></span> (<span class="math inline"><em>U</em><em>i</em></span>) <code>unlock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code></p>
 </section>
 <section id="взаимная-блокировка-deadlock" class="slide level1">
 <h1>Взаимная блокировка (deadlock)</h1>
 <div class="fullwidth">
-<div class="sourceCode" id="cb10"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">\node</span> (SR) {Thread Red};</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="fu">\draw</span> [dotted] (SR) -- (ER);</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="fu">\draw</span> [dotted] (SB) -- (EB);</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="fu">\node</span> [right = 1cm of SR, fill=white] (R1) {(<span class="ss">$L1$</span>)};</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="fu">\node</span> [right = 2cm of SB, fill=white] (B1) {(<span class="ss">$L2$</span>)};</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="fu">\node</span> [right = 3cm of R1, fill=white] (R2) {(<span class="ss">$L2$</span>)};</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="fu">\node</span> [right = 2cm of B1] (B2) {(<span class="ss">$L1$</span>)};</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="fu">\node</span> [right = 1cm of B2] (B3) {(<span class="ss">$U2$</span>) - won&#39;t run};</a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="fu">\draw</span> [line width=1em, color=red] (SR) -- (R1);</a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="fu">\draw</span> [line width=1em, color=red] (R1) -- (R2);</a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="fu">\draw</span> [line width=1em, color=blue] (SB) -- (B1);</a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="fu">\draw</span> [line width=1em, color=blue] (B1) -- (B2);</a></code></pre></div>
+<p><img data-src="tikz-images/7d187ceafe9d01a68640e7920b857bacdb98e497.svg" /></p>
 </div>
 <p>При использовании более чем одного мьютэкса возможна ситуация, когда потоки блокируют друг друга — синий поток ожидает мьютэкс <span class="math inline">1</span> для того, чтобы потом разблокировать мьютэкс <span class="math inline">2</span>, который требуется красному потоку для разблокировки мьютэкса <span class="math inline">1</span>.</p>
 </section>
 <section id="условные-переменные-condvar" class="slide level1">
 <h1>Условные переменные (condvar)</h1>
 <p>С помощью условных переменных потоки могут передавать сигналы о готовности данных и т.п. Потоки, вызывающие <code>pthread_cond_wait</code> блокируются до момента, когда какой-либо активный поток вызовет <code>pthread_cond_signal</code> (разблокирует один поток) или <code>pthread_cond_broadcast</code> (разблокирует все ожидающие потоки)</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">     <span class="dt">const</span> pthread_condattr_t *attr);</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">     pthread_mutex_t *mutex);</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">     <span class="dt">const</span> pthread_condattr_t *attr);</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">     pthread_mutex_t *mutex);</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</a></code></pre></div>
 <p><code>mutex</code> — один и тот же для всех операций с фиксированной условной переменной</p>
 </section>
 <section id="условные-переменные-condvar-1" class="slide level1">
 <h1>Условные переменные (condvar)</h1>
 <div class="fullwidth">
-<div class="sourceCode" id="cb13"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb13-1" data-line-number="1">[line width=1em]</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="fu">\tikzset</span>{every node/.style={fill=white}}</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="fu">\node</span> (SR) {Thread Red};</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="fu">\node</span> [below = 1cm of SR] (SG) {Thread Green};</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SG] (EG);</a>
-<a class="sourceLine" id="cb13-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SR) -- (ER);</a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SB) -- (EB);</a>
-<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SG) -- (EG);</a>
-<a class="sourceLine" id="cb13-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="fu">\node</span> [right=1cm of SB] (BW) {(W)};</a>
-<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="fu">\node</span> [right=1.5cm of SG] (GW) {(W)};</a>
-<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="fu">\node</span> [right=2.5cm of SR] (RS) {(S)};</a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="fu">\draw</span> [color=blue] (SB) -- (BW);</a>
-<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="fu">\draw</span> [color=green] (SG) -- (GW);</a>
-<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="fu">\draw</span> [color=red] (SR) -- (RS);</a>
-<a class="sourceLine" id="cb13-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="fu">\coordinate</span> [right=1cm of BW] (BC);</a>
-<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="fu">\node</span> [right=1cm of BC] (BW2) {(W)};</a>
-<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="fu">\draw</span> [color=blue] (BC) -- (BW2);</a>
-<a class="sourceLine" id="cb13-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="fu">\node</span> [right=2cm of RS] (RB) {(B)};</a>
-<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="fu">\coordinate</span>[right=3.6cm of GW] (GR);</a>
-<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="fu">\coordinate</span>[right=1.1cm of BW2] (BR);</a>
-<a class="sourceLine" id="cb13-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="fu">\draw</span> [color=blue] (BR) -- (EB);</a>
-<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="fu">\draw</span>[color=red] (RS) -- (RB);</a>
-<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="fu">\draw</span> [color=red] (RB) -- (ER);</a>
-<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="fu">\draw</span> [color=green] (GR) -- (EG);</a></code></pre></div>
+<p><img data-src="tikz-images/d78b787f35aeb13a2ad5111a64bdda0334795bbd.svg" /></p>
 </div>
 <p>(W) — wait, (S) — signal, (B) — broadcast</p>
 </section>
 <section id="барьеры-barrier" class="slide level1">
 <h1>Барьеры (barrier)</h1>
 <p>Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</a></code></pre></div>
 <p><code>count</code> — количество потоков</p>
 <p>Барьеры — наиболее простой примитив синхронизации, я советую использовать в задачах именно его.</p>
 </section>
 <section id="барьеры-barrier-1" class="slide level1">
 <h1>Барьеры (barrier)</h1>
 <div class="fullwidth">
-<div class="sourceCode" id="cb15"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb15-1" data-line-number="1">[line width=1em]</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="fu">\tikzset</span>{every node/.style={fill=white}}</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="fu">\node</span> (SR) {Thread Red};</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="fu">\node</span> [above = 1cm of SR] (SB) {Thread Blue};</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="fu">\node</span> [below = 1cm of SR] (SG) {Thread Green};</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SR] (ER);</a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SB] (EB);</a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="fu">\coordinate</span> [right = 0.8<span class="fu">\linewidth</span> of SG] (EG);</a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SR) -- (ER);</a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SB) -- (EB);</a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="fu">\draw</span> [dotted, line width=0.5pt] (SG) -- (EG);</a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="fu">\node</span> [right = 2cm of SB] (BB) {(B)};</a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="fu">\node</span> [right = 1cm of SR] (RA) {(A)};</a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="fu">\node</span> [right = 2.5cm of SG] (GA) {(A)};</a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="fu">\node</span> [right = 3cm of RA] (RB) {(B)};</a>
-<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="fu">\node</span> [right = 2.5cm of GA] (GB) {(B)};</a>
-<a class="sourceLine" id="cb15-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="fu">\draw</span> [color=red] (SR) -- (RA);</a>
-<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="fu">\draw</span> [color=green] (SG) -- (GA);</a>
-<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="fu">\draw</span> [color=blue] (SB) -- (BB);</a>
-<a class="sourceLine" id="cb15-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="fu">\coordinate</span> [right = 1.7cm of RA] (CR1);</a>
-<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="fu">\coordinate</span> [right = 1.1cm of RB] (CR2);</a>
-<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="fu">\coordinate</span> [right = 4cm of BB] (CB);</a>
-<a class="sourceLine" id="cb15-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb15-29" data-line-number="29"><span class="fu">\draw</span>[color = red] (CR1) -- (RB);</a>
-<a class="sourceLine" id="cb15-30" data-line-number="30"><span class="fu">\draw</span>[color = red] (CR2) -- (ER);</a>
-<a class="sourceLine" id="cb15-31" data-line-number="31"><span class="fu">\draw</span> [color=green] (GB) -- (EG);</a>
-<a class="sourceLine" id="cb15-32" data-line-number="32"><span class="fu">\draw</span> [color=blue] (CB) -- (EB);</a>
-<a class="sourceLine" id="cb15-33" data-line-number="33"><span class="fu">\draw</span> [color=green] (GA) -- (GB);</a>
-<a class="sourceLine" id="cb15-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb15-35" data-line-number="35"><span class="fu">\coordinate</span> [above = 0.5cm of CR1] (B1T);</a>
-<a class="sourceLine" id="cb15-36" data-line-number="36"><span class="fu">\coordinate</span> [below = 2.3cm of CR1] (B1B);</a>
-<a class="sourceLine" id="cb15-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb15-38" data-line-number="38"><span class="fu">\coordinate</span> [above = 2.3cm of CR2] (B2T);</a>
-<a class="sourceLine" id="cb15-39" data-line-number="39"><span class="fu">\coordinate</span> [below = 2.3cm of CR2] (B2B);</a>
-<a class="sourceLine" id="cb15-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb15-41" data-line-number="41"><span class="fu">\draw</span> [color=gray, line width=3pt] (B1T) -- (B1B);</a>
-<a class="sourceLine" id="cb15-42" data-line-number="42"><span class="fu">\draw</span> [color=gray, line width=3pt] (B2T) -- (B2B);</a></code></pre></div>
+<p><img data-src="tikz-images/644cdab10ab35302b26938b11b91b77376517f42.svg" /></p>
 </div>
 <p>(A) wait (barrier count = 2) (B) wait (barrier count = 3)</p>
 </section>
