@@ -10,26 +10,27 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -38,9 +39,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -73,8 +74,8 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
-  <link rel="stylesheet" href="additional.css"/>
   <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
   <!-- If the query includes 'print-pdf', include the PDF print sheet -->
   <script>
     if( window.location.search.match( /print-pdf/gi ) ) {
@@ -130,7 +131,6 @@ section.slide > pre {
 <li>отладка</li>
 </ul>
 <p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a> email: <a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
-<p>В дисплейных классах рекомендуется просматривать в браузере Firefox. В нём установлено расширение <a href="http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html">NoScript</a>, обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.</p>
 </section>
 <section id="стиль-написания" class="slide level1">
 <h1>Стиль написания</h1>
@@ -156,112 +156,112 @@ section.slide > pre {
 </section>
 <section id="стиль-написания-2" class="slide level1">
 <h1>Стиль написания</h1>
-<p>Рекомендации из Mozilla Style Guide:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (...) {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  ...</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">} <span class="cf">else</span> <span class="cf">if</span> (...) {</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="cf">while</span> (...) {</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="cf">do</span> {</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">} <span class="cf">while</span> (...);</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="cf">for</span> (...; ...; ...) {</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">}</a></code></pre></div>
+<p>Рекомендации из <a href="https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html">Mozilla Style Guide</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="cf">if</span> (...) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  ...</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>} <span class="cf">else</span> <span class="cf">if</span> (...) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="cf">while</span> (...) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="cf">do</span> {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>} <span class="cf">while</span> (...);</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="cf">for</span> (...; ...; ...) {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>}</span></code></pre></div>
 </section>
 <section id="стиль-написания-3" class="slide level1">
 <h1>Стиль написания</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dt">int</span> a = <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    b = <span class="dv">3</span>;</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="dt">int</span> i, j, k;</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="dt">double</span>* d;</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="cf">switch</span> (...) {</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="cf">case</span> <span class="dv">1</span>: {</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="dt">int</span> var;</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">  }</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">  <span class="cf">case</span> <span class="dv">2</span>:</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    ...</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">    <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">  <span class="cf">default</span>:</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">0</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    b = <span class="dv">3</span>;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="dt">int</span> i, j, k;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="dt">double</span>* d;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="cf">switch</span> (...) {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>  <span class="cf">case</span> <span class="dv">1</span>: {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="dt">int</span> var;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>  }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>  <span class="cf">case</span> <span class="dv">2</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    ...</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>  <span class="cf">default</span>:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>}</span></code></pre></div>
 </section>
-<section id="разбор-аргументов-командной-строки.-простой-способ" class="slide level1">
+<section id="разбор-аргументов-командной-строки-простой-способ" class="slide level1">
 <h1>Разбор аргументов командной строки. Простой способ</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dt">int</span> main (<span class="dt">int</span> argc, <span class="dt">char</span> * argv[]) {</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">int</span> a, b;</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    </a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="cf">if</span> (argc == <span class="dv">1</span> || argc &gt; <span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">        printf(<span class="st">&quot;Неверное количество аргументов</span><span class="sc">\n</span><span class="st">&quot;</span>);</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">        <span class="cf">return</span> <span class="dv">-1</span>;</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    }</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="cf">switch</span>(argc) {</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">        <span class="cf">case</span> <span class="dv">2</span>: {</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">            <span class="co">// открываем файл, считываем данные из файла, закрываем файл</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">            ...</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">            <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">        }</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">        <span class="cf">case</span> <span class="dv">3</span>: {</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">            <span class="co">// считываем данные из аргументов</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">            a = argv[<span class="dv">1</span>];</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">            b = argv[<span class="dv">2</span>];</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">        }</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">    }</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">    </a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">    ...</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">      </a>
-<a class="sourceLine" id="cb3-24" data-line-number="24">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">int</span> main (<span class="dt">int</span> argc, <span class="dt">char</span> * argv[]) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="dt">int</span> a, b;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="cf">if</span> (argc == <span class="dv">1</span> || argc &gt; <span class="dv">3</span>) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        printf(<span class="st">&quot;Неверное количество аргументов</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="cf">return</span> -<span class="dv">1</span>;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    }</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="cf">switch</span>(argc) {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">2</span>: {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>            <span class="co">// открываем файл, считываем данные из файла, закрываем файл</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>            ...</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        }</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">3</span>: {</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>            <span class="co">// считываем данные из аргументов</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>            a = argv[<span class="dv">1</span>];</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>            b = argv[<span class="dv">2</span>];</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>        }</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    }</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>    </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>    ...</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>      </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>}</span></code></pre></div>
 </section>
-<section id="разбор-аргументов-командной-строки.-сложный-способ" class="slide level1">
+<section id="разбор-аргументов-командной-строки-сложный-способ" class="slide level1">
 <h1>Разбор аргументов командной строки. Сложный способ</h1>
 <p><code>./myprog -n 10 -f abs_i-j -v</code> Функция <code>getopt</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">extern</span> <span class="dt">char</span> *optarg;</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">extern</span> <span class="dt">int</span> optind;</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">extern</span> <span class="dt">int</span> optopt;</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">extern</span> <span class="dt">int</span> opterr;</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">extern</span> <span class="dt">int</span> optreset;</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="dt">int</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">getopt(<span class="dt">int</span> argc, <span class="dt">char</span> * <span class="dt">const</span> argv[], <span class="dt">const</span> <span class="dt">char</span> *optstring);</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">char</span> *optarg;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">int</span> optind;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">int</span> optopt;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">int</span> opterr;</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">int</span> optreset;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="dt">int</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>getopt(<span class="dt">int</span> argc, <span class="dt">char</span> * <span class="dt">const</span> argv[], <span class="dt">const</span> <span class="dt">char</span> *optstring);</span></code></pre></div>
 <p><code>optstring</code>: строка с последовательностью букв — имён аргументов командной строки. Если после имени указано двоеточие, соответствующий аргумент командной строки имеет параметр; если нет — это просто флаг.</p>
 </section>
-<section id="разбор-аргументов-командной-строки.-сложный-способ-1" class="slide level1">
+<section id="разбор-аргументов-командной-строки-сложный-способ-1" class="slide level1">
 <h1>Разбор аргументов командной строки. Сложный способ</h1>
 <p><code>./myprog -n 10 -f abs_i-j -v</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">struct</span> Params {</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">int</span> size; <span class="co">// размер массива</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="dt">char</span>* formula; <span class="co">// формула заполнения</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">  <span class="dt">char</span> verbose; <span class="co">// отладочный вывод</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="kw">struct</span> Params params;</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">  <span class="dt">int</span> opt;</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">  <span class="cf">while</span> ((opt = getopt(argc, argv, <span class="st">&quot;vn:f:&quot;</span>)) != <span class="dv">-1</span>) {</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">    <span class="cf">switch</span> (opt) {</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">      ...</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">    }</a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">  }</a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">struct</span> Params {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>  <span class="dt">int</span> size; <span class="co">// размер массива</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>  <span class="dt">char</span>* formula; <span class="co">// формула заполнения</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>  <span class="dt">char</span> verbose; <span class="co">// отладочный вывод</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>  <span class="kw">struct</span> Params params;</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>  <span class="dt">int</span> opt;</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>  <span class="cf">while</span> ((opt = getopt(argc, argv, <span class="st">&quot;vn:f:&quot;</span>)) != -<span class="dv">1</span>) {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    <span class="cf">switch</span> (opt) {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>      ...</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>    }</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>  }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>}</span></code></pre></div>
 </section>
-<section id="разбор-аргументов-командной-строки.-сложный-способ-2" class="slide level1">
+<section id="разбор-аргументов-командной-строки-сложный-способ-2" class="slide level1">
 <h1>Разбор аргументов командной строки. Сложный способ</h1>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">case</span> <span class="ch">&#39;n&#39;</span>: {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">char</span> *next;</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  params.size = strtol(optarg, &amp;next, <span class="dv">10</span>);</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="cf">case</span> <span class="ch">&#39;n&#39;</span>: {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="dt">char</span> *next;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  params.size = strtol(optarg, &amp;next, <span class="dv">10</span>);</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Подробнее про <code>getopt</code>:</p>
 <ol type="1">
 <li><code>man 3 getopt</code> в консоли</li>
@@ -282,10 +282,10 @@ section.slide > pre {
 <section id="время-работы-с-clock_gettime" class="slide level1">
 <h1>Время работы с clock_gettime</h1>
 <p><code class="sourceCode c"><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></code> Прототип:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">struct</span> timespec {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">    <span class="dt">time_t</span> tv_sec;  <span class="co">// секунды</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="dt">long</span> tv_nsec;   <span class="co">// наносекунды</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">}  <span class="co">// Объявлено в unistd.h</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">struct</span> timespec {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="dt">time_t</span> tv_sec;  <span class="co">// секунды</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    <span class="dt">long</span> tv_nsec;   <span class="co">// наносекунды</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>}  <span class="co">// Объявлено в unistd.h</span></span></code></pre></div>
 <p><code class="sourceCode c"><span class="dt">int</span> clock_gettime(clockid_t clk_id, <span class="kw">struct</span> timespec *tp)</code></p>
 <p>Значения <code>clockid_t</code>:</p>
 <ul>
@@ -299,53 +299,53 @@ section.slide > pre {
 <h1>Пример использования (C++ или GNU90 С)</h1>
 <p>Компилировать лучше с <code>-std=c99</code>, т.к. в стандартах C89 и C90 нет типа <code class="sourceCode c"><span class="dt">long</span> <span class="dt">long</span></code>. <a href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h">Источник</a>, там же есть реализация для Mac OS X.</p>
 <p>При компиляции необходимо добавить ключ <code>-D_POSIX_C_SOURCE=199309L</code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano() {</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="kw">struct</span> timespec t;</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  clock_gettime(CLOCK_MONOTONIC, &amp;t);</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="cf">return</span> t.tv_sec*<span class="dv">1000000000</span> + t.tv_nsec;</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeMillis() {</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw">struct</span> timespec t;</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">  clock_gettime(CLOCK_MONOTONIC, &amp;t);</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">  <span class="cf">return</span> t.tv_sec*<span class="dv">1000</span> + t.tv_nsec/<span class="dv">1000000</span>;</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="dt">long</span> <span class="dt">long</span> time = <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">time = currentTimeNano();</a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">Solve(n, a, b, tmp_double, tmp_int, debug);</a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">time = currentTimeNano() - time;</a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">CheckAnswer(n, a, b);</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano() {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>  <span class="kw">struct</span> timespec t;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>  clock_gettime(CLOCK_MONOTONIC, &amp;t);</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>  <span class="cf">return</span> t.tv_sec*<span class="dv">1000000000</span> + t.tv_nsec;</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeMillis() {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>  <span class="kw">struct</span> timespec t;</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>  clock_gettime(CLOCK_MONOTONIC, &amp;t);</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>  <span class="cf">return</span> t.tv_sec*<span class="dv">1000</span> + t.tv_nsec/<span class="dv">1000000</span>;</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>}</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a><span class="dt">long</span> <span class="dt">long</span> time = <span class="dv">0</span>;</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>time = currentTimeNano();</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>Solve(n, a, b, tmp_double, tmp_int, debug);</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>time = currentTimeNano() - time;</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>CheckAnswer(n, a, b);</span></code></pre></div>
 </section>
 <section id="пример-использования-c89" class="slide level1">
 <h1>Пример использования (C89)</h1>
 <p>Этот пример должен собираться в дисплейных классах с параметрами компилятора по умолчанию. <a href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859272d0187252506da5b/c/euclide/timediff.c">Источник</a></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">struct</span> timespec diff(<span class="kw">struct</span> timespec start, <span class="kw">struct</span> timespec end)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">{</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="kw">struct</span> timespec temp;</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="cf">if</span> ((end.tv_nsec-start.tv_nsec)&lt;<span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">        temp.tv_sec = end.tv_sec-start.tv_sec<span class="dv">-1</span>;</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">        temp.tv_nsec = <span class="dv">1000000000</span>+end.tv_nsec-start.tv_nsec;</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">        temp.tv_sec = end.tv_sec-start.tv_sec;</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">        temp.tv_nsec = end.tv_nsec-start.tv_nsec;</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13">    <span class="cf">return</span> temp;</a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">}</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="kw">struct</span> timespec time_start, time_end;</a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">clock_gettime(CLOCK_MONOTONIC, &amp;time_start);</a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">Solve(n, a, b, tmp_double, tmp_int, debug);</a>
-<a class="sourceLine" id="cb9-19" data-line-number="19">clock_gettime(CLOCK_MONOTONIC, &amp;time_end);</a>
-<a class="sourceLine" id="cb9-20" data-line-number="20">time_end = diff(time_start, time_end);</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="kw">struct</span> timespec diff(<span class="kw">struct</span> timespec start, <span class="kw">struct</span> timespec end)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>{</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="kw">struct</span> timespec temp;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    <span class="cf">if</span> ((end.tv_nsec-start.tv_nsec)&lt;<span class="dv">0</span>) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>        temp.tv_sec = end.tv_sec-start.tv_sec-<span class="dv">1</span>;</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>        temp.tv_nsec = <span class="dv">1000000000</span>+end.tv_nsec-start.tv_nsec;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>        temp.tv_sec = end.tv_sec-start.tv_sec;</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>        temp.tv_nsec = end.tv_nsec-start.tv_nsec;</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>    }</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>    <span class="cf">return</span> temp;</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>}</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a><span class="kw">struct</span> timespec time_start, time_end;</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>clock_gettime(CLOCK_MONOTONIC, &amp;time_start);</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>Solve(n, a, b, tmp_double, tmp_int, debug);</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a>clock_gettime(CLOCK_MONOTONIC, &amp;time_end);</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>time_end = diff(time_start, time_end);</span></code></pre></div>
 </section>
 <section id="общие-требования-к-программам" class="slide level1">
 <h1>Общие требования к программам</h1>
-<p>Выполняемые в этом семестре программы должны соответствовать <a href="requirements-2018.pdf">требованиям</a>.</p>
+<p>Выполняемые в этом семестре программы должны соответствовать <a href="requirements-2019.pdf">требованиям</a>.</p>
 <p>Давайте их разберём подробнее.</p>
 </section>
 <section id="отладчик" class="slide level1">
@@ -368,24 +368,26 @@ section.slide > pre {
 </section>
 <section id="вызов-отладчика-gdb" class="slide level1">
 <h1>Вызов отладчика GDB</h1>
-<p>Для отладки программу нужно скомпилировать с отладочной информацией (ключ <code>-g</code>) без оптимизации (<code>g++</code> — аналогично): <code>gcc -g myprog.c main.c</code> Запуск отладчика</p>
+<p>Для отладки программу нужно скомпилировать с отладочной информацией (ключ <code>-g</code>) без оптимизации (<code>g++</code> — аналогично):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="fu">gcc</span> -g myprog.c main.c</span></code></pre></div>
+<p>Запуск отладчика:</p>
 <ul>
 <li>программа без аргументов</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">gdb</span> ./a.out</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># Вместо ./a.out</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">gdb</span> ./a.out</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="co"># Вместо ./a.out</span></span></code></pre></div>
 </section>
 <section id="вызов-отладчика-gdb-1" class="slide level1">
 <h1>Вызов отладчика GDB</h1>
 <ul>
 <li>аргументы при запуске</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="fu">gdb</span> --args ./a.out -f 2 -n 1000</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co"># Вместо ./a.out -f 2 -n 1000</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="fu">gdb</span> --args ./a.out -f 2 -n 1000</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="co"># Вместо ./a.out -f 2 -n 1000</span></span></code></pre></div>
 <p>После запуска отображается командная строка gdb.</p>
 <p>Аргументы можно изменить в командной строке gdb:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">set</span> <span class="ex">args</span> -f 1 -n 500</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="ex">show</span> args    # Показать текущие аргументы</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">set</span> <span class="ex">args</span> -f 1 -n 500</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="ex">show</span> args    # Показать текущие аргументы</span></code></pre></div>
 </section>
 <section id="команды-отладчика-gdb" class="slide level1">
 <h1>Команды отладчика GDB</h1>
@@ -443,8 +445,8 @@ Program received signal SIGFPE, Arithmetic exception.
 </section>
 <section id="запуск-valgrind" class="slide level1">
 <h1>Запуск Valgrind</h1>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Вместо ./a.out --fun 1 --size 2</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="fu">valgrind</span> ./a.out --fun 1 --size 2</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="co"># Вместо ./a.out --fun 1 --size 2</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">valgrind</span> ./a.out --fun 1 --size 2</span></code></pre></div>
 <pre><code>==19182== Invalid write of size 4
 ==19182==    at 0x804838F: f (example.c:6)
 ==19182==    by 0x80483AB: main (example.c:11)

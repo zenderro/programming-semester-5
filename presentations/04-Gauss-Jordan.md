@@ -38,6 +38,9 @@ section.slide > p {
 - метод Жордана
 - выбор главного элемента
 
+Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
+email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
+
 # Приведение матрицы к треугольному виду (метод Гаусса)
 
 $$
@@ -127,6 +130,7 @@ $$ U · x = y $$
 
 # Реализация LU-разложения
 Формулы построены таким образом, что обе матрицы $L, U $ можно (и нужно для выполнения требований) хранить на месте исходной матрицы $A $ (единичная диагональ $U $ не хранится).
+
 1. $l_{i,1} = a_{i,1} \qquad (i = 1…n) \qquad \qquad u_{1,k} = a_{1,k} \big/ l_{1,1} \qquad (k = 2…n) $
 2. $\bbox[#faa,3px]{l_{i, k}} = \bbox[#faa,3px]{a_{i,k}} - \sum\limits_{j=1}^{k-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#faf,3px]{ u_{j,k}}
 \qquad (1 < k ⩽ i, \quad i,k = 2…n) $

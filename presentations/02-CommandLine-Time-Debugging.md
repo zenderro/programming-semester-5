@@ -35,9 +35,6 @@ section.slide > pre {
 Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
 email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 
-В дисплейных классах рекомендуется просматривать в браузере Firefox.
-В нём установлено расширение [NoScript](http://www.our-firefox.ru/kak-v-mozilla-firefox/noscript-dlya-firefox-nastrojjka.html), обратите внимание на инструкцию, иначе значительная часть сайтов не будет работать.
-
 
 # Стиль написания
 
@@ -58,7 +55,7 @@ email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 - оформляйте код однородно (условные операторы, циклы, положение фигурных скобок, отступы)
 
 # Стиль написания
-Рекомендации из Mozilla Style Guide:
+Рекомендации из [Mozilla Style Guide](https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html):
 ```c
 if (...) {
   ...
@@ -265,7 +262,7 @@ time_end = diff(time_start, time_end);
 
 # Общие требования к программам
 
-Выполняемые в этом семестре программы должны соответствовать [требованиям](requirements-2018.pdf).
+Выполняемые в этом семестре программы должны соответствовать [требованиям](requirements-2019.pdf).
 
 Давайте их разберём подробнее.
 
@@ -286,8 +283,11 @@ time_end = diff(time_start, time_end);
 # Вызов отладчика GDB
 
 Для отладки программу нужно скомпилировать с отладочной информацией (ключ `-g`) без оптимизации (`g++` — аналогично):
-    `gcc -g myprog.c main.c`
-Запуск отладчика
+```bash
+gcc -g myprog.c main.c
+```
+Запуск отладчика:
+
   - программа без аргументов
 ```bash
 gdb ./a.out
@@ -348,6 +348,7 @@ Program received signal SIGFPE, Arithmetic exception.
 [Valgrind](http://valgrind.org) — средство динамического (= во время выполнения) анализа программ.
 
 Позволяет анализировать, в частности, следующие показатели:
+
 - **ошибки доступа к памяти** (доступ по неинициализированному указателю, выход за границы массива, использование неинициализированных переменных, копирование «внахлёст», утечки памяти)
 - частота не-попаданий в кэш (L1, L2)
 - источники взаимных блокировок в многопоточной программе

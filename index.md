@@ -3,16 +3,13 @@ layout: default
 ---
 
 # Презентации
-*Для просмотра презентаций в дисплейных классах нужно использовать Firefox с включенным JavaScript (кнопка «Настроить» в правой нижней части окна).*
 
 ## Практикум на ЭВМ. Пятый семестр. Введение.
 [презентация — html](presentations/01-Introduction.html)
 
 ## Стиль написания программ. Разбор аргументов командной строки. Измерение времени выполнения функции. Отладка.
 [презентация — html](presentations/02-CommandLine-Time-Debugging.html)
-[требования к программам](presentations/requirements-2018.pdf)
-
-[новые требования к программам](presentations/requirements-2019.pdf)
+[требования к программам](presentations/requirements-2019.pdf)
 
 ## Числа с плавающей точкой. Матричные нормы. Постановка задачи решения линейной системы.
 [презентация — html](presentations/03-Matrix-Generate-Multiply.html)
