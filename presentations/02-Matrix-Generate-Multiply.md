@@ -184,6 +184,178 @@ for (i = 0; i < n/BLOCK; i++) {
 
   Для «хороших» матриц наша цель по невязке порядка $10^{-16}$
 
+# Общие требования к программам
+
+Выполняемые в этом семестре программы должны соответствовать [требованиям](LinearSystemsTasks.pdf).
+
+Давайте их разберём подробнее.
+
+# Разбор аргументов командной строки. Простой способ
+
+```c
+// Пример: на вход программы подаётся имя файла или два числа
+int main (int argc, char * argv[]) {
+    int a, b;
+    
+    if (argc == 1 || argc > 3) {
+        printf("Неверное количество аргументов\n");
+        return -1;
+    }
+    switch(argc) {
+        case 2: {
+            // открываем файл, считываем данные из файла, закрываем файл
+            ...
+            break;
+        }
+        case 3: {
+            // считываем данные из аргументов
+            a = argv[1];
+            b = argv[2];
+        }
+    }
+    
+    ...
+      
+    return 0;
+}
+```
+
+# Разбор аргументов командной строки. Сложный способ
+`./myprog -n 10 -f abs_i-j -v`
+Функция `getopt`:
+```c
+#include <unistd.h>
+
+extern char *optarg;
+extern int optind;
+extern int optopt;
+extern int opterr;
+extern int optreset;
+
+int
+getopt(int argc, char * const argv[], const char *optstring);
+```
+
+`optstring`: строка с последовательностью букв — имён аргументов командной строки. Если после имени указано двоеточие, соответствующий аргумент командной строки имеет параметр; если нет — это просто флаг.
+
+# Разбор аргументов командной строки. Сложный способ
+`./myprog -n 10 -f abs_i-j -v`
+```c
+#include <unistd.h>
+
+struct Params {
+  int size; // размер массива
+  char* formula; // формула заполнения
+  char verbose; // отладочный вывод
+}
+
+int main(int argc, char** argv) {
+  struct Params params;
+  int opt;
+  while ((opt = getopt(argc, argv, "vn:f:")) != -1) {
+    switch (opt) {
+      ...
+    }
+  }
+}
+```
+
+# Разбор аргументов командной строки. Сложный способ
+```c
+case 'n': {
+  char *next;
+  params.size = strtol(optarg, &next, 10);
+}
+```
+Подробнее про `getopt`:
+1. `man 3 getopt` в консоли
+2. https://www.ibm.com/developerworks/ru/library/au-unix-getopt/#toggle
+3. http://www.firststeps.ru/linux/r.php?10
+
+
+# Измерение времени работы функции
+Не следует использовать:
+- `time()` — «календарное» время; точность — 1 секунда; между двумя измерениями может измениться произвольным образом, вплоть до перехода назад (переход на зимнее время; перевод часов вручную)
+- `clock()` — точность — 1 микросекунда; 32-битный счётчик, переполняется за час с небольшим.
+- `gettimeofday` — «календарное» время, может идти назад
+
+Нужно использовать:
+**`clock_gettime(CLOCK_MONOTONIC)`{.c}**
+— таймер с наносекундным разрешением; предназначен именно для измерения промежутков времени в программе с высокой точностью (специфичен для Linux).
+
+# Время работы с clock_gettime
+`#include <unistd.h>`{.c}
+Прототип:
+```c
+struct timespec {
+    time_t tv_sec;  // секунды
+    long tv_nsec;   // наносекунды
+}  // Объявлено в unistd.h
+```
+
+`int clock_gettime(clockid_t clk_id, struct timespec *tp)`{.c}
+
+Значения `clockid_t`:
+
+- `CLOCK_MONOTONIC` — реальное время от произвольной точки отсчёта (можно использовать только как разность);
+- `CLOCK_PROCESS_CPUTIME_ID` — использование процессорного времени;
+- `CLOCK_THREAD_CPUTIME_ID` — использование процессорного времени потоком
+
+Последние два значения понядобятся в третьей задаче.
+
+# Пример использования (C++ или GNU90 С)
+Компилировать лучше с `-std=c99`, т.к. в стандартах C89 и C90 нет типа `long long`{.c}. [Источник](https://github.com/olekristensen/LongingFastForward/blob/
+1201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h), там же есть реализация для Mac OS X.
+
+При компиляции необходимо добавить ключ `-D_POSIX_C_SOURCE=199309L`
+
+```c
+#include <time.h>
+
+unsigned long long currentTimeNano() {
+  struct timespec t;
+  clock_gettime(CLOCK_MONOTONIC, &t);
+  return t.tv_sec*1000000000 + t.tv_nsec;
+}
+
+unsigned long long currentTimeMillis() {
+  struct timespec t;
+  clock_gettime(CLOCK_MONOTONIC, &t);
+  return t.tv_sec*1000 + t.tv_nsec/1000000;
+}
+
+long long time = 0;
+time = currentTimeNano();
+Solve(n, a, b, tmp_double, tmp_int, debug);
+time = currentTimeNano() - time;
+CheckAnswer(n, a, b);
+```
+
+# Пример использования (C89)
+Этот пример должен собираться в дисплейных классах с параметрами компилятора по умолчанию. [Источник](https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859272d0187252506da5b/c/euclide/timediff.c)
+```c
+#include <time.h>
+
+struct timespec diff(struct timespec start, struct timespec end)
+{
+    struct timespec temp;
+    if ((end.tv_nsec-start.tv_nsec)<0) {
+        temp.tv_sec = end.tv_sec-start.tv_sec-1;
+        temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
+    } else {
+        temp.tv_sec = end.tv_sec-start.tv_sec;
+        temp.tv_nsec = end.tv_nsec-start.tv_nsec;
+    }
+    return temp;
+}
+
+struct timespec time_start, time_end;
+clock_gettime(CLOCK_MONOTONIC, &time_start);
+Solve(n, a, b, tmp_double, tmp_int, debug);
+clock_gettime(CLOCK_MONOTONIC, &time_end);
+time_end = diff(time_start, time_end);
+```
+
 
 # Задание
 
@@ -195,7 +367,7 @@ for (i = 0; i < n/BLOCK; i++) {
 
 3. Измерять не время разбора аргументов командной строки, а время генерации и вычисления нормы матрицы.
 
-[Список задач](tasks-1.pdf)
+[Список задач](LinearSystemsTasks.pdf)
 
 # Формулы для матриц
 

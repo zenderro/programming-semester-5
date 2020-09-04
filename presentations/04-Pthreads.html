@@ -3,35 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>06-Pthreads</title>
+  <title>04-Pthreads</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -40,9 +39,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -75,8 +74,8 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
-  <link rel="stylesheet" href="additional.css"/>
   <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
   <!-- If the query includes 'print-pdf', include the PDF print sheet -->
   <script>
     if( window.location.search.match( /print-pdf/gi ) ) {
@@ -102,7 +101,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 id="параллельное-программирование-с-общей-памятью">Параллельное программирование с общей памятью</h3>
 <h3 id="библиотека-pthreads">Библиотека pthreads</h3>
 <h3 id="средства-синхронизации-библиотеки-pthreads">Средства синхронизации библиотеки pthreads</h3>
-<p><a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
+<p><a href="mailto:andrey.zenzinov@gmail.com" class="email">andrey.zenzinov@gmail.com</a></p>
 <p><a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
 <style>
 div.left-column {
@@ -143,25 +142,25 @@ div.fullwidth img {
 <h1>Программы исполняются последовательно</h1>
 <p>Программы на языке C транслируются в машинный код — последовательность простых команд для процессора:</p>
 <div class="left-column">
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">void</span> foo(<span class="dt">int</span> x) {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="cf">if</span> (x == <span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">       printf(<span class="st">&quot;testing</span><span class="sc">\n</span><span class="st">&quot;</span>);</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    }</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">}</a></code></pre></div>
-Процессор затем исполняет эти команды по порядку.
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">void</span> foo(<span class="dt">int</span> x) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="cf">if</span> (x == <span class="dv">0</span>) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>       printf(<span class="st">&quot;testing</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    }</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Процессор затем исполняет эти команды по порядку.</p>
 </div>
 <div class="right-column">
-<div class="sourceCode" id="cb2"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">.globl</span>  _foo</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">_foo:</span>        <span class="co">## @foo</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    testl   %edi, %edi</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    je  LBB0_2</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    retq</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">LBB0_2:</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    leaq    L_str(%rip), %rdi</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    jmp _puts                </a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">L_str:</span>        <span class="co">## @str</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">.asciz</span>  <span class="st">&quot;testing&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">.globl</span>  _foo</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">_foo:</span>        <span class="co">## @foo</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    testl   %edi, %edi</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    je  LBB0_2</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    retq</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  <span class="kw">LBB0_2:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    leaq    L_str(%rip), %rdi</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    jmp _puts                </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="kw">L_str:</span>        <span class="co">## @str</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">.asciz</span>  <span class="st">&quot;testing&quot;</span></span></code></pre></div>
 </div>
 </section>
 <section id="современные-процессоры-имеют-несколько-ядер" class="slide level1">
@@ -172,9 +171,9 @@ div.fullwidth img {
 <h1>Потоки (threads)</h1>
 <p>— способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами. Т.е. можно обмениваться указателями, выполнять одновременное чтение и запись, и так далее. Если просто запустить несколько копий программы, у каждой копии будет своё пространство памяти и они не смогут взаимодействовать. Для использования потоков нужно дать специальную команду «создать поток» и указать, какие команды этот поток должен исполнять.</p>
 <p>В Linux (и на Mac) потоки реализованы согласно спецификации POSIX Threads. В командную строку при компиляции добавить: <code>-pthreads</code> или <code>-lpthreads</code> В исходный код:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span></code></pre></div>
 <div class="small">
-POSIX (Portable Operating System Interface for Unix) — серия стандартов, описывающая интерфейсы операционной системы для разработки портируемых приложений.
+<p>POSIX (Portable Operating System Interface for Unix) — серия стандартов, описывающая интерфейсы операционной системы для разработки портируемых приложений.</p>
 </div>
 </section>
 <section id="потоки-и-общая-память" class="slide level1">
@@ -184,23 +183,23 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 </section>
 <section id="создание-потока" class="slide level1">
 <h1>Создание потока</h1>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb4-1" data-line-number="1">pthread_t thread;</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">     <span class="dt">const</span> pthread_attr_t *attr,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">     <span class="dt">void</span> *arg);</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>pthread_t thread;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="dt">int</span>  pthread_create(pthread_t *thread,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>     <span class="dt">const</span> pthread_attr_t *attr,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>     <span class="dt">void</span> *arg);</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="dt">void</span> pthread_exit(<span class="dt">void</span> *retval);</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="dt">int</span>  pthread_join(pthread_t thread, <span class="dt">void</span> **retval);</span></code></pre></div>
 <div class="fullwidth">
 <p><img data-src="tikz-images/a44700b63e0c29edc5bd8299e12a1e42348512ac.svg" /></p>
 </div>
 </section>
 <section id="создание-потока-1" class="slide level1">
 <h1>Создание потока</h1>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dt">int</span>  pthread_create(pthread_t *thread,</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">     <span class="dt">const</span> pthread_attr_t *attr,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">     <span class="dt">void</span> *arg);</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="dt">int</span>  pthread_create(pthread_t *thread,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>     <span class="dt">const</span> pthread_attr_t *attr,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>     <span class="dt">void</span> *(*start_routine)(<span class="dt">void</span>*),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>     <span class="dt">void</span> *arg);</span></code></pre></div>
 <dl>
 <dt><code>thread</code></dt>
 <dd>(выходной аргумент) — идентификатор потока
@@ -221,13 +220,13 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 <section id="мьютэксы-mutex" class="slide level1">
 <h1>Мьютэксы (mutex)</h1>
 <p>Мьютэкс — это базовый элемент синхронизации потоков с двумя атомарными операциями — Lock (захватить мьютэкс) и Unlock (освободить мьютэкс). Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb6-1" data-line-number="1">pthread_mutex_t mutex;</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">     <span class="dt">const</span> pthread_mutexattr_t *attr);</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>pthread_mutex_t mutex;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="dt">int</span>  pthread_mutex_init(pthread_mutex_t *mutex,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>     <span class="dt">const</span> pthread_mutexattr_t *attr);</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="dt">int</span>  pthread_mutex_destroy(pthread_mutex_t *mutex);</span></code></pre></div>
 <p><code>attr</code> может быть <code>NULL</code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">int</span>  pthread_mutex_lock(pthread_mutex_t *mutex);</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="dt">int</span>  pthread_mutex_unlock(pthread_mutex_t *mutex);</span></code></pre></div>
 </section>
 <section id="мьютэксы" class="slide level1">
 <h1>Мьютэксы</h1>
@@ -246,13 +245,13 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 <section id="условные-переменные-condvar" class="slide level1">
 <h1>Условные переменные (condvar)</h1>
 <p>С помощью условных переменных потоки могут передавать сигналы о готовности данных и т.п. Потоки, вызывающие <code>pthread_cond_wait</code> блокируются до момента, когда какой-либо активный поток вызовет <code>pthread_cond_signal</code> (разблокирует один поток) или <code>pthread_cond_broadcast</code> (разблокирует все ожидающие потоки)</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">     <span class="dt">const</span> pthread_condattr_t *attr);</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">     pthread_mutex_t *mutex);</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="dt">int</span>  pthread_cond_init(pthread_cond_t *cond,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>     <span class="dt">const</span> pthread_condattr_t *attr);</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="dt">int</span>  pthread_cond_destroy(pthread_cond_t *cond);</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="dt">int</span>  pthread_cond_wait(pthread_cond_t *cond,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>     pthread_mutex_t *mutex);</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="dt">int</span>  pthread_cond_signal(pthread_cond_t *cond);</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="dt">int</span>  pthread_cond_broadcast(pthread_cond_t *cond);</span></code></pre></div>
 <p><code>mutex</code> — один и тот же для всех операций с фиксированной условной переменной</p>
 </section>
 <section id="условные-переменные-condvar-1" class="slide level1">
@@ -265,11 +264,11 @@ POSIX (Portable Operating System Interface for Unix) — серия станда
 <section id="барьеры-barrier" class="slide level1">
 <h1>Барьеры (barrier)</h1>
 <p>Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="dt">int</span> pthread_barrier_init(pthread_barrier_t *barrier,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="dt">const</span> pthread_barrierattr_t *attr, <span class="dt">unsigned</span> count);</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="dt">int</span> pthread_barrier_destroy(pthread_barrier_t *barrier);</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="dt">int</span> pthread_barrier_wait(pthread_barrier_t *barrier);</span></code></pre></div>
 <p><code>count</code> — количество потоков</p>
 <p>Барьеры — наиболее простой примитив синхронизации, я советую использовать в задачах именно его.</p>
 </section>

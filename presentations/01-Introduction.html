@@ -123,7 +123,7 @@ section.slide > pre {
 }
 </style>
 <h2 id="курс-практикум-на-эвм-по-численным-методам">Курс «Практикум на ЭВМ» (по численным методам)</h2>
-<h3 id="осенний-семестр-методы-решения-линейных-систем-нахождений-собственных-значений">Осенний семестр. Методы решения линейных систем нахождений собственных значений</h3>
+<h3 id="осенний-семестр-методы-решения-слу-и-нахождений-собственных-значений">Осенний семестр. Методы решения СЛУ и нахождений собственных значений</h3>
 <p>Я — <strong>Андрей Александрович Зензинов</strong></p>
 <p>email: <a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
 <p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
@@ -136,9 +136,8 @@ section.slide > pre {
 <section id="как-получить-зачёт" class="slide level1">
 <h1>Как получить зачёт</h1>
 <p>Зачёт состоит из двух частей: теория, практика (решение задач).</p>
-<p>Зачёт по теории, письменный, общий (весь курс пишет одновременно).</p>
-<p>Для допуска к зачёту нужно сдать решения 3 задач (не считая подготовительных задач).</p>
-<p>Каждая последующая задача выдаётся после сдачи предыдущей.</p>
+<p>Зачёт по теории, письменный, общий (весь курс пишет одновременно). В какой именно форме будет проходить сдача теории будет известно позже.</p>
+<p>Для допуска к зачёту нужно сдать решения 3 задач (не считая подготовительных задач). Каждая последующая задача выдаётся после сдачи предыдущей.</p>
 <p>Схема проведения зачётов:</p>
 <ol start="0" type="1">
 <li>До начала зачётной недели — досрочный теоретический зачёт (для тех, кто сдал все 3 задачи заранее, примерно до середины ноября).</li>
@@ -147,7 +146,6 @@ section.slide > pre {
 <li>Во второй половине зачётной недели — второй теоретический зачёт (для тех, кто успел сдать 3 задачи за время практических зачётов).</li>
 <li>Пересдача — после каникул, в феврале. Задачи принимает комиссия из нескольких преподавателей кафедры.</li>
 </ol>
-<p>В какой именно форме будет проходить сдача теории будет известно позже.</p>
 </section>
 <section id="литература" class="slide level1">
 <h1>Литература</h1>
@@ -174,26 +172,7 @@ section.slide > pre {
 <li>Для Windows (до 10) — установить <a href="http://cygwin.com">Cygwin</a></li>
 <li>Для Windows 10 — установить <a href="https://docs.microsoft.com/ru-ru/windows/wsl/install-win10">Windows Subsystem for Linux</a></li>
 </ul>
-</section>
-<section id="настройки-компилятора" class="slide level1">
-<h1>Настройки компилятора</h1>
-<p>В дисплейных классах установлены специальные настройки компилятора — более строго, чем обычно, контролируется соответствие программ стандарту, кроме того, более широкий класс ошибок приводит к аварийному завершению программы. Как получить близкое поведение на своей машине:</p>
-<ul>
-<li>Добавить к командной строке флаги:</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">gcc</span> -std=c99 -Wall -Werror -Wshadow -pedantic-errors <span class="kw">\</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="ex">-Wpointer-arith</span> -Waggregate-return <span class="kw">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="ex">-Wstrict-prototypes</span> -Wmissing-declarations <span class="kw">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="ex">-Wlong-long</span> -Winline -Wredundant-decls <span class="kw">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="ex">-Wcast-qual</span> -Wcast-align -D__STRICT_ANSI__</span></code></pre></div>
-<ul>
-<li>Активировать исключения underflow для чисел с плавающей точкой:</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">// В начале файла:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;fenv.h&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="co">// В начале функции main:</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>fenableexcept(FE_DIVBYZERO | FE_INVALID</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>  | FE_OVERFLOW | FE_UNDERFLOW);</span></code></pre></div>
+<p>Рекомендую ознакомиться со <a href="https://vk.com/@msumathprogx05-environment">статьёй М.А.Кривчикова</a> про создание окружения.</p>
 </section>
 <section id="работа-в-системе" class="slide level1">
 <h1>Работа в системе</h1>
@@ -224,25 +203,11 @@ section.slide > pre {
 <p>Вывод содержимого каталога: <code>ls</code></p>
 <p><a href="http://serg.tk/static/docs/1/memosheet.pdf">Шпаргалка по командам ОС и редактору vim</a></p>
 </section>
-<section id="сборка-программы" class="slide level1">
-<h1>Сборка программы</h1>
-<p>Сборка программы из нескольких файлов:</p>
-<p><code>gcc -o task-19 main.c task-19.c</code></p>
-<p>в несколько этапов:</p>
-<p><code>gcc -c -o main.o main.c</code></p>
-<p><code>gcc -o task-19 main.o task-19.o</code></p>
-<p>Аргументы командной строки для компилятора:</p>
-<ul>
-<li>-O0, ..., <strong>-O3</strong>, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;</li>
-<li><strong>-g</strong> — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;</li>
-<li>-lm — подключение библиотеки math (для компоновки, последняя команда, если выводятся ошибки о ненайденных символах _sqrt, _fmax, ...)</li>
-</ul>
-</section>
 <section id="работа-с-файлами" class="slide level1">
 <h1>Работа с файлами</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="dt">FILE</span> *f;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>f = fopen(fileName, mode); <span class="co">// открыть файл</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">FILE</span> *f;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>f = fopen(fileName, mode); <span class="co">// открыть файл</span></span></code></pre></div>
 <ul>
 <li><code>"r"</code> — чтение</li>
 <li><code>"w"</code> — запись (если файл уже существует, он будет перезаписан, т.е. его содержмое будет удалено)</li>
@@ -254,8 +219,8 @@ section.slide > pre {
 <section id="вводвывод" class="slide level1">
 <h1>Ввод/вывод</h1>
 <p>Вывод:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>printf(<span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// на экран</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// в файл `f`</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>printf(<span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// на экран</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>fprintf(f, <span class="st">&quot;x = %e&quot;</span>, x); <span class="co">// в файл `f`</span></span></code></pre></div>
 <p>Чтение: <code>fscanf(f, " %lf ", &amp;x);</code> возвращает количество успешно считанных аргументов, EOF при ошибке перед первым аргументом.</p>
 <p>Спецификаторы форматирования:</p>
 <ul>
@@ -269,7 +234,7 @@ section.slide > pre {
 </section>
 <section id="операции-с-числами-с-плавающей-точкой" class="slide level1">
 <h1>Операции с числами с плавающей точкой</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;math.h&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;math.h&gt;</span></span></code></pre></div>
 <p>Сравнение: <code>a == b</code> — для чисел с плавающей точкой использовать нельзя. Вместо этого:</p>
 <pre><code>// в начале файла:
 #define EPS 1e-16
@@ -287,26 +252,142 @@ fabs(a - b) &lt; EPS</code></pre>
 </ul>
 <p><a href="http://en.cppreference.com/w/c/numeric/math" class="uri">http://en.cppreference.com/w/c/numeric/math</a></p>
 </section>
+<section id="сборка-программы" class="slide level1">
+<h1>Сборка программы</h1>
+<p>Сборка программы из нескольких файлов:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="fu">gcc</span> -o task-19 main.c task-19.c</span></code></pre></div>
+<p>в несколько этапов:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">gcc</span> -c -o main.o main.c</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="fu">gcc</span> -c -o task-19.o task-19.c</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="fu">gcc</span> -o task-19 main.o task-19.o</span></code></pre></div>
+<p>Аргументы командной строки для компилятора:</p>
+<ul>
+<li>-O0, ..., <strong>-O3</strong>, -Os — уровни оптимизации; сдавать программы, скомпилированные с ключом -O3;</li>
+<li><strong>-g</strong> — запись отладочной информации (для отладки с использованием gdb), при разработке используйте этот ключ;</li>
+<li>-lm — подключение библиотеки math (для компоновки, последняя команда, если выводятся ошибки о ненайденных символах _sqrt, _fmax, ...)</li>
+</ul>
+</section>
+<section id="настройки-компилятора" class="slide level1">
+<h1>Настройки компилятора</h1>
+<p>В дисплейных классах установлены специальные настройки компилятора — более строго, чем обычно, контролируется соответствие программ стандарту, кроме того, более широкий класс ошибок приводит к аварийному завершению программы. Как получить близкое поведение на своей машине:</p>
+<ul>
+<li>Добавить к командной строке флаги:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">gcc</span> -std=c99 -Wall -Werror -Wshadow -pedantic-errors <span class="kw">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="ex">-Wpointer-arith</span> -Waggregate-return <span class="kw">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="ex">-Wstrict-prototypes</span> -Wmissing-declarations <span class="kw">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="ex">-Wlong-long</span> -Winline -Wredundant-decls <span class="kw">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="ex">-Wcast-qual</span> -Wcast-align -D__STRICT_ANSI__</span></code></pre></div>
+<ul>
+<li>Активировать исключения underflow для чисел с плавающей точкой:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co">// В начале файла:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;fenv.h&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co">// В начале функции main:</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>fenableexcept(FE_DIVBYZERO | FE_INVALID</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>  | FE_OVERFLOW | FE_UNDERFLOW);</span></code></pre></div>
+</section>
+<section id="стиль-написания" class="slide level1">
+<h1>Стиль написания</h1>
+<p>Приоритеты:</p>
+<ol type="1">
+<li>Корректная работа</li>
+<li>Минимальная достаточная производительность</li>
+<li>Понятность кода</li>
+<li>Краткость кода</li>
+<li>Более, чем достаточная производительность</li>
+</ol>
+</section>
+<section id="стиль-написания-1" class="slide level1">
+<h1>Стиль написания</h1>
+<ul>
+<li>выделяйте функции, которые выполняют некоторое отдельное действие в предметной области (например, умножение матриц, или умножение вектора на матрицу, или разбор аргументов)</li>
+<li>функция не должна быть больше 200 строк, оптимально — от одного экрана до 100 строк</li>
+<li>если вы несколько раз повторяете в программе одни и те же 5-10 строк, их тоже имеет смысл выделить в функцию</li>
+<li>предельный размер одного файла — 500-1000 строк</li>
+<li>разделяйте тело функции на «абзацы» — группы похожих по смыслу команд, разделённые пустыми строками</li>
+<li>оформляйте код однородно (условные операторы, циклы, положение фигурных скобок, отступы)</li>
+</ul>
+</section>
+<section id="стиль-написания-2" class="slide level1">
+<h1>Стиль написания</h1>
+<p>Рекомендации из <a href="https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html">Mozilla Style Guide</a>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="cf">if</span> (...) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>  ...</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>} <span class="cf">else</span> <span class="cf">if</span> (...) {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>} <span class="cf">else</span> {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>}</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="cf">while</span> (...) {</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>}</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a><span class="cf">do</span> {</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>} <span class="cf">while</span> (...);</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a><span class="cf">for</span> (...; ...; ...) {</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="стиль-написания-3" class="slide level1">
+<h1>Стиль написания</h1>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">0</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    b = <span class="dv">3</span>;</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="dt">int</span> i, j, k;</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="dt">double</span>* d;</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="cf">switch</span> (...) {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>  <span class="cf">case</span> <span class="dv">1</span>: {</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>    <span class="dt">int</span> var;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>  }</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>  <span class="cf">case</span> <span class="dv">2</span>:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>    ...</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>  <span class="cf">default</span>:</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a>    <span class="cf">break</span>;</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
 <section id="система-контроля-версий-git" class="slide level1">
 <h1>Система контроля версий Git</h1>
 <p>Для сдачи заданий будет использоваться система контроля версий Git, а именно - система проверки заданий GitHub Classroom.</p>
 <p>В автоматическом режиме производится проверка отсутствия ошибок при сборке, соответствия стилю, другие "быстрые" тесты. После того, как программа пройдёт все автоматические тесты, будет проводиться ручная проверка задачи.</p>
 <p>Для работы с этой системой необходимо зарегистрироваться в GitHub.</p>
-<p>Тестовое задание: <a href="https://classroom.github.com/a/ob_eI_pD" class="uri">https://classroom.github.com/a/ob_eI_pD</a></p>
-<p>В тестовом задании необходимо вывести на экран фразу <code>Hello world, it's</code> и далее ваше имя и фамилию.</p>
-<p>Созданный репозиторий необходимо склонировать к себе на компьютер командой <code>git clone &lt;ссылка для клонирования&gt;</code>.</p>
 </section>
 <section id="система-контроля-версий-git-1" class="slide level1">
 <h1>Система контроля версий Git</h1>
-<p>После внесения изменений необходимо их отправить в репозиторий.</p>
-<p>Проверка изменённых файлов:</p>
+<p>Далее необходимо сделать предварительную настройку:</p>
+<ol type="1">
+<li>В WSL (или в терминале Linux/macOS) указать своё имя для Git:</li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="fu">git</span> config --global user.name <span class="st">&quot;Имя Фамилия&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="fu">git</span> config --global user.email <span class="st">&quot;адрес@email&quot;</span></span></code></pre></div>
+<ol start="2" type="1">
+<li>Если вы ранее этого не делали, сгенерировать SSH-ключ, пароль можно оставить пустым:</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">ssh-keygen</span> -b 4096 -t rsa</span></code></pre></div>
+<ol start="3" type="1">
+<li>Добавить его в свой профиль в GitHub (нажать на аватар, Settings, SSH and GPG Keys, New SSH Key; вставить в большое поле содержимое файла ~/.ssh/id_rsa.pub).</li>
+</ol>
+</section>
+<section id="тестовое-задание" class="slide level1">
+<h1>Тестовое задание</h1>
+<p>Тестовое задание: <a href="https://classroom.github.com/a/J_I5nEOm" class="uri">https://classroom.github.com/a/J_I5nEOm</a></p>
+<p>В тестовом задании необходимо вывести на экран фразу <code>Hello world, it's</code> и далее ваше имя и фамилию.</p>
+<p>Созданный репозиторий необходимо склонировать к себе на компьютер командой <code>git clone &lt;ссылка для клонирования&gt;</code>.</p>
+<p>На странице созданного репозитория есть описание требований к форматированию кода и команды для самостоятельных проверок.</p>
+</section>
+<section id="система-контроля-версий-git-2" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>После внесения изменений в файл main.c необходимо их отправить в репозиторий.</p>
+<p>Проверка изменённых файлов, убедитесь, что main.c появился в списке изменённых файлов:</p>
 <p><code>git status</code></p>
-<p>Добавление изменённых файлов:</p>
-<p><code>git add file1 file2 ...</code></p>
+<p>Добавление изменённых файлов в индекс для коммита:</p>
+<p><code>git add main.c</code></p>
 <p>Коммит:</p>
 <p><code>git -m "сообщение для коммита"</code></p>
 <p>Отправка изменений в репозиторий:</p>
 <p><code>git push</code></p>
+<p>Более подробно про работу с Git можно прочитать в этой <a href="https://vk.com/@msumathprogx05-git-dlya-github-classroom">статье</a></p>
 </section>
 <section id="заключение" class="slide level1">
 <h1>Заключение</h1>
