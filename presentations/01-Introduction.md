@@ -210,11 +210,12 @@ gcc -o task-19 main.o task-19.o
 
 - Добавить к командной строке флаги:
 ```bash
-gcc -std=c99 -Wall -Werror -Wshadow -pedantic-errors \
+gcc -std=c99 -pedantic -Wall -Werror -Wextra -pedantic-errors \
 -Wpointer-arith -Waggregate-return \
 -Wstrict-prototypes -Wmissing-declarations \
 -Wlong-long -Winline -Wredundant-decls \
--Wcast-qual -Wcast-align -D__STRICT_ANSI__
+-Wcast-align -Wfloat-equal -D__STRICT_ANSI__ \
+-Wbad-function-cast
 ```
 
 - Активировать исключения underflow для чисел с плавающей точкой:

@@ -275,11 +275,12 @@ fabs(a - b) &lt; EPS</code></pre>
 <ul>
 <li>Добавить к командной строке флаги:</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">gcc</span> -std=c99 -Wall -Werror -Wshadow -pedantic-errors <span class="kw">\</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">gcc</span> -std=c99 -pedantic -Wall -Werror -Wextra -pedantic-errors <span class="kw">\</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="ex">-Wpointer-arith</span> -Waggregate-return <span class="kw">\</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="ex">-Wstrict-prototypes</span> -Wmissing-declarations <span class="kw">\</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="ex">-Wlong-long</span> -Winline -Wredundant-decls <span class="kw">\</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="ex">-Wcast-qual</span> -Wcast-align -D__STRICT_ANSI__</span></code></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="ex">-Wcast-align</span> -Wfloat-equal -D__STRICT_ANSI__ <span class="kw">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="ex">-Wbad-function-cast</span></span></code></pre></div>
 <ul>
 <li>Активировать исключения underflow для чисел с плавающей точкой:</li>
 </ul>
