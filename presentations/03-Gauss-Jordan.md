@@ -39,6 +39,7 @@ section.slide > p {
 - выбор главного элемента
 
 Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
+
 email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 
 # Приведение матрицы к треугольному виду (метод Гаусса)
@@ -342,6 +343,7 @@ Program received signal SIGFPE, Arithmetic exception.
 - `step` (`s`) — выполнить одну строку, «проваливаясь» в вызываемые функции
 - `continue` (`c`) — продолжить выполнение программы (до следующей точки останова или исключения)
 
+Более подробно про использование GDB с примерами - в статье [С.А.Афонина](http://serg.tk/1/debug/gdb.html)
 
 # Valgrind
 
