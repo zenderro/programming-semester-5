@@ -134,7 +134,7 @@ $$
 a_{12} & \bbox[#afa, 3pt]{r_{22}} & \bbox[#afa, 3pt]{r_{23}} & ... & \bbox[#afa, 3pt]{r_{2n}} \\
 a_{13} & a_{23} & \bbox[#afa, 3pt]{r_{33}} & ... & \bbox[#afa, 3pt]{r_{3n}} \\
 ... & ... & ... & ... & ... \\
-a_{1n} & a_{2n} & a_{3n} & ... & a_{nn}
+a_{1n} & a_{2n} & a_{3n} & ... & \bbox[#afa, 3pt]{r_{nn}}
 \end{pmatrix}
 $$
 
