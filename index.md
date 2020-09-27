@@ -14,11 +14,14 @@ layout: default
 ## Метод Гаусса и производные от него (LU-разложение, метод Жордана, выбор главного элемента)
 [презентация — html](presentations/03-Gauss-Jordan.html)
 
+## Метод Холецкого, метод вращений, метод отражений
+[презентация — html](presentations/04-Cholesky-QR.html)
+
 ## Параллельное программирование с использованием библиотеки Pthreads
-[презентация — html](presentations/04-Pthreads.html)
+[презентация — html](presentations/05-Pthreads.html)
 
 ## Методы нахождения собственных значений
-[презентация — html](presentations/05-Eigenvalues.html)
+[презентация — html](presentations/06-Eigenvalues.html)
 [список задач](presentations/tasks-2.pdf)
 
 # Материалы предыдущих лет

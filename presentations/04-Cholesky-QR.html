@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>04-Cholesky-QR</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<style type="text/css">
+div.sourceCode {
+  font-size: 1.2em;
+}
+section.slide > pre {
+  font-size: 0.8em;
+}
+section.slide > p {
+  text-align: left;
+  text-indent: 2em;
+}
+.reveal div.owl {
+  background-size: 65%;
+}
+.owl p, .owl h1 {
+
+  -webkit-text-stroke-width: 1.1pt;
+-webkit-text-stroke-color: #fff;
+  font-weight: 700;
+}
+
+.green-box {
+  background-color: #afa;
+}
+.red-box {
+  background-color: #faa;
+}
+.yellow-box {
+  background-color: #ff0;
+}
+
+</style>
+<h2 id="план">План</h2>
+<ul>
+<li>симметричные и положительно определённые матрицы</li>
+<li>метод Холецкого</li>
+<li>QR-разложение для обращения матрицы</li>
+<li>метод вращений</li>
+<li>метод отражений</li>
+<li>обращение матрицы</li>
+</ul>
+<p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
+<p>email: <a href="mailto:andrey.zenzinov@gmail.com">andrey.zenzinov@gmail.com</a></p>
+</section>
+<section id="симметричные-матрицы" class="slide level1">
+<h1>Симметричные матрицы</h1>
+<p>— матрицы, элементы которых симметричны относительно главной диагонали: <span class="math display"><em>a</em><sub><em>i</em><em>j</em></sub> = <em>a</em><sub><em>j</em><em>i</em></sub></span></p>
+<p><span class="math display">$$
+\begin{pmatrix}
+a_{11} &amp; \bbox[#0ff, 3pt]{a_{12}} &amp; \bbox[#0df, 3pt]{a_{13}} &amp; \bbox[#0af, 3pt]{a_{14}} \\
+\bbox[#0ff, 3pt]{a_{21}} &amp; a_{22} &amp; \bbox[#0ff, 3pt]{a_{23}} &amp; \bbox[#0df, 3pt]{a_{24}} \\
+\bbox[#0df, 3pt]{a_{31}} &amp; \bbox[#0ff, 3pt]{a_{32}} &amp; a_{33} &amp; \bbox[#0ff, 3pt]{a_{34}} \\
+\bbox[#0af, 3pt]{a_{41}} &amp; \bbox[#0df, 3pt]{a_{42}} &amp; \bbox[#0ff, 3pt]{a_{43}} &amp; a_{44}
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="симметричные-матрицы-1" class="slide level1">
+<h1>Симметричные матрицы</h1>
+<p>Для них достаточно хранить верхний треугольник:</p>
+<p><span class="math display">$$
+\begin{pmatrix}
+a_{11} &amp; \bbox[#0ff, 3pt]{a_{12}} &amp; \bbox[#0df, 3pt]{a_{13}} &amp; \bbox[#0af, 3pt]{a_{14}} \\
+&amp; a_{22} &amp; \bbox[#0ff, 3pt]{a_{23}} &amp; \bbox[#0df, 3pt]{a_{24}} \\
+&amp;  &amp; a_{33} &amp; \bbox[#0ff, 3pt]{a_{34}} \\
+&amp; &amp; &amp; a_{44}
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="положительно-определённые-матрицы" class="slide level1">
+<h1>Положительно определённые матрицы</h1>
+<p>— матрицы <span class="math inline"><em>A</em></span>, для которых <span class="math inline">(<em>A</em><em>x</em>, <em>x</em>) &gt; 0</span> для любых векторов <span class="math inline"><em>x</em> ∈ <em>ℝ</em><sup><em>n</em></sup></span>.</p>
+<p>Положительно определённые матрицы невырождены и имеют ненулевые главные миноры.</p>
+<p>Симметричная (самосопряжённая) матрица положительно определена ⇔ все её собственные значения веществены и положительны.</p>
+</section>
+<section id="метод-холецкого" class="slide level1">
+<h1>Метод Холецкого</h1>
+<p>Пусть <span class="math inline"><em>A</em></span> — симметрична с ненулевыми главными минорами.</p>
+<p>Тогда: <span class="math display"><em>A</em> = <em>R</em><sup><em>T</em></sup> · <em>D</em> · <em>R</em></span>, где <span class="math inline"><em>R</em></span> — невырожденная верхнетреугольная, а <span class="math inline"><em>D</em> = <em>d</em><em>i</em><em>a</em><em>g</em>( ± 1,  ± 1, ...,  ± 1)</span>.</p>
+<p>Для комплексного общего случая (самосопряжённой матрицы с ненулевыми главными минорами) получаем из <span class="math inline"><em>L</em><em>U</em></span>-разложения <span class="math inline"><em>A</em> = <em>R</em><sup>*</sup> · <em>D</em> · <em>R</em></span> , а в частном случае вещественной <span class="math inline"><em>A</em></span> получаем формулу выше. Для вещественной положительно определённой к тому же <span class="math inline"><em>D</em> = <em>I</em></span> .</p>
+<p>Один из индикаторов для пошаговой проверки реализации: значения <span class="math inline"><em>d</em><sub><em>i</em>, <em>i</em></sub></span> для положительно определённой матрицы должны быть единичными. Можно начать тестировать с диагональных матриц.</p>
+</section>
+<section id="метод-холецкого-1" class="slide level1">
+<h1>Метод Холецкого</h1>
+<h2 id="реализация-вещественный-случай">Реализация (вещественный случай)</h2>
+<p>Вычисляем значения элементов построчно, сначала — элемент <span class="math inline"><em>d</em><sub><em>i</em><em>i</em></sub></span> диагональной матрицы <span class="math inline"><em>D</em></span> , потом — диагональный элемент <span class="math inline"><em>r</em><sub><em>i</em><em>i</em></sub></span> верхнетреугольной матрицы <span class="math inline"><em>R</em></span>, затем — оставшиеся элементы <span class="math inline"><em>r</em><sub><em>i</em>, <em>i</em> + 1...<em>n</em></sub></span> матрицы <span class="math inline"><em>R</em></span>.</p>
+<p>Для вычисления каждого элемента нужно запоминать только текущий элемент матрицы <span class="math inline"><em>A</em></span> , поэтому можно сразу перезаписывать элементы матрицы <span class="math inline"><em>A</em></span> вновь найденными элементами матрицы <span class="math inline"><em>R</em></span>.</p>
+<ul>
+<li><span class="math inline">$d_{ii} = sign(a_{ii} - \sum_{k=1}^{i-1}r^2_{ki}\cdot d_{kk})$</span> - хранится в отдельном векторе</li>
+<li><span class="math inline">$r_{ii} = \sqrt{|a_{ii}-\sum_{k=1}^{i-1}r^2_{ki}\cdot d_{kk}|}$</span> - корень из модуля того же выражения, знак которого определяет <span class="math inline"><em>d</em><sub><em>i</em><em>i</em></sub></span></li>
+<li><span class="math inline">$r_{ij} = \frac{a_{ij}-\sum_{k=1}^{i-1}r_{ki}\cdot d_{kk} \cdot r_{kj}}{r_{ii}\cdot d_{ii}}$</span>, при этом <span class="math inline"><em>j</em> = (<em>i</em> + 1)...<em>n</em></span></li>
+</ul>
+</section>
+<section id="метод-холецкого-2" class="slide level1">
+<h1>Метод Холецкого</h1>
+<h2 id="решение-линейной-системы">Решение линейной системы</h2>
+<p><span class="math display"><em>R</em><sup><em>T</em></sup> ⋅ <em>D</em> ⋅ <em>R</em> ⋅ <em>x</em> = <em>b</em></span></p>
+<ol type="1">
+<li><span class="math inline"><em>R</em><sup><em>T</em></sup> ⋅ <em>z</em> = <em>b</em></span> - система с нижнетреугольной матрицей, решается обратным ходом метода Гаусса</li>
+<li><span class="math inline"><em>D</em> ⋅ <em>y</em> = <em>z</em></span> - просто меняем знаки элементов</li>
+<li><span class="math inline"><em>R</em> ⋅ <em>x</em> = <em>y</em></span> - система с верхнетреугольной матрицей, решается обратным ходом метода Гаусса</li>
+</ol>
+<p><strong>Обращение матрицы</strong> — аналогично. Все шаги выполняются одновременно с n правыми частями.</p>
+</section>
+<section id="метод-холецкого-3" class="slide level1">
+<h1>Метод Холецкого</h1>
+<h2 id="хранение-матрицы-в-памяти">Хранение матрицы в памяти</h2>
+<p>На месте матрицы <span class="math inline"><em>A</em></span>:</p>
+<p><span class="math display">$$
+\begin{pmatrix}
+\bbox[#afa, 3pt]{r_{11}} &amp; \bbox[#afa, 3pt]{r_{12}} &amp; \bbox[#afa, 3pt]{r_{13}} &amp; ... &amp; \bbox[#afa, 3pt]{r_{1n}} \\
+a_{12} &amp; \bbox[#afa, 3pt]{r_{22}} &amp; \bbox[#afa, 3pt]{r_{23}} &amp; ... &amp; \bbox[#afa, 3pt]{r_{2n}} \\
+a_{13} &amp; a_{23} &amp; \bbox[#afa, 3pt]{r_{33}} &amp; ... &amp; \bbox[#afa, 3pt]{r_{3n}} \\
+... &amp; ... &amp; ... &amp; ... &amp; ... \\
+a_{1n} &amp; a_{2n} &amp; a_{3n} &amp; ... &amp; a_{nn}
+\end{pmatrix}
+$$</span></p>
+<p><span class="math inline"><em>D</em></span> хранится в отдельном векторе.</p>
+</section>
+<section id="qr-разложение" class="slide level1">
+<h1>QR-разложение</h1>
+<p><strong>Теорема о QR-разложении</strong>. Всякая невырожденная матрица <span class="math inline"><em>A</em></span> может быть представлена в виде <span class="math inline"><em>A</em> = <em>Q</em><em>R</em></span>, где матрица <span class="math inline"><em>Q</em></span> - ортогональная, а <span class="math inline"><em>R</em></span> - верхнетреугольная с положительными элементами на главной диагонали. Это разложение единственно.</p>
+</section>
+<section id="метод-вращений" class="slide level1">
+<h1>Метод вращений</h1>
+<h2 id="матрица-вращений">Матрица вращений</h2>
+<p><span class="math display">$$ T_{ij}(\varphi) = 
+\begin{pmatrix}
+1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \\
+&amp; \ddots &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \\
+&amp; &amp; 1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \\
+&amp; &amp; &amp; cos \varphi &amp;&amp;  &amp; &amp; -sin\varphi &amp; &amp; &amp; \\
+&amp; &amp; &amp; &amp; 1 &amp; &amp; &amp; &amp; &amp; &amp; \\
+&amp; &amp; &amp; &amp; &amp; \ddots &amp; &amp; &amp; &amp; &amp; \\
+&amp; &amp; &amp; &amp; &amp; &amp; 1 &amp; &amp; &amp; &amp; \\
+&amp; &amp; &amp; sin\varphi &amp; &amp; &amp; &amp; cos\varphi &amp; &amp; &amp; \\
+&amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1 &amp; &amp; \\
+&amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1 
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="метод-вращений-1" class="slide level1">
+<h1>Метод вращений</h1>
+<p>Умножение слева на <span class="math inline"><em>T</em><sub><em>i</em><em>j</em></sub>(<em>φ</em>)</span> проще рассматривать как операцию с параметрами: <span class="math display"><em>T</em>(<em>i</em>, <em>j</em>, <em>φ</em>) ⋅ <em>x</em> = <em>y</em></span>, где:</p>
+<ul>
+<li><span class="math inline"><em>y</em><sub><em>k</em></sub> = <em>x</em><sub><em>k</em></sub>, <em>k</em> ≠ <em>i</em>, <em>j</em></span>;</li>
+<li><span class="math inline"><em>y</em><sub><em>i</em></sub> = <em>x</em><sub><em>i</em></sub><em>c</em><em>o</em><em>s</em><em>φ</em> − <em>x</em><sub><em>j</em></sub><em>s</em><em>i</em><em>n</em><em>φ</em></span>;</li>
+<li><span class="math inline"><em>y</em><sub><em>j</em></sub> = <em>x</em><sub><em>i</em></sub><em>s</em><em>i</em><em>n</em><em>φ</em> + <em>x</em><sub><em>j</em></sub><em>c</em><em>o</em><em>s</em><em>φ</em></span>.</li>
+</ul>
+<p>Любой двумерный вектор <span class="math inline">(<em>x</em>, <em>y</em>)</span> можно повернуть так, что его вторая координата обнулится.</p>
+<p><span class="math display">$$cos\varphi=\frac{x}{\sqrt{x^2+y^2}}, sin\varphi=\frac{-y}{\sqrt{x^2+y^2}}$$</span>.</p>
+<p>В результате такого поворота: <span class="math inline">$(x, y) ↦ (\sqrt{x^2+y^2}, 0) = (‖(x, y)‖, 0)$</span></p>
+<p>При реализации можно использовать функцию <code>hypot</code>.</p>
+</section>
+<section id="алгоритм-метода-вращений" class="slide level1">
+<h1>Алгоритм метода вращений</h1>
+<p><span class="math display">$$
+\begin{pmatrix}
+‖a_1‖ &amp; c_{12} &amp; \cdots &amp; c_{1,n-1} &amp; c_{1,n} \\
+&amp; a^{(1)}_{22} &amp; \cdots &amp; a^{(1)}_{2,n-1} &amp; a^{(1)}_{2,n} \\
+&amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+&amp; a^{(1)}_{n-1,2} &amp; \cdots &amp; a^{(1)}_{n-1,n-1} &amp; a^{(1)}_{n-1,n} \\
+&amp; a^{(1)}_{n,2} &amp; \cdots &amp; a^{(1)}_{n,n-1} &amp; a^{(1)}_{n,n}
+\end{pmatrix}
+$$</span></p>
+<ul>
+<li>Для каждой строки <span class="math inline"><em>i</em> = 1...<em>n</em></span></li>
+<li>Для каждой строки <span class="math inline"><em>k</em> = <em>i</em> + 1...<em>n</em></span>:
+<ul>
+<li>Найти угол <span class="math inline"><em>φ</em><sub><em>i</em><em>j</em></sub></span>, обнуляющий вторую компоненту <span class="math inline">(<em>a</em><sub><em>i</em><em>i</em></sub>, <em>a</em><sub><em>k</em><em>i</em></sub>)</span></li>
+<li>Повернуть каждый столбец <span class="math inline"><em>j</em> = <em>i</em>...<em>n</em></span> на этот угол</li>
+</ul></li>
+</ul>
+<p>Левая и верхняя части матрицы (столбцы <span class="math inline">1...<em>i</em> − 1</span> и строки <span class="math inline">1...<em>i</em> − 1</span> ) на последующих шагах <span class="math inline"><em>i</em>...<em>n</em></span> не модифицируются.</p>
+</section>
+<section id="метод-отражений" class="slide level1">
+<h1>Метод отражений</h1>
+<h2 id="матрица-отражений">Матрица отражений</h2>
+<p>Идея: Отразить вектор относительно гиперплоскости <span class="math inline">⟨<em>x</em>⟩<sup>⟂</sup></span>, где <span class="math inline">‖<em>x</em>‖ = 1</span>.</p>
+<p>Матрица отражения: <span class="math inline"><em>U</em>(<em>x</em>) = <em>I</em> − 2<em>x</em><em>x</em><sup>*</sup></span>, <span class="math inline">‖<em>x</em>‖ = 1</span>.</p>
+<p>Проще рассматривать умножение слева на <span class="math inline"><em>U</em>(<em>x</em>)</span> как операцию: <span class="math display"><em>U</em>(<em>x</em>) · <em>y</em> = <em>y</em> − 2<em>x</em>(<em>y</em>, <em>x</em>)</span></p>
+<p>Отражение может быть задано для подпространства:</p>
+<p><span class="math display">$$
+U_k=
+\begin{pmatrix}
+I_{k-1}&amp;0\\
+0&amp; U(x)
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="метод-отражений-1" class="slide level1">
+<h1>Метод отражений</h1>
+<h2 id="приведение-матрицы-к-треугольному-виду">Приведение матрицы к треугольному виду</h2>
+<p>Любой вектор <span class="math inline"><em>y</em></span> можно отразить относительно гиперплоскости <span class="math inline">⟨<em>x</em>⟩<sup>⟂</sup></span> так, что все его координаты кроме первой обнулятся: <span class="math display">$$x=\pm\frac{y-‖y‖e_1}{‖y-‖y‖e_1‖}$$</span></p>
+<p>Таким образом, <span class="math inline"><em>y</em> ↦ ‖<em>y</em>‖ · <em>e</em>1</span></p>
+<p>Чтобы найти вектор отражения вычисляются:</p>
+<ul>
+<li>«преднорма» y без первой компоненты: <span class="math inline"><em>s</em> = <em>Σ</em>|<em>y</em><sub><em>i</em></sub>|<sup>2</sup></span>;</li>
+<li><span class="math inline">$‖y‖ = \sqrt{|y_1|^2 + s}$</span>;</li>
+<li>первая координата <span class="math inline"><em>x</em><sub>1</sub>′ = <em>y</em><sub>1</sub> − ‖<em>y</em>‖</span> и норма <span class="math inline">$‖x'‖ = \sqrt{|x_1'|^2+s}$</span></li>
+<li>нормированный вектор <span class="math inline"><em>x</em> = <em>x</em>′/‖<em>x</em>′‖</span>.</li>
+</ul>
+</section>
+<section id="алгоритм-метода-отражений" class="slide level1">
+<h1>Алгоритм метода отражений</h1>
+<p><span class="math display">$$
+\begin{pmatrix}
+‖a_1‖ &amp; c_{12} &amp; \cdots &amp; c_{1,n-1} &amp; c_{1,n} \\
+&amp; a^{(1)}_{22} &amp; \cdots &amp; a^{(1)}_{2,n-1} &amp; a^{(1)}_{2,n} \\
+&amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+&amp; a^{(1)}_{n-1,2} &amp; \cdots &amp; a^{(1)}_{n-1,n-1} &amp; a^{(1)}_{n-1,n} \\
+&amp; a^{(1)}_{n,2} &amp; \cdots &amp; a^{(1)}_{n,n-1} &amp; a^{(1)}_{n,n}
+\end{pmatrix}
+$$</span></p>
+<ul>
+<li>Для каждого столбца <span class="math inline"><em>j</em> = 1...<em>n</em></span>:
+<ul>
+<li>Найти вектор отражения <span class="math inline"><em>x</em><sub><em>j</em></sub></span> размерности <span class="math inline"><em>n</em> − <em>j</em> + 1</span>;</li>
+<li>Отразить столбцы <span class="math inline"><em>j</em>...<em>n</em></span> относительно этого вектора.</li>
+</ul></li>
+</ul>
+</section>
+<section id="qr-разложение-методом-отражений" class="slide level1">
+<h1>QR-разложение методом отражений</h1>
+<p>Предлагается следующий способ хранения:</p>
+<p><span class="math display"><em>v</em> = (<em>r</em><sub>11</sub>, <em>r</em><sub>22</sub>, <em>r</em><sub>33</sub>, …, <em>r</em><sub><em>n</em><em>n</em></sub>)</span></p>
+<p><span class="math display">$$\begin{pmatrix}
+x_{11} &amp; r_{12} &amp; \cdots &amp; r_{1n} \\
+x_{12} &amp; \ddots &amp; &amp; \vdots \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{nn}
+\end{pmatrix}$$</span></p>
+</section>
+<section id="обращение-матрицы" class="slide level1">
+<h1>Обращение матрицы</h1>
+<ol type="1">
+<li><p>С помощью присоединённой матрицы:</p>
+<p><span class="math display">(<em>A</em>|<em>I</em>) ↦ (<em>I</em>|<em>A</em><sup> − 1</sup>)</span></p>
+<p>Как и в случае решения линейной системы, аналогичные преобразования выполняются и над правой частью.</p></li>
+<li><p>С помощью <span class="math inline"><em>Q</em><em>R</em></span>-разложения.</p>
+<p><span class="math display">(<em>Q</em><em>R</em>)<sup> − 1</sup> = <em>R</em><sup> − 1</sup> ⋅ <em>Q</em><sup><em>T</em></sup></span></p>
+<p><span class="math display"><em>B</em> ⋅ <em>Q</em><sup><em>T</em></sup> = (<em>Q</em> ⋅ <em>B</em><sup><em>T</em></sup>)<sup><em>T</em></sup></span></p>
+<p><span class="math display"><em>Q</em> = <em>Q</em><sub><em>k</em></sub>…<em>Q</em><sub>1</sub></span></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>
