@@ -22,7 +22,7 @@ layout: default
 
 ## Методы нахождения собственных значений
 [презентация — html](presentations/06-Eigenvalues.html)
-[список задач](presentations/tasks-2.pdf)
+[список задач и требования](presentations/EigenvaluesTasks.pdf)
 
 # Материалы предыдущих лет
 2014-15 учебный год: https://goo.gl/v4jFHo
