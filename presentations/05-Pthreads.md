@@ -5,7 +5,7 @@
 ### Библиотека pthreads
 ### Средства синхронизации библиотеки pthreads
 
-andrey.zenzinov@gmail.com  
+andrey.zenzinov@math.msu.ru  
 
 https://zenderro.github.io/programming-semester-5/
 

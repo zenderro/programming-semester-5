@@ -32,7 +32,7 @@ section.slide > pre {
 - первая задача
 
 Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
-email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
+email: [andrey.zenzinov@math.msu.ru](mailto:andrey.zenzinov@math.msu.ru)
 
 # Числа с плавающей точкой
 Плавающая точка — метод представления подмножества рациональных чисел (бывает тип комплексных чисел с плавающей точкой):

@@ -42,7 +42,7 @@ section.slide > p {
 
 Материалы к занятиям: https://zenderro.github.io/programming-semester-5/
 
-email: [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
+email: [andrey.zenzinov@math.msu.ru](mailto:andrey.zenzinov@math.msu.ru)
 
 # Симметричные матрицы
 

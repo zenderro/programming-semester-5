@@ -31,7 +31,7 @@ section.slide > pre {
 
 ## Приведение матрицы к почти треугольному виду унитарными преобразованиями
 
-andrey.zenzinov@gmail.com 
+andrey.zenzinov@math.msu.ru 
 
 https://zenderro.github.io/programming-semester-5/
 
