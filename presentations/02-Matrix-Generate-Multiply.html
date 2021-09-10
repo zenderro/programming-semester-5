@@ -13,6 +13,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -146,7 +147,7 @@ section.slide > pre {
 <h1>Особые значения</h1>
 <ol type="1">
 <li><p>Мантисса — двоичная дробь. Не всякая десятичная дробь представляется как конечная двоичная. <span class="math inline">1/5</span> (<span class="math inline">0.2</span>) записывается в <code>double</code> как: <span class="math inline">$0.2000000000000000\color{red}{11102230246251565404236316680908203125}$</span> <span class="math inline">⇒</span> для финансовых приложений нужно использовать десятичную запись с фиксированной точкой и строго заданными правилами округления</p></li>
-<li><p>Денормализованные числа — порядок = 0, но мантисса не может быть записана в нормированном виде — число записывается в денормализованном виде, что вызывает потерю точности значащих цифр.</p></li>
+<li><p><a href="https://ru.wikipedia.org/wiki/Денормализованные_числа">Денормализованные числа</a> — порядок = 0, но мантисса не может быть записана в нормированном виде — число записывается в денормализованном виде, что вызывает потерю точности значащих цифр.</p></li>
 <li><p><strong>NaN</strong> (не-число) (все биты поряка установлены) — возвращается в операциях, результат которых не определён (<span class="math inline">0/0</span>, <span class="math inline">$\sqrt{-1}$</span>)</p></li>
 <li><p><strong>Infinity</strong> (<span class="math inline"> ± ∞</span>) — возвращается при делении на 0 или переполнении (в дисплейных классах вместо ∞ — исключение)</p></li>
 </ol>
@@ -156,9 +157,9 @@ section.slide > pre {
 <p>Floating Point Exception (SIGFPE):</p>
 <ul>
 <li>некорректная операция (<span class="math inline">$\sqrt{-1}$</span>)</li>
-<li>деление на 0 (частая причина — <span class="math inline"><em>n</em> = 1</span> в <span class="math inline"><em>x</em>/(<em>n</em> − 1)</span>)</li>
-<li>переполнение (частая причина — бесконечный цикл/невыполнение условия выхода из цикла, например, сравнение чисел с плавающей точкой оператором <code>==</code>)</li>
-<li>underflow (частая причина — обращение к неинициализированному элементу массива или выход за границы массива)</li>
+<li>деление на 0 (частая причина — <span class="math inline"><em>n</em> = 1</span> в <span class="math inline"><em>x</em>/(<em>n</em>−1)</span>)</li>
+<li>переполнение (overflow; частая причина — бесконечный цикл/невыполнение условия выхода из цикла, например, сравнение чисел с плавающей точкой оператором <code>==</code>)</li>
+<li><a href="https://ru.wikipedia.org/wiki/Исчезновение_порядка">антипереполнение</a> (underflow; частая причина — обращение к неинициализированному элементу массива или выход за границы массива)</li>
 </ul>
 <p>Segmentation Fault (SIGSEGV):</p>
 <ul>
@@ -172,7 +173,7 @@ section.slide > pre {
 <p>I — единичная матрица (E — матрица погрешности)</p>
 <ol type="1">
 <li>Решение линейной системы: найти вектор <span class="math inline"><em>x</em></span>, такой, что <span class="math inline"><em>A</em><em>x</em> = <em>b</em></span></li>
-<li>Обращение матрицы: найти матрицу <span class="math inline"><em>A</em><sup> − 1</sup></span>, такую, что <span class="math inline"><em>A</em><em>A</em><sup> − 1</sup> = <em>I</em></span></li>
+<li>Обращение матрицы: найти матрицу <span class="math inline"><em>A</em><sup>−1</sup></span>, такую, что <span class="math inline"><em>A</em><em>A</em><sup>−1</sup> = <em>I</em></span></li>
 </ol>
 <p>Для численных методов задача осложняется: даны значения <span class="math inline"><em>Â</em>, <em>b̂</em></span> с погрешностью, т.к. на практике не все действительные числа могут быть точно представлены в виде чисел с плавающей точкой; арифметические операции тоже вносят погрешность.</p>
 </section>
@@ -191,7 +192,7 @@ section.slide > pre {
 <p>Свойства:</p>
 <ul>
 <li><span class="math inline">‖<em>I</em>‖ ⩾ 1</span></li>
-<li><span class="math inline">‖<em>A</em><sup> − 1</sup>‖ · ‖<em>A</em>‖ ⩾ 1</span></li>
+<li><span class="math inline">‖<em>A</em><sup>−1</sup>‖ · ‖<em>A</em>‖ ⩾ 1</span></li>
 </ul>
 </section>
 <section id="подчинённые-матричные-нормы" class="slide level1">
@@ -214,7 +215,7 @@ section.slide > pre {
 <p>Свойства числа обусловленности:</p>
 <ol type="1">
 <li><span class="math inline"><em>κ</em>(<em>A</em>) ⩾ 1</span></li>
-<li><span class="math inline"><em>κ</em>(<em>A</em>) = <em>κ</em>(<em>A</em><sup> − 1</sup>)</span></li>
+<li><span class="math inline"><em>κ</em>(<em>A</em>) = <em>κ</em>(<em>A</em><sup>−1</sup>)</span></li>
 <li><span class="math inline"><em>κ</em>(<em>A</em><em>B</em>) ⩽ <em>κ</em>(<em>A</em>)<em>κ</em>(<em>B</em>)</span></li>
 <li><span class="math inline">$κ(A) ⩾ \left| \dfrac{λ_{max}(A)}{λ_{min}(A)} \right|$</span></li>
 </ol>
@@ -226,24 +227,24 @@ section.slide > pre {
 <section id="умножение-квадратных-матриц" class="slide level1">
 <h1>Умножение квадратных матриц</h1>
 <p>Тривиальная реализация:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n; i++) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="cf">for</span> (j = <span class="dv">0</span>; j &lt; n; j++) {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        c[i * n + j] = <span class="fl">0.</span>;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="cf">for</span> (k = <span class="dv">0</span>; k &lt; n; k++) {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>            c[i * n + j] += a[i * n + k] * b[k * n + j];</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        }</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> <span class="fl">0.</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> n<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">+=</span> a<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> k<span class="op">]</span> <span class="op">*</span> b<span class="op">[</span>k <span class="op">*</span> n <span class="op">+</span> j<span class="op">];</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Блочная реализация (размер блока — порядка <span class="math inline">$\sqrt{\dfrac{L1}{3}}$</span>)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n / BLOCK; i++) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="cf">for</span> (j = <span class="dv">0</span>; j &lt; n / BLOCK; j++) {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>        zero_block(c, i, j);</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>        <span class="cf">for</span> (k = <span class="dv">0</span>; k &lt; n / BLOCK; k++) {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>            multiply_block(a, b, temp, i, j, k);</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>            put_block(c, temp, i, j);</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>        }</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    }</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n <span class="op">/</span> BLOCK<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n <span class="op">/</span> BLOCK<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        zero_block<span class="op">(</span>c<span class="op">,</span> i<span class="op">,</span> j<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> n <span class="op">/</span> BLOCK<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            multiply_block<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> temp<span class="op">,</span> i<span class="op">,</span> j<span class="op">,</span> k<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            put_block<span class="op">(</span>c<span class="op">,</span> temp<span class="op">,</span> i<span class="op">,</span> j<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="умножение-матриц-современное-состояние-исследований" class="slide level1">
 <h1>Умножение матриц (современное состояние исследований)</h1>
@@ -258,9 +259,9 @@ section.slide > pre {
 <ul>
 <li><p>решение линейной системы: <span class="math inline">‖<em>A</em><em>x̂</em> − <em>b</em>‖</span> / <span class="math inline">‖<em>b</em>‖</span></p>
 <p>умножить сгенерированную матрицу на вектор полученного решения и вычесть правую часть (сумма нечётных столбцов A)</p></li>
-<li><p>обращение матрицы: <span class="math inline">‖<em>A</em><em>A</em><sup> − 1</sup> − <em>I</em>‖</span></p>
+<li><p>обращение матрицы: <span class="math inline">‖<em>A</em><em>A</em><sup>−1</sup> − <em>I</em>‖</span></p>
 <p>умножить сгенерированную матрицу на другую* сгенерированную матрицу и вычесть единичную</p>
-<p>Для «хороших» матриц наша цель по невязке порядка <span class="math inline">10<sup> − 16</sup></span></p></li>
+<p>Для «хороших» матриц наша цель по невязке порядка <span class="math inline">10<sup>−16</sup></span></p></li>
 </ul>
 </section>
 <section id="общие-требования-к-программам" class="slide level1">
@@ -270,44 +271,44 @@ section.slide > pre {
 </section>
 <section id="формулы-для-матриц" class="slide level1">
 <h1>Формулы для матриц</h1>
-<p><span class="math inline"><em>i</em>, <em>j</em> = 0…(<em>n</em> − 1)</span>:</p>
-<p>Симметричная: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>|</span> — по возможности тестируйте на больших размерах этой или следующей матрицы</p>
-<p>Симметричная без нулей на диагонали: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em> − <em>j</em>| + 1</span></p>
+<p><span class="math inline"><em>i</em>, <em>j</em> = 0…(<em>n</em>−1)</span>:</p>
+<p>Симметричная: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em>−<em>j</em>|</span> — по возможности тестируйте на больших размерах этой или следующей матрицы</p>
+<p>Симметричная без нулей на диагонали: <span class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em>−<em>j</em>| + 1</span></p>
 <p>Матрица Гильберта: <span class="math inline">$H_{ij} = \dfrac{1}{i+j+1}$</span> — нет смысла тестировать на размерах &gt;100</p>
 <p>Для нормы <span class="math inline"><em>𝐋</em><sup>2</sup></span> число обусловленности матрицы Гильберта <span class="math inline">5 × 5</span>: <span class="math display"><em>κ</em>(<em>H</em>) ≈ 4.8 · 10<sup>5</sup></span></p>
 <p>Сложность алгоритма <span class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>)</span> означает, что для задачи «размера» <span class="math inline"><em>n</em></span> выполнение алгоритма требует не более, чем <span class="math inline"><em>C</em> · <em>n</em><sup><em>k</em></sup></span> (члены младших степеней можно отбросить путём увеличения константы).</p>
 </section>
 <section id="разбор-аргументов-командной-строки" class="slide level1">
 <h1>Разбор аргументов командной строки</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#define DECIMAL 10</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main (<span class="dt">int</span> argc, <span class="dt">char</span> * argv[]) {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="dt">int</span> a;</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="dt">int</span> b;</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="cf">if</span> (argc == <span class="dv">1</span> || argc &gt; <span class="dv">3</span>) {</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        printf(<span class="st">&quot;Неверное количество аргументов</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        <span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    }</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>    <span class="cf">switch</span>(argc) {</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">2</span>: {</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>            <span class="co">// открываем файл, считываем данные из файла, закрываем файл</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>            ...</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>        }</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">3</span>: {</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>            <span class="co">// считываем данные из аргументов</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>            a = (<span class="dt">int</span>)strtol(argv[<span class="dv">1</span>], &amp;endptr, DECIMAL);</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>            b = (<span class="dt">int</span>)strtol(argv[<span class="dv">2</span>], &amp;endptr, DECIMAL);</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>        }</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    }</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>    ...</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>      </span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DECIMAL 10</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main <span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> b<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">1</span> <span class="op">||</span> argc <span class="op">&gt;</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Неверное количество аргументов</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">switch</span><span class="op">(</span>argc<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">// открываем файл, считываем данные из файла, закрываем файл</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">...</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">// считываем данные из аргументов</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            a <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>strtol<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="op">&amp;</span>endptr<span class="op">,</span> DECIMAL<span class="op">);</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            b <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>strtol<span class="op">(</span>argv<span class="op">[</span><span class="dv">2</span><span class="op">],</span> <span class="op">&amp;</span>endptr<span class="op">,</span> DECIMAL<span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="измерение-времени-работы-функции" class="slide level1">
 <h1>Измерение времени работы функции</h1>
@@ -317,16 +318,16 @@ section.slide > pre {
 <li><code>clock()</code> — точность — 1 микросекунда; 32-битный счётчик, переполняется за час с небольшим.</li>
 <li><code>gettimeofday</code> — «календарное» время, может идти назад</li>
 </ul>
-<p>Нужно использовать: <strong><code class="sourceCode c">clock_gettime(CLOCK_MONOTONIC)</code></strong> — таймер с наносекундным разрешением; предназначен именно для измерения промежутков времени в программе с высокой точностью (специфичен для Linux).</p>
+<p>Нужно использовать: <strong><code class="sourceCode c">clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">)</span></code></strong> — таймер с наносекундным разрешением; предназначен именно для измерения промежутков времени в программе с высокой точностью (специфичен для Linux).</p>
 </section>
 <section id="время-работы-с-clock_gettime" class="slide level1">
 <h1>Время работы с clock_gettime</h1>
 <p><code class="sourceCode c"><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></code> Прототип:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> timespec {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="dt">time_t</span> tv_sec;  <span class="co">// секунды</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="dt">long</span> tv_nsec;   <span class="co">// наносекунды</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>}  <span class="co">// Объявлено в unistd.h</span></span></code></pre></div>
-<p><code class="sourceCode c"><span class="dt">int</span> clock_gettime(clockid_t clk_id, <span class="kw">struct</span> timespec *tp)</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time_t</span> tv_sec<span class="op">;</span>  <span class="co">// секунды</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> tv_nsec<span class="op">;</span>   <span class="co">// наносекунды</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  <span class="co">// Объявлено в unistd.h</span></span></code></pre></div>
+<p><code class="sourceCode c"><span class="dt">int</span> clock_gettime<span class="op">(</span>clockid_t clk_id<span class="op">,</span> <span class="kw">struct</span> timespec <span class="op">*</span>tp<span class="op">)</span></code></p>
 <p>Значения <code>clockid_t</code>:</p>
 <ul>
 <li><code>CLOCK_MONOTONIC</code> — реальное время от произвольной точки отсчёта (можно использовать только как разность);</li>
@@ -339,72 +340,71 @@ section.slide > pre {
 <h1>Пример использования (C++ или GNU90 С)</h1>
 <p>Компилировать лучше с <code>-std=c99</code>, т.к. в стандартах C89 и C90 нет типа <code class="sourceCode c"><span class="dt">long</span> <span class="dt">long</span></code>. <a href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h">Источник</a>, там же есть реализация для Mac OS X.</p>
 <p>При компиляции необходимо добавить ключ <code>-D_POSIX_C_SOURCE=199309L</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="pp">#define KILO_MODIFIER 1e3</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="pp">#define MICRO_MODIFIER 1e-6</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano()</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>{</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>    <span class="kw">struct</span> timespec t;</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>    clock_gettime(CLOCK_MONOTONIC, &amp;t);</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    <span class="cf">return</span> (<span class="dt">long</span> <span class="dt">long</span>)(t.tv_sec * GIGA_MODIFIER + t.tv_nsec);</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>}</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeMillis()</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>{</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    <span class="kw">struct</span> timespec t;</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>    clock_gettime(CLOCK_MONOTONIC, &amp;t);</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>    <span class="cf">return</span> (<span class="dt">long</span> <span class="dt">long</span>)(t.tv_sec * KILO_MODIFIER + t.tv_nsec * MICRO_MODIFIER);</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>}</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> time = <span class="dv">0</span>;</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>time = currentTimeNano();</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>Solve(n, a, b, tmp_double, tmp_int, debug);</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>time = currentTimeNano() - time;</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>printf(<span class="st">&quot;Time: %lld ns</span><span class="sc">\n</span><span class="st">&quot;</span>, time);</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>CheckAnswer(n, a, b);</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define KILO_MODIFIER 1e3</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MICRO_MODIFIER 1e-6</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano<span class="op">()</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec t<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span><span class="dt">long</span> <span class="dt">long</span><span class="op">)(</span>t<span class="op">.</span>tv_sec <span class="op">*</span> GIGA_MODIFIER <span class="op">+</span> t<span class="op">.</span>tv_nsec<span class="op">);</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeMillis<span class="op">()</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec t<span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">);</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span><span class="dt">long</span> <span class="dt">long</span><span class="op">)(</span>t<span class="op">.</span>tv_sec <span class="op">*</span> KILO_MODIFIER <span class="op">+</span> t<span class="op">.</span>tv_nsec <span class="op">*</span> MICRO_MODIFIER<span class="op">);</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> time <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">();</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">()</span> <span class="op">-</span> time<span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: %lld ns</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> time<span class="op">);</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>CheckAnswer<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">);</span></span></code></pre></div>
 </section>
 <section id="пример-использования-c89" class="slide level1">
 <h1>Пример использования (C89)</h1>
 <p>Этот пример должен собираться в дисплейных классах с параметрами компилятора по умолчанию. <a href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859272d0187252506da5b/c/euclide/timediff.c">Источник</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="pp">#define NANO_MODIFIER 1e-9</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="kw">struct</span> timespec diff(<span class="kw">struct</span> timespec start, <span class="kw">struct</span> timespec end)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>{</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>    <span class="kw">struct</span> timespec temp;</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>    <span class="cf">if</span> ((end.tv_nsec - start.tv_nsec) &lt; <span class="dv">0</span>) {</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>        temp.tv_sec = end.tv_sec - start.tv_sec - <span class="dv">1</span>;</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>        temp.tv_nsec = GIGA_MODIFIER + end.tv_nsec - start.tv_nsec;</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>        temp.tv_sec = end.tv_sec - start.tv_sec;</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>        temp.tv_nsec = end.tv_nsec - start.tv_nsec;</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>    }</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>    <span class="cf">return</span> temp;</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>}</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a><span class="kw">struct</span> timespec time_start;</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a><span class="kw">struct</span> timespec time_end;</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>clock_gettime(CLOCK_MONOTONIC, &amp;time_start);</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>Solve(n, a, b, tmp_double, tmp_int, debug);</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>clock_gettime(CLOCK_MONOTONIC, &amp;time_end);</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>time_end = diff(time_start, time_end);</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true"></a>printf(<span class="st">&quot;Time: %lf s</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true"></a>       (<span class="dt">double</span>)(time_end.tv_sec + time_end.tv_nsec * NANO_MODIFIER));</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NANO_MODIFIER 1e-9</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec diff<span class="op">(</span><span class="kw">struct</span> timespec start<span class="op">,</span> <span class="kw">struct</span> timespec end<span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec temp<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_sec <span class="op">=</span> end<span class="op">.</span>tv_sec <span class="op">-</span> start<span class="op">.</span>tv_sec <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_nsec <span class="op">=</span> GIGA_MODIFIER <span class="op">+</span> end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_sec <span class="op">=</span> end<span class="op">.</span>tv_sec <span class="op">-</span> start<span class="op">.</span>tv_sec<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_nsec <span class="op">=</span> end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> temp<span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec time_start<span class="op">;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec time_end<span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>time_start<span class="op">);</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>time_end<span class="op">);</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>time_end <span class="op">=</span> diff<span class="op">(</span>time_start<span class="op">,</span> time_end<span class="op">);</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: %lf s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>       <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>time_end<span class="op">.</span>tv_sec <span class="op">+</span> time_end<span class="op">.</span>tv_nsec <span class="op">*</span> NANO_MODIFIER<span class="op">));</span></span></code></pre></div>
 </section>
 <section id="задание" class="slide level1">
 <h1>Задание</h1>
 <p>Написать программу в соответствии с требованиями, реализующую ввод матрицы, вывод куска матрицы на экран и расчёт времени. Предполагается, что написанная программа будет частью первого задания.</p>
-<p><a href="https://classroom.github.com/a/cLSE-LWJ" class="uri">https://classroom.github.com/a/cLSE-LWJ</a></p>
+<p><a href="https://classroom.github.com/a/YUFQw3h5" class="uri">https://classroom.github.com/a/YUFQw3h5</a></p>
 <p>Замечания:</p>
 <ol type="1">
 <li>Реализация чтения матрицы из файла, генерация матриц по формулам из <a href="LinearSystemsTasks.pdf">списка требований</a>.</li>
 <li>Должна быть реализована обработка ошибок (список на следующем слайде) с возвращением соответствующего кода ошибки.</li>
-<li>Формат вывода элементов матрицы "%10.3e".</li>
 <li>Должна быть строка <code>Time:</code> при выводе времени. Для этого задания можно считать время генерации матрицы. В зачётном задании время генерации матрицы не должно входить в расчёт времени.</li>
 </ol>
 </section>
