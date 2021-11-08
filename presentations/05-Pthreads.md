@@ -74,7 +74,15 @@ L_str:        ## @str
 # Современные процессоры имеют несколько ядер
  — т.е. они могут выполнять несколько «потоков команд» (программ) одновременно.
 
+2nd Generation (Sandy Bridge) Intel Core Processor:
+
 ![](images/inside_intel_sandy_bridge_quad_core_processor.jpg)
+
+# Современные процессоры имеют несколько ядер
+
+12nd Generation (Alder Lake) Intel Core Processor:
+
+![](images/intel-12th-gen-core-ht3.webp)
 
 # Потоки (threads)
 — способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами.
@@ -297,6 +305,62 @@ int  pthread_cond_broadcast(pthread_cond_t *cond);
 
 \(W) — wait, (S) — signal, (B) — broadcast
 
+# Синхронизация с условными переменными
+
+Допускает использование внутри циклов, учитывается не только количество вошедших, но и вышедших задач.
+
+```c
+void synchronize(int total_threads)
+{
+    /* Объект синхронизации типа mutex */
+    static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+    /* Объект синхронизации типа condvar */
+    static pthread_cond_t condvar_in = PTHREAD_COND_INITIALIZER;
+    /* Объект синхронизации типа condvar */
+    static pthread_cond_t condvar_out = PTHREAD_COND_INITIALIZER;
+    /* Число пришедших в функцию задач */
+    static volatile int threads_in = 0;
+    /* Число ожидающих выхода из функции задач */
+    static volatile int threads_out = 0;
+
+    /* "захватить" mutex для работы с переменными 
+        threads_in и threads_out */
+    pthread_mutex_lock(&mutex);
+    /* увеличить на 1 количество прибывших в эту функцию задач */
+    threads_in++;
+
+    /* проверяем количество прибывших задач */
+    if (threads_in >= total_threads) {
+        /* текущий поток пришёл последним */
+        threads_out = 0;
+        /* устанавливаем начальное значение для threads_out */
+        pthread_cond_broadcast(&condvar_in);
+    } else {
+        /* есть ещё не пришедшие потоки */
+        /* ожидаем, пока в эту функцию не придут все потоки */
+        while (threads_in < total_threads) {
+            /* ожидаем разрешения продолжить работу:
+               освободить mutex и ждать сигнала от 
+               condvar, затем "захватить" mutex опять */
+            pthread_cond_wait(&condvar_in, &mutex);
+        }
+    }
+    /* увеличить на 1 количество ожидающих выхода задач */
+    threads_out++;
+
+    if (threads_out >= total_threads) {
+        threads_in = 0;
+        pthread_cond_broadcast(&condvar_out);
+    } else {
+        while (threads_out < total_threads) {
+            pthread_cond_wait(&condvar_out, &mutex);
+        }
+    }
+    /* освободить mutex */
+    pthread_mutex_unlock(&mutex);
+}
+```
+
 # Барьеры (barrier)
 Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.
 
@@ -442,16 +506,14 @@ typedef struct {
 
 # Задание
 
-1. Решение СЛУ: https://classroom.github.com/a/Udwu4qLH
-2. Обращение матрицы: https://classroom.github.com/a/fROhoGOU
+1. Решение СЛУ: https://classroom.github.com/a/Zdx7xqNv
+2. Обращение матрицы: https://classroom.github.com/a/xKlFKx1E
 
-В новом задании изменяется механизм сборки. Теперь используется `Makefile`.
-
-Предусмотрено три режима сборки:
+Предусмотрено три режима сборки Makefile:
 
 - `make` - "быстрая" сборка с оптимизацией, используется для измерения времени работы программы на больших размерах матрицы;
 - `make debug` - отладочная сборка для отладки с использованием `gdb`;
-- `make test` - сборка для тестирования с проверками на на утечку памяти и на выход за границы массива.  Эта версия программы будет использоваться запуска тестов.
+- `make test` - сборка для тестирования с проверками на на утечку памяти и на выход за границы массива. Эта версия программы будет использоваться для запуска тестов.
 
 Для перехода между разными режимами необходимо выполнить команду `make clean`, которая удаляет все файлы, созданные во время сборки.
 
