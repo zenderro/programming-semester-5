@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>03-Gauss-Jordan</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<style type="text/css">
+div.sourceCode {
+  font-size: 1.2em;
+}
+section.slide > pre {
+  font-size: 0.8em;
+}
+section.slide > p {
+  text-align: left;
+  text-indent: 2em;
+}
+.reveal div.owl {
+  background-size: 65%;
+}
+.owl p, .owl h1 {
+
+  -webkit-text-stroke-width: 1.1pt;
+-webkit-text-stroke-color: #fff;
+  font-weight: 700;
+}
+
+.green-box {
+  background-color: #afa;
+}
+.red-box {
+  background-color: #faa;
+}
+.yellow-box {
+  background-color: #ff0;
+}
+
+</style>
+<h2 id="план">План</h2>
+<ul>
+<li>приведение к верхнему треугольному виду методом Гаусса</li>
+<li>LU-разложение</li>
+<li>метод Жордана</li>
+<li>выбор главного элемента</li>
+</ul>
+<p>Материалы к занятиям: <a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
+<p>email: <a href="mailto:andrey.zenzinov@math.msu.ru">andrey.zenzinov@math.msu.ru</a></p>
+</section>
+<section id="приведение-матрицы-к-треугольному-виду-метод-гаусса" class="slide level1">
+<h1>Приведение матрицы к треугольному виду (метод Гаусса)</h1>
+<p><span class="math display">$$
+\begin{array}{cllll|l}
+1 &amp; c_{1,2} &amp; \dots &amp; c_{1,n-1} &amp; c_{1,n} &amp; y_1 \\
+  &amp;  a^{(1)}_{2,2}  &amp; \dots         &amp; a^{(1)}_{2,n-1} &amp; a^{(1)}_{2,n} &amp; b^{(1)}_2 \\
+  &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+  &amp; a^{(1)}_{n-1, 2} &amp; \dots &amp; a^{(1)}_{n-1, n-1} &amp; a^{(1)}_{n-1, n} &amp; b^{(1)}_{n-1} \\
+  &amp; a^{(1)}_{n, 2} &amp; \dots &amp; a^{(1)}_{n, n-1} &amp; a^{(1)}_{n,n} &amp;b^{(1)}_n
+\end{array}
+$$</span> В каждом столбце обнуляем часть под диагональю с использованием элементарного преобразования «вычесть строку с коэффициентом» (метод применим только в случае <span class="math inline">det  <em>A</em><sub><em>k</em></sub> ≠ 0</span>). Сложность — $2/3 n^3 + O(n^2) $ <span class="math display">$$ \mathbf{a}_k = \dfrac{\mathbf{a}_k}{a_{k,k}}, \qquad y_k = \dfrac{b_k}{a_{k,k}}; \qquad \mathbf{a}_i = \mathbf{a}_i - \dfrac{a_{i,k}}{a_{k,k}} \mathbf{a}_k, \qquad b_i = b_i - \dfrac{a_{i,k}}{a_{k,k}} y_k $$</span></p>
+</section>
+<section id="реализация-метода-гаусса" class="slide level1">
+<h1>Реализация метода Гаусса</h1>
+<p><span class="math display">$$
+\begin{array}{ccllll|l}
+&amp; \bbox[#afa,3pt]{i} &amp;  \bbox[#afa,3pt]{⟶} \\
+&amp; 1 &amp; c_{1,2} &amp; \dots &amp; c_{1,n-1} &amp; c_{1,n} &amp; y_1 \\
+\bbox[#ff0,3pt] j &amp;   &amp;  a^{(1)}_{2,2}  &amp; \dots         &amp; a^{(1)}_{2,n-1} &amp; a^{(1)}_{2,n} &amp; b^{(1)}_2 \\
+\bbox[#ff0,3pt] ↓&amp;  &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+&amp;  &amp; a^{(1)}_{n-1, 2} &amp; \dots &amp; a^{(1)}_{n-1, n-1} &amp; a^{(1)}_{n-1, n} &amp; b^{(1)}_{n-1} \\
+&amp;  &amp; a^{(1)}_{n, 2} &amp; \dots &amp; a^{(1)}_{n, n-1} &amp; a^{(1)}_{n,n} &amp;b^{(1)}_n \\
+&amp; &amp; \bbox[#faa,3pt]k &amp; \bbox[#faa,3pt]⟶
+\end{array}
+$$</span></p>
+<pre>
+for <span class=green-box>i := 0…(n-1)</span>
+  for k := (i+1)…(n-1) A[i, k] := A[i, k] / A[i, i]
+  A[i, i] := 1
+  for <span class=yellow-box>j := (i+1)…(n-1)</span>
+    for <span class=red-box>k := (i+1)…(n-1)</span>
+      A[j, k] := A[j, k] - A[i, k] * A[j, i]
+    for <span class=red-box>k := 0…(m-1)</span> # размер правой части (1 или n)
+      B[j, k] := B[j, k] - B[i, k] * A[j, i]
+</pre>
+</section>
+<section id="lu-разложение" class="slide level1">
+<h1>LU-разложение</h1>
+<p>На самом деле, предыдущие преобразования могут быть представлены в форме умножения на матрицы особого вида.</p>
+<ol type="1">
+<li>Умножение текущей строки на элемент, обратный к диагонали.</li>
+</ol>
+<pre>
+  for k := (i+1)…(n-1) A[i, k] := A[i, k] / A[i, i]
+  A[i, i] := 1
+</pre>
+<p>$A'^{(i)} = D_i · A^{(i-1)} $ , где $D_i = \mathrm{diag} [ 1, 1, 1, …, {(a^{(i-1)}_{i,i})^{-1}}, 1, …, 1] $ (единичная с обратным к элементу $a_{i,i} $ на $i $-м месте)</p>
+</section>
+<section id="lu-разложение-ii" class="slide level1">
+<h1>LU-разложение (II)</h1>
+<ol start="2" type="1">
+<li>Обнуление столбца под текущим диагональным элементом.</li>
+</ol>
+<pre>
+    for k := (i+1)…(n-1) A[j, k] := A[j, k] - A[i, k] * A[j, i]
+</pre>
+<p>$A^{(i)} = L_i · A'^{(i)} $, где $L_i $: (единичная со столбцом обратных по сложению элементов под $i $-м диагональным элементом)</p>
+<p><span class="math display">$$
+\begin{pmatrix}
+1  \\
+ &amp; \ddots &amp; \\
+ &amp; &amp; 1 \\
+ &amp; &amp; -a^{(i-1)}_{i+1, i} &amp; 1 \\
+ &amp; &amp; \vdots &amp; &amp; \ddots \\
+ &amp; &amp; -a^{(i-1)}_{n, i} &amp; &amp; &amp; 1
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="lu-разложение-iii" class="slide level1">
+<h1>LU-разложение (III)</h1>
+<p>Таким образом, применение прямого хода метода Гаусса можно представить как: <span class="math display"><em>L</em><sub><em>n</em></sub> · <em>D</em><sub><em>n</em></sub> · … · <em>L</em><sub>1</sub> · <em>D</em><sub>1</sub> · <em>A</em> = <em>U</em></span></p>
+<p>где $U $ — верхнетреугольная матрица с единицами на диагонали. Тогда $A = LU $, где $L = (L_n · D_n · … · L_1 · D_1)^{-1} $ — нижнетреугольная матрица (т.к. нижнетреугольные матрицы замкнуты по умножению). С использованием такого разложения можно далее решать линейные системы с правой частью $A $ и произвольной левой частью за $O(n^2) $ операций: <span class="math display"><em>L</em> · <em>U</em> · <em>x</em> = <em>b</em></span></p>
+<ol type="1">
+<li>Обратным ходом метода Гаусса решаем систему с треугольной матрицей <span class="math display"><em>L</em> · <em>y</em> = <em>b</em></span></li>
+<li>Обратным ходом метода Гаусса решаем вторую систему с треугольной матрицей: <span class="math display"><em>U</em> · <em>x</em> = <em>y</em></span></li>
+</ol>
+</section>
+<section id="реализация-lu-разложения" class="slide level1">
+<h1>Реализация LU-разложения</h1>
+<p>Формулы построены таким образом, что обе матрицы $L, U $ можно (и нужно для выполнения требований) хранить на месте исходной матрицы $A $ (единичная диагональ $U $ не хранится).</p>
+<ol type="1">
+<li>$l_{i,1} = a_{i,1} \qquad (i = 1…n) \qquad \qquad u_{1,k} = a_{1,k} \big/ l_{1,1} \qquad (k = 2…n) $</li>
+<li>$\bbox[#faa,3px]{l_{i, k}} = \bbox[#faa,3px]{a_{i,k}} - \sum\limits_{j=1}^{k-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#faf,3px]{ u_{j,k}} \qquad (1 &lt; k ⩽ i, \quad i,k = 2…n) $ $\bbox[#afa,3px]{u_{i,k}} = \left(\bbox[#afa,3px]{a_{i, k}} - \sum\limits_{j=1}^{i-1} \bbox[#aff,3px]{l_{i,j}} · \bbox[#ffa,3px]{u_{j,k}} \right) \big/ , \bbox[#faa,3px]{l_{i,i}} \qquad (k &gt; i &gt; 1, \quad i, k = 2 … n) $</li>
+</ol>
+<p><span class="math display">$$
+\begin{pmatrix}
+{l_{1,1}} &amp; u_{1,2} &amp; \bbox[#faf,3px]{u_{1, 3}} &amp; \bbox[#ffa,3px]{u_{1, 4}} &amp; … &amp; &amp; &amp; u_{1,n} \\
+{l_{2, 1}} &amp; {l_{2, 2}} &amp; \bbox[#faf,3px]{u_{2, 3}} &amp; \bbox[#ffa,3px]{u_{2, 4}} &amp; … &amp; &amp; &amp; u_{2, n} \\
+\bbox[#aff,3px]{l_{3, 1}} &amp; \bbox[#aff,3px]{l_{3, 2}} &amp; \bbox[#faa,3px]{l} &amp; \bbox[#afa,3px]{u} &amp; \bbox[#afa,3px]⟶ &amp; &amp; &amp; a_{2, n} \\
+\bbox[#faa,3px]↪︎ &amp; \vdots &amp; \vdots &amp; &amp; \ddots &amp; &amp; &amp; \vdots \\
+l_{n, 1} &amp; l_{n, 2} &amp; a_{n,3}  &amp; &amp; … &amp; &amp; &amp; a_{n, n}
+\end{pmatrix}
+$$</span></p>
+</section>
+<section id="обратный-ход-метода-гаусса" class="slide level1">
+<h1>Обратный ход метода Гаусса</h1>
+<p><span class="math display">$$
+\begin{array}{ccccc|c}
+c_{1,1} &amp; c_{1,2} &amp; \dots &amp; c_{1,n-1} &amp; {c_{1,n}} &amp; y_1 \\
+  &amp;  \bbox[#ffa,3px]{c_{2,2}}  &amp; \bbox[#faf,3px]\dots         &amp; \bbox[#faf,3px]{c_{2,n-1}} &amp; \bbox[#faf,3px]{c_{2,n}} &amp; \bbox[#fea,3px]{y_2} \\
+  &amp; &amp;\ddots &amp; \vdots &amp; {\vdots} &amp; \bbox[#aef,3px]{\vdots} \\
+  &amp; &amp; &amp; c_{n-1,n-1} &amp; {c_{n-1, n}} &amp; \bbox[#aef,3px]{y_{n-1}} \\
+  &amp; &amp; &amp; &amp; c_{n,n} &amp; \bbox[#aef,3px]{y_n}
+\end{array}
+$$</span></p>
+<p>$ x_n = y_n \big/ c_{n,n} \qquad \qquad \bbox[#fea,3px]{x_i} = \left( \bbox[#fea,3px]{y_i }- \sum_{j=i+1}^n \bbox[#faf,3px]{c_{i,j}} · \bbox[#aef,3px]{x_j} \right) \big/ \bbox[#ffa,3px]{c_{i,i}} $</p>
+<p>Сложность — <span class="math inline">$\dfrac{n·(n-1)}{2} ≈ O(n^2)$</span></p>
+</section>
+<section id="реализация-обратного-хода" class="slide level1">
+<h1>Реализация обратного хода</h1>
+<p>Во <strong>внутреннем</strong> цикле придерживаемся упорядоченного доступа к памяти.</p>
+<ol type="1">
+<li>Для решения линейной системы (правая часть — одна):</li>
+</ol>
+<pre>
+for i:=(n-1) … 0
+  for j:= (i+1) … n
+    b[i] := b[i] - A[i, j] · b[j]
+  b[i] := b[i] / A[i,i]
+</pre>
+<ol start="2" type="1">
+<li>Для обращения матрицы (правых частей — <span class="math inline"><em>n</em></span>, сложность — $O(n^3) $):</li>
+</ol>
+<pre>
+for i := (n-1) … 0
+  for j := (i+1) … n
+    for k := 0 … (n-1)
+      B[i, k] := B[i, k] - A[i, j] * B[j, k]
+  for k := 0 … (n-1)
+    B[i, k] := B[i, k] / A[i, i]
+</pre>
+</section>
+<section id="метод-гаусса-жордана" class="slide level1">
+<h1>Метод Гаусса-Жордана</h1>
+<p><span class="math display">$$
+\begin{array}{cllll|l}
+1 &amp; \bbox[#afa,5px]{0} &amp; \dots &amp; c_{1,n-1} &amp; c_{1,n} &amp; y_1 \\
+  &amp;  1  &amp; \dots         &amp; a^{(2)}_{2,n-1} &amp; a^{(2)}_{2,n} &amp; b^{(2)}_2 \\
+  &amp;  &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+  &amp;  &amp; \dots &amp; a^{(2)}_{n-1, n-1} &amp; a^{(2)}_{n-1, n} &amp; b^{(2)}_{n-1} \\
+  &amp;  &amp; \dots &amp; a^{(2)}_{n, n-1} &amp; a^{(2)}_{n,n} &amp;b^{(2)}_n
+\end{array}
+$$</span></p>
+<p>Единственное отличие — обнуляются элементы столбца не только под, но и над диагональю.</p>
+<pre>
+for <span class=green-box>i := 0…(n-1)</span>
+  MultiplyRow(A[i, i…(n-1)], 1 / A[i, i])
+  for j :=  <span class=yellow-box><strong>0…(i-1),</strong></span> (i+1)…(n-1)</span>
+    A[j, i…(n-1)] := SubtractRow(A[j, i…(n-1)], A[i, i…(n-1)], A[j, i])
+    B[j, 0…(n-1)] := SubtractRow(B[j, 0…(n-1)], B[i, 0…(n-1)], A[j, i])
+</pre>
+</section>
+<section id="выбор-главного-элемента--мотивация" class="slide level1">
+<h1>Выбор главного элемента — мотивация</h1>
+<p>В чистом виде метод Гаусса и разновидности (LU-разложение, метод Жордана) неприменим к матрицам, у которых есть нулевой главный минор</p>
+<p>Например, метод не сработает если <span class="math inline"><em>a</em><sub>1, 1</sub> = 0</span></p>
+<p>Для исправления ситуации можно использовать элементарные преобразования вида «перестановка строк» или «перестановка столбцов» — переставим на нужное место строку (столбец), где нужный элемент отличен от нуля.</p>
+<p>Как выбирать какую именно строку или столбец переставлять?</p>
+<p>По итогам первого шага (деление строки на диагональный элемент) погрешность изменяется обратно пропорционально модулю диагонального элемента: <span class="math display">$$  ε^{(1)}_{i,j} = ε_{i,j} - ε_{1,j} · \dfrac{a_{i,1}}{a_{1,1}} $$</span></p>
+</section>
+<section id="выбор-главного-элемента" class="slide level1">
+<h1>Выбор главного элемента</h1>
+<p>⇒ выгоднее выбирать наибольший по модулю элемент</p>
+<p>Переставляем строки — «с выбором главного элемента по столбцу» Переставляем столбцы — «с выбором главного элемента по строке» И строки и столбцы — «с выбором главного элемента по всей матрице»</p>
+<p>Асимптотика — по столбцу или по строке сохраняется (<span class="math inline">2/3<em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>), по всей матрице — <span class="math inline"><em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>). Перестановка элементов в памяти требует лишние <span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> операций.</p>
+<p>Возможен вариант (используется в реализациях с распределенной памятью), при котором перестановка не выполняется, а используется массив индексов перестановок.</p>
+<p>Все методы с выбором главного элемента применимы к любым невырожденным матрицам.</p>
+</section>
+<section id="выбор-главного-элемента--реализация" class="slide level1">
+<h1>Выбор главного элемента — реализация</h1>
+<p>Преобразования правой части:</p>
+<ul>
+<li>перестановка строк — переставляются строки (просто меняем местами уравнения)</li>
+<li>перестановка столбцов — перенумеруются переменные (правая часть не меняется, но требуется постобработка)</li>
+</ul>
+<p>Если мы делаем перестановку столбцов, нужно запоминать все транспозиции (<span class="math inline"><em>τ</em><sub><em>i</em></sub></span> — транспозиция $i ↔︎ $ &lt;номер столбца, в котором находится главный элемент <span class="math inline"><em>i</em></span>-го шага&gt;): <span class="math display"><em>σ</em> = <em>τ</em><sub>1</sub> · <em>τ</em><sub>2</sub> · … · <em>τ</em><sub><em>n</em></sub></span></p>
+<p>Для получения переменных в правильной последовательности нужно делать обратные транспозиции, начиная с последней (<span class="math inline"><em>τ</em><sub><em>n</em></sub><sup> − 1</sup> · <em>τ</em><sub><em>n</em> − 1</sub><sup> − 1</sup> · …</span>) — фактически, перемешать строки правой части согласно обратной перестановке столбцов левой.</p>
+</section>
+<section id="выбор-главного-элемента-1" class="slide level1">
+<h1>Выбор главного элемента</h1>
+<h2 id="реализация-с-индексами-перестановок">Реализация с индексами перестановок</h2>
+<pre>
+Rows := [0, 1, 2, …, (n-1)]
+Cols := [0, 1, 2, …, (n-1)]
+Get(A, i, j) := A[Rows[i], Cols[j]]
+for i := 0…(n-1)
+  max_col, max_row :=i, max_abs := |Get(A, i, i)|
+  for j := i…(n-1), k:= i…(n-1)
+    if |Get(A, j, k)| > max_abs
+      max_abs, max_col, max_row := |Get(A, j, k)|, j, k
+  swap(Rows, i, j)
+  swap(Cols, j, k)
+  MultiplyRow(Get(A, i, i…(n-1)), <strong>1 / Get(A, i, i)</strong>)
+  for j := <strong>0…(i-1),</strong> (i+1)…(n-1)
+    B[j, 0…(n-1)] := SubtractRow(Get(B, j, 0…(n-1)), Get(B, i, 0…(n-1)), Get(A, j, i))
+    A[j, i…(n-1)] := SubtractRow(Get(A, j, i…(n-1)), Get(A, i, i…(n-1)), <strong>Get(A, j, i)</strong>)
+
+for i:=0…(n-1)
+  SwapRows(B, i, Cols[i])
+</pre>
+</section>
+<section id="отладчик" class="slide level1">
+<h1>Отладчик</h1>
+<p>Сценарии использования отладчика:</p>
+<ol type="1">
+<li>Программа падает:
+<ul>
+<li>при выполнении какой строки?</li>
+<li>из какой функции была вызвана текущая?</li>
+<li>какие значения переменных?</li>
+</ul></li>
+<li>Программа работает не так, как надо:
+<ul>
+<li>чему равны значения переменных?</li>
+<li>в какой момент вызывается тот или иной фрагмент кода (срабатывает условие, выход из цикла и т.п.)?</li>
+<li>в каком месте программа уходит в бесконечный цикл?</li>
+</ul></li>
+</ol>
+</section>
+<section id="вызов-отладчика-gdb" class="slide level1">
+<h1>Вызов отладчика GDB</h1>
+<p>Для отладки программу нужно скомпилировать с отладочной информацией (ключ <code>-g</code>) без оптимизации (<code>g++</code> — аналогично):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">gcc</span> -g myprog.c main.c</span></code></pre></div>
+<p>Запуск отладчика:</p>
+<ul>
+<li>программа без аргументов</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">gdb</span> ./a.out</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co"># Вместо ./a.out</span></span></code></pre></div>
+</section>
+<section id="вызов-отладчика-gdb-1" class="slide level1">
+<h1>Вызов отладчика GDB</h1>
+<ul>
+<li>аргументы при запуске</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">gdb</span> --args ./a.out -f 2 -n 1000</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co"># Вместо ./a.out -f 2 -n 1000</span></span></code></pre></div>
+<p>После запуска отображается командная строка gdb.</p>
+<p>Аргументы можно изменить в командной строке gdb:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">set</span> <span class="ex">args</span> -f 1 -n 500</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ex">show</span> args    # Показать текущие аргументы</span></code></pre></div>
+</section>
+<section id="команды-отладчика-gdb" class="slide level1">
+<h1>Команды отладчика GDB</h1>
+<ul>
+<li><code>run</code> (<code>r</code>) — запустить программу; в случае исключения выполнение останавливается на строке, на которой исключение произошло:</li>
+</ul>
+<pre><code>(gdb) r
+Program received signal SIGFPE, Arithmetic exception.
+0x08048681 in divint(int, int) (a=3, b=0) at crash.c:21
+21        return a / b;</code></pre>
+<ul>
+<li><code>quit</code> (<code>q</code>) — выйти из отладчика (если выполнение программы было прервано, отладчик запросит подтверждение)</li>
+<li><code>list</code> (<code>l</code>) — напечатать «окрестность» текущей строки исходного кода</li>
+<li><code>print &lt;expression&gt;</code> (<code>p &lt;expr&gt;</code>) — вывести значение выражения (можно использовать арифметические операторы, получение элемента массива, по-моему даже вызовы функций)</li>
+</ul>
+</section>
+<section id="команды-отладчика-gdb-ii" class="slide level1">
+<h1>Команды отладчика GDB (II)</h1>
+<ul>
+<li><code>where</code> (<code>backtrace</code>, <code>bt</code>) — показать стек вызовов функций:</li>
+</ul>
+<pre><code>(gdb) where
+#0  0x08048681 in divint(int, int) (a=3, b=0) at crash.c:21
+#1  0x08048654 in main () at crash.c:13</code></pre>
+<ul>
+<li><p><code>frame &lt;n&gt;</code> (<code>up</code>) — перейти на указанный уровень в стеке вызовов (чтобы посмотреть значения переменных в вызывающей функции)</p></li>
+<li><p>при нажатии Ctrl+C выполнение программы приостанавливается</p></li>
+</ul>
+</section>
+<section id="команды-отладчика-gdb-iii" class="slide level1">
+<h1>Команды отладчика GDB (III)</h1>
+<ul>
+<li><code>break &lt;location&gt;</code> (<code>b &lt;loc&gt;</code>) — установить точку останова в указанной локации:
+<ul>
+<li><em>function</em> — на входе в функцию <em>function</em> в текущем файле</li>
+<li><em>filename:line</em> — на строке <em>line</em> в файле <em>filename</em></li>
+<li><em>filename:function</em> — на входе в функцию <em>function</em> в файле <em>filename</em></li>
+</ul></li>
+<li><code>delete</code> — удалить все точки останова</li>
+<li><code>clear &lt;location&gt;</code> — удалить точку останова в указанной локации</li>
+<li><code>next</code> (<code>n</code>) — выполнить до следующей строки программы</li>
+<li><code>step</code> (<code>s</code>) — выполнить одну строку, «проваливаясь» в вызываемые функции</li>
+<li><code>continue</code> (<code>c</code>) — продолжить выполнение программы (до следующей точки останова или исключения)</li>
+</ul>
+<p>Более подробно про использование GDB с примерами - в статье <a href="http://serg.tk/1/debug/gdb.html">С.А.Афонина</a></p>
+</section>
+<section id="valgrind" class="slide level1">
+<h1>Valgrind</h1>
+<p><a href="http://valgrind.org">Valgrind</a> — средство динамического (= во время выполнения) анализа программ.</p>
+<p>Позволяет анализировать, в частности, следующие показатели:</p>
+<ul>
+<li><strong>ошибки доступа к памяти</strong> (доступ по неинициализированному указателю, выход за границы массива, использование неинициализированных переменных, копирование «внахлёст», утечки памяти)</li>
+<li>частота не-попаданий в кэш (L1, L2)</li>
+<li>источники взаимных блокировок в многопоточной программе</li>
+</ul>
+</section>
+<section id="запуск-valgrind" class="slide level1">
+<h1>Запуск Valgrind</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co"># Вместо ./a.out --fun 1 --size 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="fu">valgrind</span> ./a.out --fun 1 --size 2</span></code></pre></div>
+<pre><code>==19182== Invalid write of size 4
+==19182==    at 0x804838F: f (example.c:6)
+==19182==    by 0x80483AB: main (example.c:11)
+==19182==  Address 0x1BA45050 is 0 bytes after a block of size 40 alloc&#39;d
+==19182==    at 0x1B8FF5CD: malloc (vg_replace_malloc.c:130)
+==19182==    by 0x8048385: f (example.c:5)
+==19182==    by 0x80483AB: main (example.c:11)
+# ...
+==19182== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==19182==    at 0x1B8FF5CD: malloc (vg_replace_malloc.c:130)
+==19182==    by 0x8048385: f (a.c:5)
+==19182==    by 0x80483AB: main (a.c:11)</code></pre>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>

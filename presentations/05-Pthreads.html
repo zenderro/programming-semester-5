@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>05-Pthreads</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<h3 id="вторая-задача">Вторая задача</h3>
+<h3 id="параллельное-программирование-с-общей-памятью">Параллельное программирование с общей памятью</h3>
+<h3 id="библиотека-pthreads">Библиотека pthreads</h3>
+<h3 id="средства-синхронизации-библиотеки-pthreads">Средства синхронизации библиотеки pthreads</h3>
+<p><a href="mailto:andrey.zenzinov@math.msu.ru" class="email">andrey.zenzinov@math.msu.ru</a></p>
+<p><a href="https://zenderro.github.io/programming-semester-5/" class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
+<style>
+div.left-column {
+  width: 44%;
+  float: left;
+}
+div.right-column {
+  width: 44%;
+  float: right;
+}
+div.small {
+  font-size: 0.8em;
+}
+div.fullwidth img {
+  width: 100% !important;
+}
+</style>
+</section>
+<section id="вторая-задача-1" class="slide level1">
+<h1>Вторая задача</h1>
+<p>Вторая задача — параллельная реализация алгоритма решения линейной системы (решения матрицы) с использованием библиотеки pthreads. Нужно реализовать параллельную версию вашего метода из первой задачи. При этом программа должна принимать в качестве одного из агрументов количество потоков.</p>
+<p>При увеличении потоков на достаточно больших матрицах (2000x2000, 4000x4000) программа должна ускоряться, на 2 потоках — хотя бы в 1.6 раза, на 4 потоках — в 2.5 раза. На одном потоке программа не должна быть существенно медленнее, чем однопоточная реализация</p>
+</section>
+<section id="литература" class="slide level1">
+<h1>Литература</h1>
+<ol type="1">
+<li>К.Ю. Богачёв. Основы параллельного программирования.</li>
+<li><a href="http://www.intuit.ru/studies/courses/53/53/lecture/1569">Мобильное программирование приложений реального времени, Лекции 1,2</a></li>
+</ol>
+<p>Небольшие примеры, введения, презентации:</p>
+<ul>
+<li><a href="http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf" class="uri">http://aivt.ftk.spbstu.ru/media/files/2012/course/parallel/mt1.pdf</a></li>
+<li><a href="https://computing.llnl.gov/tutorials/pthreads/" class="uri">https://computing.llnl.gov/tutorials/pthreads/</a></li>
+</ul>
+</section>
+<section id="программы-исполняются-последовательно" class="slide level1">
+<h1>Программы исполняются последовательно</h1>
+<p>Программы на языке C транслируются в машинный код — последовательность простых команд для процессора:</p>
+<div class="left-column">
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       printf<span class="op">(</span><span class="st">&quot;testing</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Процессор затем исполняет эти команды по порядку.</p>
+</div>
+<div class="right-column">
+<div class="sourceCode" id="cb2"><pre class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">.globl</span>  _foo</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">_foo:</span>        <span class="co">## @foo</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">testl</span>   <span class="op">%</span><span class="kw">edi</span><span class="op">,</span> <span class="op">%</span><span class="kw">edi</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">je</span>  LBB0_2</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">retq</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">LBB0_2:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">leaq</span>    L_str<span class="op">(%</span><span class="kw">rip</span><span class="op">),</span> <span class="op">%</span><span class="kw">rdi</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> _puts                </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">L_str:</span>        <span class="co">## @str</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">.asciz</span>  <span class="st">&quot;testing&quot;</span></span></code></pre></div>
+</div>
+</section>
+<section id="современные-процессоры-имеют-несколько-ядер" class="slide level1">
+<h1>Современные процессоры имеют несколько ядер</h1>
+<p>— т.е. они могут выполнять несколько «потоков команд» (программ) одновременно.</p>
+<p>2nd Generation (Sandy Bridge) Intel Core Processor:</p>
+<p><img data-src="images/inside_intel_sandy_bridge_quad_core_processor.jpg" /></p>
+</section>
+<section id="современные-процессоры-имеют-несколько-ядер-1" class="slide level1">
+<h1>Современные процессоры имеют несколько ядер</h1>
+<p>12nd Generation (Alder Lake) Intel Core Processor:</p>
+<p><img data-src="images/intel-12th-gen-core-ht3.webp" /></p>
+</section>
+<section id="потоки-threads" class="slide level1">
+<h1>Потоки (threads)</h1>
+<p>— способ запуска нескольких потоков исполнения параллельно, с разделяемой памятью и ресурсами. Т.е. можно обмениваться указателями, выполнять одновременное чтение и запись, и так далее. Если просто запустить несколько копий программы, у каждой копии будет своё пространство памяти и они не смогут взаимодействовать.</p>
+<p>Для использования потоков нужно дать специальную команду «создать поток» и указать, какие команды этот поток должен исполнять.</p>
+<p>В Linux (и на Mac) потоки реализованы согласно спецификации POSIX Threads.</p>
+<p>В командную строку при компиляции добавить: <code>-pthreads</code> или <code>-lpthreads</code></p>
+<p>В исходный код:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span></code></pre></div>
+<div class="small">
+<p>POSIX (Portable Operating System Interface for Unix) — серия стандартов, описывающая интерфейсы операционной системы для разработки портируемых приложений.</p>
+</div>
+</section>
+<section id="потоки-и-общая-память" class="slide level1">
+<h1>Потоки и общая память</h1>
+<p>Когда программа использует потоки, можно считать, что в этой программе одновременно выполняется несколько функций (или несколько копий одной функции). При этом в общем случае про взаимную последовательность выполнения команд функций (какой поток раньше считает элемент матрицы) ничего неизвестно.</p>
+<p><img data-src="images/5-4-figure-1.gif" /></p>
+</section>
+<section id="создание-потока" class="slide level1">
+<h1>Создание потока</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pthread_t thread<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_create<span class="op">(</span>pthread_t <span class="op">*</span>thread<span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">const</span> pthread_attr_t <span class="op">*</span>attr<span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="op">*(*</span>start_routine<span class="op">)(</span><span class="dt">void</span><span class="op">*),</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="op">*</span>arg<span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> pthread_exit<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>retval<span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_join<span class="op">(</span>pthread_t thread<span class="op">,</span> <span class="dt">void</span> <span class="op">**</span>retval<span class="op">);</span></span></code></pre></div>
+<div class="fullwidth">
+<p><img data-src="tikz-images/a44700b63e0c29edc5bd8299e12a1e42348512ac.svg" /></p>
+</div>
+</section>
+<section id="создание-потока-1" class="slide level1">
+<h1>Создание потока</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_create<span class="op">(</span>pthread_t <span class="op">*</span>thread<span class="op">,</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>     <span class="dt">const</span> pthread_attr_t <span class="op">*</span>attr<span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="op">*(*</span>start_routine<span class="op">)(</span><span class="dt">void</span><span class="op">*),</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">void</span> <span class="op">*</span>arg<span class="op">);</span></span></code></pre></div>
+<dl>
+<dt><code>thread</code></dt>
+<dd>(выходной аргумент) — идентификатор потока
+</dd>
+<dt><code>attr</code></dt>
+<dd>атрибуты, можно оставить <code>NULL</code>
+</dd>
+<dt><code>start_routine</code></dt>
+<dd>указатель на функцию, главную для потока <code class="sourceCode c"><span class="dt">void</span> <span class="op">*</span>child_thread_func<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>arg<span class="op">)</span></code>
+</dd>
+<dt><code>arg</code></dt>
+<dd>указатель на аргумент, передаваемый главной функции
+</dd>
+</dl>
+<p><code>pthread_exit</code> вызывать необязательно, можно просто возвращать значение через <code class="sourceCode c"><span class="cf">return</span></code></p>
+<p><code>pthread_join</code> ожидает завершения потока-аргумента и возвращает ненулевое значение, если поток вернул результат, который будет записан по адресу <code>retval</code></p>
+</section>
+<section id="мьютэксы-mutex" class="slide level1">
+<h1>Мьютэксы (mutex)</h1>
+<p>Мьютэкс — это базовый элемент синхронизации потоков с двумя атомарными операциями — Lock (захватить мьютэкс) и Unlock (освободить мьютэкс).</p>
+<p>Поток, в котором была первой вызвана функция <code>pthread_mutex_lock</code>, захватывает мьютэкс. Выполнение остальных потоков при вызове <code>pthread_mutex_lock</code> блокируется до вызова <code>pthread_mutex_unlock</code> потоком, захватившим мьютэкс.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pthread_mutex_t mutex<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_mutex_init<span class="op">(</span>pthread_mutex_t <span class="op">*</span>mutex<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">const</span> pthread_mutexattr_t <span class="op">*</span>attr<span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_mutex_destroy<span class="op">(</span>pthread_mutex_t <span class="op">*</span>mutex<span class="op">);</span></span></code></pre></div>
+<p><code>attr</code> может быть <code>NULL</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_mutex_lock<span class="op">(</span>pthread_mutex_t <span class="op">*</span>mutex<span class="op">);</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_mutex_unlock<span class="op">(</span>pthread_mutex_t <span class="op">*</span>mutex<span class="op">);</span></span></code></pre></div>
+</section>
+<section id="мьютэксы" class="slide level1">
+<h1>Мьютэксы</h1>
+<div class="fullwidth">
+<p><img data-src="tikz-images/9ee7cc28b01a91232319eefb01452a8a774f6ba7.svg" /></p>
+</div>
+<p>(<span class="math inline"><em>L</em><em>i</em></span>) <code>lock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code> <span class="four-em"></span> (<span class="math inline"><em>U</em><em>i</em></span>) <code>unlock(</code><span class="math inline"><em>m</em><sub><em>i</em></sub></span><code>)</code></p>
+</section>
+<section id="взаимная-блокировка-deadlock" class="slide level1">
+<h1>Взаимная блокировка (deadlock)</h1>
+<div class="fullwidth">
+<p><img data-src="tikz-images/7d187ceafe9d01a68640e7920b857bacdb98e497.svg" /></p>
+</div>
+<p>При использовании более чем одного мьютэкса возможна ситуация, когда потоки блокируют друг друга — синий поток ожидает мьютэкс <span class="math inline">1</span> для того, чтобы потом разблокировать мьютэкс <span class="math inline">2</span>, который требуется красному потоку для разблокировки мьютэкса <span class="math inline">1</span>.</p>
+</section>
+<section id="условные-переменные-condvar" class="slide level1">
+<h1>Условные переменные (condvar)</h1>
+<p>С помощью условных переменных потоки могут передавать сигналы о готовности данных и т.п. Потоки, вызывающие <code>pthread_cond_wait</code> блокируются до момента, когда какой-либо активный поток вызовет <code>pthread_cond_signal</code> (разблокирует один поток) или <code>pthread_cond_broadcast</code> (разблокирует все ожидающие потоки)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_cond_init<span class="op">(</span>pthread_cond_t <span class="op">*</span>cond<span class="op">,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="dt">const</span> pthread_condattr_t <span class="op">*</span>attr<span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_cond_destroy<span class="op">(</span>pthread_cond_t <span class="op">*</span>cond<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_cond_wait<span class="op">(</span>pthread_cond_t <span class="op">*</span>cond<span class="op">,</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     pthread_mutex_t <span class="op">*</span>mutex<span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_cond_signal<span class="op">(</span>pthread_cond_t <span class="op">*</span>cond<span class="op">);</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  pthread_cond_broadcast<span class="op">(</span>pthread_cond_t <span class="op">*</span>cond<span class="op">);</span></span></code></pre></div>
+<p><code>mutex</code> — один и тот же для всех операций с фиксированной условной переменной</p>
+</section>
+<section id="условные-переменные-condvar-1" class="slide level1">
+<h1>Условные переменные (condvar)</h1>
+<div class="fullwidth">
+<p><img data-src="tikz-images/d78b787f35aeb13a2ad5111a64bdda0334795bbd.svg" /></p>
+</div>
+<p>(W) — wait, (S) — signal, (B) — broadcast</p>
+</section>
+<section id="синхронизация-с-условными-переменными" class="slide level1">
+<h1>Синхронизация с условными переменными</h1>
+<p>Допускает использование внутри циклов, учитывается не только количество вошедших, но и вышедших задач.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> synchronize<span class="op">(</span><span class="dt">int</span> total_threads<span class="op">)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Объект синхронизации типа mutex */</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> pthread_mutex_t mutex <span class="op">=</span> PTHREAD_MUTEX_INITIALIZER<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Объект синхронизации типа condvar */</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> pthread_cond_t condvar_in <span class="op">=</span> PTHREAD_COND_INITIALIZER<span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Объект синхронизации типа condvar */</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> pthread_cond_t condvar_out <span class="op">=</span> PTHREAD_COND_INITIALIZER<span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Число пришедших в функцию задач */</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> <span class="dt">volatile</span> <span class="dt">int</span> threads_in <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Число ожидающих выхода из функции задач */</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> <span class="dt">volatile</span> <span class="dt">int</span> threads_out <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* &quot;захватить&quot; mutex для работы с переменными </span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">        threads_in и threads_out */</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    pthread_mutex_lock<span class="op">(&amp;</span>mutex<span class="op">);</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* увеличить на 1 количество прибывших в эту функцию задач */</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    threads_in<span class="op">++;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* проверяем количество прибывших задач */</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>threads_in <span class="op">&gt;=</span> total_threads<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* текущий поток пришёл последним */</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        threads_out <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* устанавливаем начальное значение для threads_out */</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        pthread_cond_broadcast<span class="op">(&amp;</span>condvar_in<span class="op">);</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* есть ещё не пришедшие потоки */</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* ожидаем, пока в эту функцию не придут все потоки */</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>threads_in <span class="op">&lt;</span> total_threads<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* ожидаем разрешения продолжить работу:</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">               освободить mutex и ждать сигнала от </span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">               condvar, затем &quot;захватить&quot; mutex опять */</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>            pthread_cond_wait<span class="op">(&amp;</span>condvar_in<span class="op">,</span> <span class="op">&amp;</span>mutex<span class="op">);</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* увеличить на 1 количество ожидающих выхода задач */</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    threads_out<span class="op">++;</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>threads_out <span class="op">&gt;=</span> total_threads<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        threads_in <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        pthread_cond_broadcast<span class="op">(&amp;</span>condvar_out<span class="op">);</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>threads_out <span class="op">&lt;</span> total_threads<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>            pthread_cond_wait<span class="op">(&amp;</span>condvar_out<span class="op">,</span> <span class="op">&amp;</span>mutex<span class="op">);</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* освободить mutex */</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    pthread_mutex_unlock<span class="op">(&amp;</span>mutex<span class="op">);</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="барьеры-barrier" class="slide level1">
+<h1>Барьеры (barrier)</h1>
+<p>Барьеры определяют точки синхронизации, в которых потоки ожидают, пока до данной точки дойдёт заданное количество потоков.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pthread_barrier_init<span class="op">(</span>pthread_barrier_t <span class="op">*</span>barrier<span class="op">,</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> pthread_barrierattr_t <span class="op">*</span>attr<span class="op">,</span> <span class="dt">unsigned</span> count<span class="op">);</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pthread_barrier_destroy<span class="op">(</span>pthread_barrier_t <span class="op">*</span>barrier<span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pthread_barrier_wait<span class="op">(</span>pthread_barrier_t <span class="op">*</span>barrier<span class="op">);</span></span></code></pre></div>
+<p><code>count</code> — количество потоков</p>
+<p>Барьеры — наиболее простой примитив синхронизации, я советую использовать в задачах именно его.</p>
+</section>
+<section id="барьеры-barrier-1" class="slide level1">
+<h1>Барьеры (barrier)</h1>
+<div class="fullwidth">
+<p><img data-src="tikz-images/644cdab10ab35302b26938b11b91b77376517f42.svg" /></p>
+</div>
+<p>(A) wait (barrier count = 2) (B) wait (barrier count = 3)</p>
+</section>
+<section id="схема-распараллеливания-задач" class="slide level1">
+<h1>Схема распараллеливания задач</h1>
+<p>Количество потоков <span class="math inline"><em>P</em></span> передаётся как аргумент командной строки.</p>
+<p>В <code>main</code> создаётся <span class="math inline"><em>P</em></span> потоков с одной и той же функцией, в которую передаются:</p>
+<ul>
+<li>общие для всех потоков данные: размер матрицы, указатель на матрицу и обратную матрицу (или правую часть), указатели на дополнительную общую память</li>
+<li>данные, специфичные для каждого потока: номер потока, указатели на собственную память.</li>
+</ul>
+<p>Матрица распределяется по потокам-«владельцам» циклически, по строкам или по столбцам (1-я строка — 1-й поток, …, P-я строка — P-й поток; P+1-я строка — 1-й поток, …). Это делается для того, чтобы при уменьшении части матрицы, с которой работает метод, потоки не начинали простаивать.</p>
+<p>Лучше и распределять по потокам, и хранить элементы матрицы по столбцам.</p>
+</section>
+<section id="псевдокод-main" class="slide level1">
+<h1>Псевдокод main</h1>
+<pre class="small"><code>    P, n, ... = получить аргументы командной строки
+    matrix, inverse_matrix, tmp_common, tmp_specific[P] = выделить память
+    matrix, inverse_matrix = считать входные данные
+    threads = new pthread_t[P]
+    thread_args = new thread_args[P]
+    pthread_barrier_t barrier;
+    pthread_barrier_init(&amp;barrier, NULL, P)
+    for p=[0…P):
+      thread_args[p] ⟵ n, P, matrix, inverse_matrix, tmp_common, barrier
+      thread_args[p] ⟵ tmp_specific[p], p
+      pthread_create(threads+p, NULL, Func, thread_args+p)
+
+    for i=[0, P):
+      pthread_join(threads[p], NULL);
+
+    очищаем память, уничтожаем потоки, барьер и т.п.</code></pre>
+</section>
+<section id="псевдокод-func" class="slide level1">
+<h1>Псевдокод func</h1>
+<pre class="small tall"><code>void* func(void* args) {
+  thread_args A = (thread_args) args;
+  n, P, matrix, inverse_matrix, tmp_common, barrier, tmp_specific, p ⟵ A
+
+  for i=[0…n): - цикл по диагональным элементам
+    j0 = i
+    if i%P == p: — текущий поток — владелец текущего столбца
+      подготовить в tmp_common данные для обнуления i-го столбца
+      обнулить i-й столбец, j0 = i+1
+
+    pthread_barrier_wait(barrier)
+
+    for j=[j0…n):
+      применить преобразование из tmp_common к своим столбцам матрицы
+    for j=[0…n): — если обращение матрицы, иначе - без цикла
+      применить преобразование из tmp_common к правой части
+
+    pthread_barrier_wait(barrier) — можно убрать, если чередовать tmp_common
+        по чётным-нечётным шагам
+
+  for i=[0…n):
+    обратный ход метода Гаусса
+    pthread_barrier_wait(barrier)
+
+  return NULL;
+}</code></pre>
+</section>
+<section id="пример-структуры-с-аргументами" class="slide level1">
+<h1>Пример структуры с аргументами</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="op">*</span>matrix<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="op">*</span>vector<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="op">*</span>reuslt<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> thread_num<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> total_threads<span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    pthread_barrier_t <span class="op">*</span>barrier<span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="op">*</span>tmp_common<span class="op">;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="op">*</span>tmp_specific<span class="op">;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> ARGS<span class="op">;</span></span></code></pre></div>
+</section>
+<section id="задание" class="slide level1">
+<h1>Задание</h1>
+<ol type="1">
+<li>Решение СЛУ: <a href="https://classroom.github.com/a/Zdx7xqNv" class="uri">https://classroom.github.com/a/Zdx7xqNv</a></li>
+<li>Обращение матрицы: <a href="https://classroom.github.com/a/xKlFKx1E" class="uri">https://classroom.github.com/a/xKlFKx1E</a></li>
+</ol>
+<p>Предусмотрено три режима сборки Makefile:</p>
+<ul>
+<li><code>make</code> - "быстрая" сборка с оптимизацией, используется для измерения времени работы программы на больших размерах матрицы;</li>
+<li><code>make debug</code> - отладочная сборка для отладки с использованием <code>gdb</code>;</li>
+<li><code>make test</code> - сборка для тестирования с проверками на на утечку памяти и на выход за границы массива. Эта версия программы будет использоваться для запуска тестов.</li>
+</ul>
+<p>Для перехода между разными режимами необходимо выполнить команду <code>make clean</code>, которая удаляет все файлы, созданные во время сборки.</p>
+</section>
+<section id="задание-1" class="slide level1">
+<h1>Задание</h1>
+<p>Собранный бинарный файл называется <code>main</code>.</p>
+<p>Запуск: <code>./main p n m k filename</code></p>
+<p>То же самое, что и в первой задаче, но добавляется параметр <code>p</code> - количество потоков.</p>
+<p>Добавляется новый код ошибки: <code>-5</code>, если не удалось создать поток.</p>
+</section>
+<section id="замечания" class="slide level1">
+<h1>Замечания</h1>
+<ol type="1">
+<li>Если многопоточная программа, в которой не используются циклы <code>while</code> не завершается, скорее всего, имеет место блокировка (deadlock, не все потоки доходят до барьера и т.п.)</li>
+<li>Чем больше синхронизаций, тем хуже ускоряется программа.</li>
+<li>Если программа при нескольких запусках на нескольких потоках возвращает недетерминированный результат (при каждом запуске разный с одними и теми же входными данными), то проблема в несинхронизированном чтении.</li>
+<li><strong>Внимание:</strong> самостоятельно нужно сделать обработку ошибок, чтобы, если один поток решил, что матрица вырожденная, другие тоже об этом узнавали и заканчивали выполнение. Main тоже нужно как-то уведомить — через общую память в tmp_common, например.</li>
+<li>Желательно распараллелить и умножение матрицы для вычисления невязки, чтобы можно было, например, дождаться результатов на 4000x4000</li>
+<li>Одновременное обращение нескольких процессов к одним и тем же элементам памяти приводит к конфликтам в оперативной памяти и кэш-памяти, что ведёт к замедлению.</li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>
