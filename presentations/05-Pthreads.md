@@ -163,6 +163,8 @@ int  pthread_create(pthread_t *thread,
 `arg`
 ~ указатель на аргумент, передаваемый главной функции
 
+# Завершение потока
+
 `pthread_exit` вызывать необязательно, можно просто возвращать значение через `return`{.c}
 
 `pthread_join` ожидает завершения потока-аргумента и возвращает ненулевое значение, если поток вернул результат, который будет записан по адресу `retval`
@@ -506,8 +508,8 @@ typedef struct {
 
 # Задание
 
-1. Решение СЛУ: https://classroom.github.com/a/Zdx7xqNv
-2. Обращение матрицы: https://classroom.github.com/a/xKlFKx1E
+1. Решение СЛУ: https://classroom.github.com/a/LWB2i2As
+2. Обращение матрицы: https://classroom.github.com/a/SKNsdn5B
 
 Предусмотрено три режима сборки Makefile:
 
