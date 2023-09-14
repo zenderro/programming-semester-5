@@ -42,6 +42,12 @@ section.slide > p {
 
 email: [andrey.zenzinov@math.msu.ru](mailto:andrey.zenzinov@math.msu.ru)
 
+# Ссылки на первое задание
+
+Решение СЛУ: https://classroom.github.com/a/Db2n69ex
+
+Обращение матрицы: https://classroom.github.com/a/xXHlW2-k
+
 # Приведение матрицы к треугольному виду (метод Гаусса)
 
 $$
