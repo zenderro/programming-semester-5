@@ -313,7 +313,7 @@ alt="Схема умножения" /></p>
 <p>Тривиальная реализация:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> <span class="fl">0.</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="er">.</span><span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> n<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">+=</span> a<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> k<span class="op">]</span> <span class="op">*</span> b<span class="op">[</span>k <span class="op">*</span> n <span class="op">+</span> j<span class="op">];</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
@@ -398,6 +398,9 @@ class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em>�
 <p>Матрица Гильберта: <span class="math inline">$H_{ij} =
 \dfrac{1}{i+j+1}$</span> — нет смысла тестировать на размерах
 &gt;100</p>
+<p>Обратите внимание, что в требованиях <span
+class="math inline"><em>i</em>, <em>j</em> = 1…<em>n</em></span> и
+формулы там отличаются.</p>
 <p>Для нормы <span class="math inline"><em>𝐋</em><sup>2</sup></span>
 число обусловленности матрицы Гильберта <span
 class="math inline">5 × 5</span>: <span
@@ -412,7 +415,7 @@ class="math inline"><em>C</em> · <em>n</em><sup><em>k</em></sup></span>
 </section>
 <section id="разбор-аргументов-командной-строки" class="slide level1">
 <h1>Разбор аргументов командной строки</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DECIMAL 10</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DECIMAL </span><span class="dv">10</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main <span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
@@ -494,9 +497,9 @@ href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39
 <code>-D_POSIX_C_SOURCE=199309L</code></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define KILO_MODIFIER 1e3</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MICRO_MODIFIER 1e-6</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER </span><span class="fl">1e9</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define KILO_MODIFIER </span><span class="fl">1e3</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MICRO_MODIFIER </span><span class="fl">1e-6</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano<span class="op">()</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -516,7 +519,7 @@ href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">();</span></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">()</span> <span class="op">-</span> time<span class="op">;</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: %lld ns</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> time<span class="op">);</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: </span><span class="sc">%lld</span><span class="st"> ns</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> time<span class="op">);</span></span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>CheckAnswer<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">);</span></span></code></pre></div>
 </section>
 <section id="пример-использования-c89" class="slide level1">
@@ -526,8 +529,8 @@ href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39
 href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859272d0187252506da5b/c/euclide/timediff.c">Источник</a></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER 1e9</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NANO_MODIFIER 1e-9</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER </span><span class="fl">1e9</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NANO_MODIFIER </span><span class="fl">1e-9</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec diff<span class="op">(</span><span class="kw">struct</span> timespec start<span class="op">,</span> <span class="kw">struct</span> timespec end<span class="op">)</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -548,7 +551,7 @@ href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>time_end<span class="op">);</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>time_end <span class="op">=</span> diff<span class="op">(</span>time_start<span class="op">,</span> time_end<span class="op">);</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: %lf s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: </span><span class="sc">%lf</span><span class="st"> s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>       <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>time_end<span class="op">.</span>tv_sec <span class="op">+</span> time_end<span class="op">.</span>tv_nsec <span class="op">*</span> NANO_MODIFIER<span class="op">));</span></span></code></pre></div>
 </section>
 <section id="задание" class="slide level1">
@@ -556,8 +559,8 @@ href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859
 <p>Написать программу в соответствии с требованиями, реализующую ввод
 матрицы, вывод куска матрицы на экран и расчёт времени. Предполагается,
 что написанная программа будет частью первого задания.</p>
-<p><a href="https://classroom.github.com/a/9DmXUr3m"
-class="uri">https://classroom.github.com/a/9DmXUr3m</a></p>
+<p><a href="https://classroom.github.com/a/xynYTZ1Z"
+class="uri">https://classroom.github.com/a/xynYTZ1Z</a></p>
 <p>Замечания:</p>
 <ol type="1">
 <li>Реализация чтения матрицы из файла, генерация матриц по формулам из
