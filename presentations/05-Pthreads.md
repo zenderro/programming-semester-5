@@ -508,8 +508,8 @@ typedef struct {
 
 # Задание
 
-1. Решение СЛУ: https://classroom.github.com/a/LWB2i2As
-2. Обращение матрицы: https://classroom.github.com/a/SKNsdn5B
+1. Решение СЛУ: https://classroom.github.com/a/S-v1dmIS
+2. Обращение матрицы: https://classroom.github.com/a/Kre6WhX7
 
 Предусмотрено три режима сборки Makefile:
 
