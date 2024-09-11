@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>03-Methods2-Git</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<style type="text/css">
+div.sourceCode {
+  font-size: 1.2em;
+}
+section.slide > pre {
+  font-size: 0.8em;
+}
+section.slide > p {
+  text-align: left;
+  text-indent: 2em;
+}
+.reveal div.owl {
+  background-size: 65%;
+}
+.owl p, .owl h1 {
+
+  -webkit-text-stroke-width: 1.1pt;
+-webkit-text-stroke-color: #fff;
+  font-weight: 700;
+}
+
+.green-box {
+  background-color: #afa;
+}
+.red-box {
+  background-color: #faa;
+}
+.yellow-box {
+  background-color: #ff0;
+}
+
+</style>
+<h2 id="план">План</h2>
+<ul>
+<li>выбор главного элемента для методов Гаусса и Жордана</li>
+<li>Требования к программам</li>
+<li>Git</li>
+</ul>
+<p>Материалы к занятиям: <a
+href="https://zenderro.github.io/programming-semester-5/"
+class="uri">https://zenderro.github.io/programming-semester-5/</a></p>
+<p>email: <a
+href="mailto:andrey.zenzinov@math.msu.ru">andrey.zenzinov@math.msu.ru</a></p>
+</section>
+<section id="выбор-главного-элемента--мотивация" class="slide level1">
+<h1>Выбор главного элемента — мотивация</h1>
+<p>В чистом виде метод Гаусса и разновидности (LU-разложение, метод
+Жордана) неприменим к матрицам, у которых есть нулевой главный минор</p>
+<p>Например, метод не сработает если <span
+class="math inline"><em>a</em><sub>1, 1</sub> = 0</span></p>
+<p>Для исправления ситуации можно использовать элементарные
+преобразования вида «перестановка строк» или «перестановка столбцов» —
+переставим на нужное место строку (столбец), где нужный элемент отличен
+от нуля.</p>
+<p>Как выбирать какую именно строку или столбец переставлять?</p>
+<p>По итогам первого шага (деление строки на диагональный элемент)
+погрешность изменяется обратно пропорционально модулю диагонального
+элемента: <span class="math display">$$  ε^{(1)}_{i,j} = ε_{i,j} -
+ε_{1,j} · \dfrac{a_{i,1}}{a_{1,1}} $$</span></p>
+</section>
+<section id="выбор-главного-элемента" class="slide level1">
+<h1>Выбор главного элемента</h1>
+<p>⇒ выгоднее выбирать наибольший по модулю элемент</p>
+<p>Переставляем строки — «с выбором главного элемента по столбцу»
+Переставляем столбцы — «с выбором главного элемента по строке» И строки
+и столбцы — «с выбором главного элемента по всей матрице»</p>
+<p>Асимптотика — по столбцу или по строке сохраняется (<span
+class="math inline">2/3<em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>),
+по всей матрице — <span
+class="math inline"><em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>).
+Перестановка элементов в памяти требует лишние <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>
+операций.</p>
+<p>Возможен вариант (используется в реализациях с распределенной
+памятью), при котором перестановка не выполняется, а используется массив
+индексов перестановок.</p>
+<p>Все методы с выбором главного элемента применимы к любым
+невырожденным матрицам.</p>
+</section>
+<section id="выбор-главного-элемента--реализация" class="slide level1">
+<h1>Выбор главного элемента — реализация</h1>
+<p>Преобразования правой части:</p>
+<ul>
+<li>перестановка строк — переставляются строки (просто меняем местами
+уравнения)</li>
+<li>перестановка столбцов — перенумеруются переменные (правая часть не
+меняется, но требуется постобработка)</li>
+</ul>
+<p>Если мы делаем перестановку столбцов, нужно запоминать все
+транспозиции (<span
+class="math inline"><em>τ</em><sub><em>i</em></sub></span> —
+транспозиция $i ↔︎ $ &lt;номер столбца, в котором находится главный
+элемент <span class="math inline"><em>i</em></span>-го шага&gt;): <span
+class="math display"><em>σ</em> = <em>τ</em><sub>1</sub> · <em>τ</em><sub>2</sub> · … · <em>τ</em><sub><em>n</em></sub></span></p>
+<p>Для получения переменных в правильной последовательности нужно делать
+обратные транспозиции, начиная с последней (<span
+class="math inline"><em>τ</em><sub><em>n</em></sub><sup>−1</sup> · <em>τ</em><sub><em>n</em> − 1</sub><sup>−1</sup> · …</span>)
+— фактически, перемешать строки правой части согласно обратной
+перестановке столбцов левой.</p>
+</section>
+<section id="выбор-главного-элемента-1" class="slide level1">
+<h1>Выбор главного элемента</h1>
+<h2 id="реализация-с-индексами-перестановок">Реализация с индексами
+перестановок</h2>
+<pre>
+Rows := [0, 1, 2, …, (n-1)]
+Cols := [0, 1, 2, …, (n-1)]
+Get(A, i, j) := A[Rows[i], Cols[j]]
+for i := 0…(n-1)
+  max_col, max_row :=i, max_abs := |Get(A, i, i)|
+  for j := i…(n-1), k:= i…(n-1)
+    if |Get(A, j, k)| > max_abs
+      max_abs, max_col, max_row := |Get(A, j, k)|, j, k
+  swap(Rows, i, j)
+  swap(Cols, j, k)
+  MultiplyRow(Get(A, i, i…(n-1)), <strong>1 / Get(A, i, i)</strong>)
+  for j := <strong>0…(i-1),</strong> (i+1)…(n-1)
+    B[j, 0…(n-1)] := SubtractRow(Get(B, j, 0…(n-1)), Get(B, i, 0…(n-1)), Get(A, j, i))
+    A[j, i…(n-1)] := SubtractRow(Get(A, j, i…(n-1)), Get(A, i, i…(n-1)), <strong>Get(A, j, i)</strong>)
+
+for i:=0…(n-1)
+  SwapRows(B, i, Cols[i])
+</pre>
+</section>
+<section id="общие-требования-к-программам" class="slide level1">
+<h1>Общие требования к программам</h1>
+<p>Выполняемые в этом семестре программы должны соответствовать <a
+href="LinearSystemsTasks.pdf">требованиям</a>.</p>
+<p>Давайте их разберём подробнее.</p>
+</section>
+<section id="невязка" class="slide level1">
+<h1>Невязка</h1>
+<p>Невязка (residual) — вектор (матрица) погрешности вычислений. Нас
+интересует норма невязки.</p>
+<ul>
+<li><p>решение линейной системы: <span
+class="math inline">‖<em>A</em><em>x̂</em> − <em>b</em>‖</span> / <span
+class="math inline">‖<em>b</em>‖</span></p>
+<p>умножить сгенерированную матрицу на вектор полученного решения и
+вычесть правую часть (сумма нечётных столбцов A)</p></li>
+<li><p>обращение матрицы: <span
+class="math inline">‖<em>A</em><em>A</em><sup>−1</sup> − <em>I</em>‖</span></p>
+<p>умножить сгенерированную матрицу на другую* сгенерированную матрицу и
+вычесть единичную</p>
+<p>Для «хороших» матриц наша цель по невязке порядка <span
+class="math inline">10<sup>−16</sup></span></p></li>
+</ul>
+</section>
+<section id="формулы-для-матриц" class="slide level1">
+<h1>Формулы для матриц</h1>
+<p><span
+class="math inline"><em>i</em>, <em>j</em> = 0…(<em>n</em>−1)</span>:</p>
+<p>Симметричная: <span
+class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em>−<em>j</em>|</span>
+— по возможности тестируйте на больших размерах этой или следующей
+матрицы</p>
+<p>Симметричная без нулей на диагонали: <span
+class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub> = |<em>i</em>−<em>j</em>| + 1</span></p>
+<p>Матрица Гильберта: <span class="math inline">$H_{ij} =
+\dfrac{1}{i+j+1}$</span> — нет смысла тестировать на размерах
+&gt;100</p>
+<p>Обратите внимание, что в требованиях <span
+class="math inline"><em>i</em>, <em>j</em> = 1…<em>n</em></span> и
+формулы там отличаются.</p>
+<p>Для нормы <span class="math inline"><em>𝐋</em><sup>2</sup></span>
+число обусловленности матрицы Гильберта <span
+class="math inline">5 × 5</span>: <span
+class="math display"><em>κ</em>(<em>H</em>) ≈ 4.8 · 10<sup>5</sup></span></p>
+<p>Сложность алгоритма <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>)</span>
+означает, что для задачи «размера» <span
+class="math inline"><em>n</em></span> выполнение алгоритма требует не
+более, чем <span
+class="math inline"><em>C</em> · <em>n</em><sup><em>k</em></sup></span>
+(члены младших степеней можно отбросить путём увеличения константы).</p>
+</section>
+<section id="измерение-времени-работы-функции" class="slide level1">
+<h1>Измерение времени работы функции</h1>
+<p>Не следует использовать:</p>
+<ul>
+<li><code>time()</code> — «календарное» время; точность — 1 секунда;
+между двумя измерениями может измениться произвольным образом, вплоть до
+перехода назад (переход на зимнее время; перевод часов вручную)</li>
+<li><code>clock()</code> — точность — 1 микросекунда; 32-битный счётчик,
+переполняется за час с небольшим.</li>
+<li><code>gettimeofday</code> — «календарное» время, может идти
+назад</li>
+</ul>
+<p>Нужно использовать: <strong><code
+class="sourceCode c">clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">)</span></code></strong>
+— таймер с наносекундным разрешением; предназначен именно для измерения
+промежутков времени в программе с высокой точностью (специфичен для
+Linux).</p>
+</section>
+<section id="время-работы-с-clock_gettime" class="slide level1">
+<h1>Время работы с clock_gettime</h1>
+<p><code
+class="sourceCode c"><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></code>
+Прототип:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time_t</span> tv_sec<span class="op">;</span>  <span class="co">// секунды</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> tv_nsec<span class="op">;</span>   <span class="co">// наносекунды</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  <span class="co">// Объявлено в unistd.h</span></span></code></pre></div>
+<p><code
+class="sourceCode c"><span class="dt">int</span> clock_gettime<span class="op">(</span>clockid_t clk_id<span class="op">,</span> <span class="kw">struct</span> timespec <span class="op">*</span>tp<span class="op">)</span></code></p>
+<p>Значения <code>clockid_t</code>:</p>
+<ul>
+<li><code>CLOCK_MONOTONIC</code> — реальное время от произвольной точки
+отсчёта (можно использовать только как разность);</li>
+<li><code>CLOCK_PROCESS_CPUTIME_ID</code> — использование процессорного
+времени;</li>
+<li><code>CLOCK_THREAD_CPUTIME_ID</code> — использование процессорного
+времени потоком</li>
+</ul>
+<p>Последние два значения понядобятся в третьей задаче.</p>
+</section>
+<section id="пример-использования-c-или-gnu90-с" class="slide level1">
+<h1>Пример использования (C++ или GNU90 С)</h1>
+<p>Компилировать лучше с <code>-std=c99</code>, т.к. в стандартах C89 и
+C90 нет типа <code
+class="sourceCode c"><span class="dt">long</span> <span class="dt">long</span></code>.
+<a
+href="https://github.com/olekristensen/LongingFastForward/blob/%201201aec0f10f39fc21af4b3de9a98ecd306643dc/Experiments/lffCinderCapture/lib/libjp4/clock.h">Источник</a>,
+там же есть реализация для Mac OS X.</p>
+<p>При компиляции необходимо добавить ключ
+<code>-D_POSIX_C_SOURCE=199309L</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER </span><span class="fl">1e9</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define KILO_MODIFIER </span><span class="fl">1e3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MICRO_MODIFIER </span><span class="fl">1e-6</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeNano<span class="op">()</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec t<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span><span class="dt">long</span> <span class="dt">long</span><span class="op">)(</span>t<span class="op">.</span>tv_sec <span class="op">*</span> GIGA_MODIFIER <span class="op">+</span> t<span class="op">.</span>tv_nsec<span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> currentTimeMillis<span class="op">()</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec t<span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span><span class="dt">long</span> <span class="dt">long</span><span class="op">)(</span>t<span class="op">.</span>tv_sec <span class="op">*</span> KILO_MODIFIER <span class="op">+</span> t<span class="op">.</span>tv_nsec <span class="op">*</span> MICRO_MODIFIER<span class="op">);</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> time <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">();</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> currentTimeNano<span class="op">()</span> <span class="op">-</span> time<span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: </span><span class="sc">%lld</span><span class="st"> ns</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> time<span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>CheckAnswer<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">);</span></span></code></pre></div>
+</section>
+<section id="пример-использования-c89" class="slide level1">
+<h1>Пример использования (C89)</h1>
+<p>Этот пример должен собираться в дисплейных классах с параметрами
+компилятора по умолчанию. <a
+href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859272d0187252506da5b/c/euclide/timediff.c">Источник</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define GIGA_MODIFIER </span><span class="fl">1e9</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NANO_MODIFIER </span><span class="fl">1e-9</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec diff<span class="op">(</span><span class="kw">struct</span> timespec start<span class="op">,</span> <span class="kw">struct</span> timespec end<span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> timespec temp<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_sec <span class="op">=</span> end<span class="op">.</span>tv_sec <span class="op">-</span> start<span class="op">.</span>tv_sec <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_nsec <span class="op">=</span> GIGA_MODIFIER <span class="op">+</span> end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_sec <span class="op">=</span> end<span class="op">.</span>tv_sec <span class="op">-</span> start<span class="op">.</span>tv_sec<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        temp<span class="op">.</span>tv_nsec <span class="op">=</span> end<span class="op">.</span>tv_nsec <span class="op">-</span> start<span class="op">.</span>tv_nsec<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> temp<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec time_start<span class="op">;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timespec time_end<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>time_start<span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>Solve<span class="op">(</span>n<span class="op">,</span> a<span class="op">,</span> b<span class="op">,</span> tmp_double<span class="op">,</span> tmp_int<span class="op">,</span> debug<span class="op">);</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>clock_gettime<span class="op">(</span>CLOCK_MONOTONIC<span class="op">,</span> <span class="op">&amp;</span>time_end<span class="op">);</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>time_end <span class="op">=</span> diff<span class="op">(</span>time_start<span class="op">,</span> time_end<span class="op">);</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: </span><span class="sc">%lf</span><span class="st"> s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>       <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>time_end<span class="op">.</span>tv_sec <span class="op">+</span> time_end<span class="op">.</span>tv_nsec <span class="op">*</span> NANO_MODIFIER<span class="op">));</span></span></code></pre></div>
+</section>
+<section id="система-контроля-версий-git" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Для сдачи заданий будет использоваться система контроля версий Git, а
+именно - система проверки заданий GitHub Classroom.</p>
+<p>В автоматическом режиме производится проверка отсутствия ошибок при
+сборке, соответствия стилю, другие "быстрые" тесты. После того, как
+программа пройдёт все автоматические тесты, будет проводиться ручная
+проверка задачи.</p>
+<p>Для работы с этой системой необходимо <a
+href="https://github.com/signup">зарегистрироваться в GitHub</a>, если
+ранее не регистрировались.</p>
+</section>
+<section id="система-контроля-версий-git-1" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Далее необходимо сделать предварительную настройку:</p>
+<ol type="1">
+<li>В WSL (или в терминале Linux/macOS) указать своё имя для Git:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Имя Фамилия&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;адрес@email&quot;</span></span></code></pre></div>
+<ol start="2" type="1">
+<li>Если вы ранее этого не делали, сгенерировать SSH-ключ, пароль можно
+оставить пустым:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-b</span> 4096 <span class="at">-t</span> rsa</span></code></pre></div>
+<ol start="3" type="1">
+<li>Добавить его в свой профиль в GitHub (нажать на аватар, Settings,
+SSH and GPG Keys, New SSH Key; вставить в большое поле содержимое файла
+~/.ssh/id_rsa.pub).</li>
+</ol>
+</section>
+<section id="система-контроля-версий-git-2" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Ключи для пользователя <code>student</code> удаляются после занятий
+вместе с остальными файлами в рабочей директории, поэтому на каждом
+занятии до получения постоянного логина ключи нужно генерировать и
+регистрировать в GitHub заново.</p>
+</section>
+<section id="система-контроля-версий-git-3" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Для скачивания существующего репозитория:</p>
+<p><code>git clone git@github.com:...</code></p>
+<p>После внесения изменений в файл main.c необходимо их отправить в
+репозиторий.</p>
+<p>Проверка изменённых файлов, убедитесь, что main.c появился в списке
+изменённых файлов:</p>
+<p><code>git status</code></p>
+</section>
+<section id="система-контроля-версий-git-4" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Добавление изменённых файлов в индекс для коммита:</p>
+<p><code>git add main.c</code></p>
+<p>Коммит:</p>
+<p><code>git -m "сообщение для коммита"</code></p>
+<p>Отправка изменений в репозиторий:</p>
+<p><code>git push</code></p>
+<p>Более подробно про работу с Git можно прочитать в этой <a
+href="https://vk.com/@msumathprogx05-git-dlya-github-classroom">статье</a></p>
+</section>
+<section id="обработка-ошибок" class="slide level1">
+<h1>Обработка ошибок</h1>
+<p>Коды ошибок:</p>
+<p>-1. Некорректные аргументы:</p>
+<ul>
+<li>неправильное количество аргументов;</li>
+<li>некорректные значения аргументов (<span
+class="math inline"><em>n</em> ≤ 0</span>, <span
+class="math inline"><em>m</em> ≤ 0</span>, <span
+class="math inline"><em>m</em> &gt; <em>n</em></span>)</li>
+<li>не удалось считать число для n, m или k;</li>
+<li>некорректное значение k;</li>
+<li>при k == 0 не указан файл;</li>
+</ul>
+<p>-2. Не удалось выделить память</p>
+<p>-3. Ошибки чтения файла:</p>
+<ul>
+<li>указанного файла не существует;</li>
+<li>файл пуст;</li>
+<li>не удалось считать матрицу из файла;</li>
+</ul>
+<p>-4. Метод неприменим</p>
+</section>
+<section id="стиль-написания" class="slide level1">
+<h1>Стиль написания</h1>
+<p>Приоритеты:</p>
+<ol type="1">
+<li>Корректная работа</li>
+<li>Минимальная достаточная производительность</li>
+<li>Понятность кода</li>
+<li>Краткость кода</li>
+<li>Более, чем достаточная производительность</li>
+</ol>
+</section>
+<section id="стиль-написания-1" class="slide level1">
+<h1>Стиль написания</h1>
+<ul>
+<li>выделяйте функции, которые выполняют некоторое отдельное действие в
+предметной области (например, умножение матриц, или умножение вектора на
+матрицу, или разбор аргументов)</li>
+<li>функция не должна быть больше 200 строк, оптимально — от одного
+экрана до 100 строк</li>
+<li>если вы несколько раз повторяете в программе одни и те же 5-10
+строк, их тоже имеет смысл выделить в функцию</li>
+<li>предельный размер одного файла — 500-1000 строк</li>
+<li>разделяйте тело функции на «абзацы» — группы похожих по смыслу
+команд, разделённые пустыми строками</li>
+<li>оформляйте код однородно (условные операторы, циклы, положение
+фигурных скобок, отступы)</li>
+</ul>
+</section>
+<section id="стиль-написания-2" class="slide level1">
+<h1>Стиль написания</h1>
+<p>Рекомендации из <a
+href="https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html">Mozilla
+Style Guide</a>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(...);</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(...;</span> <span class="op">...;</span> <span class="op">...)</span> <span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="стиль-написания-3" class="slide level1">
+<h1>Стиль написания</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> var<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="ссылки-на-первое-задание" class="slide level1">
+<h1>Ссылки на первое задание</h1>
+<p>Решение СЛУ: <a href="https://classroom.github.com/a/X7bDP_1e"
+class="uri">https://classroom.github.com/a/X7bDP_1e</a></p>
+<p>Обращение матрицы: <a href="https://classroom.github.com/a/HDh4ziuX"
+class="uri">https://classroom.github.com/a/HDh4ziuX</a></p>
+<ol type="1">
+<li>Должна быть реализована обработка ошибок с возвращением
+соответствующего кода ошибки.</li>
+<li>Должна быть строка <code>Time:</code> при выводе времени. Считается
+время работы основного метода. Время расчёта невязки считать не
+нужно.</li>
+<li>Должна быть строка <code>Residual:</code>, в которой приводится
+значение невязки</li>
+<li>Для решения СЛУ: строка <code>Solution:</code> и далее решение. Для
+обращения матрицы: <code>Inverse:</code> и обратная матрица.</li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>

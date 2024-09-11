@@ -8,15 +8,15 @@ layout: default
 ## Практикум на ЭВМ. Пятый семестр. Введение.
 [презентация — html](presentations/01-Introduction.html)
 
-## Числа с плавающей точкой. Матричные нормы. Постановка задачи решения линейной системы.
-[презентация — html](presentations/02-Matrix-Generate-Multiply.html)
+## Числа с плавающей точкой. Матричные нормы. Постановка задачи решения линейной системы. Основные методы
+[презентация — html](presentations/02-Methods.html)
 [список задач и требования](presentations/LinearSystemsTasks.pdf)
 
-## Метод Гаусса и производные от него (LU-разложение, метод Жордана, выбор главного элемента)
-[презентация — html](presentations/03-Gauss-Jordan.html)
+## Выбор главного элемента для метода Гаусса и Жордана. Требования к первой задаче
+[презентация — html](presentations/03-Methods2-Git.html)
 
-## Метод Холецкого, метод вращений, метод отражений
-[презентация — html](presentations/04-Cholesky-QR.html)
+## Отладчик GDB, Valgrind
+[презентация — html](presentations/04-Debug.html)
 
 ## Параллельное программирование с использованием библиотеки Pthreads
 [презентация — html](presentations/05-Pthreads.html)

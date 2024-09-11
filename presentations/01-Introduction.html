@@ -11,7 +11,7 @@
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -372,6 +372,38 @@ clean:
 <p><a href="https://habr.com/ru/post/155201/">Туториал по написанию
 Makefile</a></p>
 </section>
+<section id="разбор-аргументов-командной-строки" class="slide level1">
+<h1>Разбор аргументов командной строки</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DECIMAL </span><span class="dv">10</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Пример: на вход программы подаётся имя файла или два числа</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main <span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> b<span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">1</span> <span class="op">||</span> argc <span class="op">&gt;</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Неверное количество аргументов</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">switch</span><span class="op">(</span>argc<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">// открываем файл, считываем данные из файла, закрываем файл</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">...</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">// считываем данные из аргументов</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            a <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>strtol<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="op">&amp;</span>endptr<span class="op">,</span> DECIMAL<span class="op">);</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            b <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>strtol<span class="op">(</span>argv<span class="op">[</span><span class="dv">2</span><span class="op">],</span> <span class="op">&amp;</span>endptr<span class="op">,</span> DECIMAL<span class="op">);</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
 <section id="настройки-компилятора" class="slide level1">
 <h1>Настройки компилятора</h1>
 <p>В дисплейных классах установлены специальные настройки компилятора —
@@ -382,166 +414,25 @@ Makefile</a></p>
 <ul>
 <li>Добавить к командной строке флаги:</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-std</span><span class="op">=</span>c99 <span class="at">-pedantic</span> <span class="at">-Wall</span> <span class="at">-Werror</span> <span class="at">-Wextra</span> <span class="at">-pedantic-errors</span> <span class="dt">\</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>-Wpointer-arith <span class="at">-Waggregate-return</span> <span class="dt">\</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>-Wstrict-prototypes <span class="at">-Wmissing-declarations</span> <span class="dt">\</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>-Wlong-long <span class="at">-Winline</span> <span class="at">-Wredundant-decls</span> <span class="dt">\</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>-Wcast-align <span class="at">-Wfloat-equal</span> <span class="at">-D__STRICT_ANSI__</span> <span class="dt">\</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>-Wbad-function-cast</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-std</span><span class="op">=</span>c99 <span class="at">-pedantic</span> <span class="at">-Wall</span> <span class="at">-Werror</span> <span class="at">-Wextra</span> <span class="at">-pedantic-errors</span> <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>-Wpointer-arith <span class="at">-Waggregate-return</span> <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>-Wstrict-prototypes <span class="at">-Wmissing-declarations</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>-Wlong-long <span class="at">-Winline</span> <span class="at">-Wredundant-decls</span> <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>-Wcast-align <span class="at">-Wfloat-equal</span> <span class="at">-D__STRICT_ANSI__</span> <span class="dt">\</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>-Wbad-function-cast</span></code></pre></div>
 <ul>
 <li>Активировать исключения underflow для чисел с плавающей точкой:</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// В начале файла:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fenv.h&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">// В начале функции main:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>fenableexcept<span class="op">(</span>FE_DIVBYZERO <span class="op">|</span> FE_INVALID</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> FE_OVERFLOW <span class="op">|</span> FE_UNDERFLOW<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// В начале файла:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fenv.h&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">// В начале функции main:</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fenableexcept<span class="op">(</span>FE_DIVBYZERO <span class="op">|</span> FE_INVALID</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> FE_OVERFLOW <span class="op">|</span> FE_UNDERFLOW<span class="op">);</span></span></code></pre></div>
 </section>
-<section id="стиль-написания" class="slide level1">
-<h1>Стиль написания</h1>
-<p>Приоритеты:</p>
-<ol type="1">
-<li>Корректная работа</li>
-<li>Минимальная достаточная производительность</li>
-<li>Понятность кода</li>
-<li>Краткость кода</li>
-<li>Более, чем достаточная производительность</li>
-</ol>
-</section>
-<section id="стиль-написания-1" class="slide level1">
-<h1>Стиль написания</h1>
-<ul>
-<li>выделяйте функции, которые выполняют некоторое отдельное действие в
-предметной области (например, умножение матриц, или умножение вектора на
-матрицу, или разбор аргументов)</li>
-<li>функция не должна быть больше 200 строк, оптимально — от одного
-экрана до 100 строк</li>
-<li>если вы несколько раз повторяете в программе одни и те же 5-10
-строк, их тоже имеет смысл выделить в функцию</li>
-<li>предельный размер одного файла — 500-1000 строк</li>
-<li>разделяйте тело функции на «абзацы» — группы похожих по смыслу
-команд, разделённые пустыми строками</li>
-<li>оформляйте код однородно (условные операторы, циклы, положение
-фигурных скобок, отступы)</li>
-</ul>
-</section>
-<section id="стиль-написания-2" class="slide level1">
-<h1>Стиль написания</h1>
-<p>Рекомендации из <a
-href="https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html">Mozilla
-Style Guide</a>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(...);</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(...;</span> <span class="op">...;</span> <span class="op">...)</span> <span class="op">{</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-</section>
-<section id="стиль-написания-3" class="slide level1">
-<h1>Стиль написания</h1>
-<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="op">{</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> var<span class="op">;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-</section>
-<section id="система-контроля-версий-git" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Для сдачи заданий будет использоваться система контроля версий Git, а
-именно - система проверки заданий GitHub Classroom.</p>
-<p>В автоматическом режиме производится проверка отсутствия ошибок при
-сборке, соответствия стилю, другие "быстрые" тесты. После того, как
-программа пройдёт все автоматические тесты, будет проводиться ручная
-проверка задачи.</p>
-<p>Для работы с этой системой необходимо <a
-href="https://github.com/signup">зарегистрироваться в GitHub</a>, если
-ранее не регистрировались.</p>
-</section>
-<section id="система-контроля-версий-git-1" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Далее необходимо сделать предварительную настройку:</p>
-<ol type="1">
-<li>В WSL (или в терминале Linux/macOS) указать своё имя для Git:</li>
-</ol>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Имя Фамилия&quot;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;адрес@email&quot;</span></span></code></pre></div>
-<ol start="2" type="1">
-<li>Если вы ранее этого не делали, сгенерировать SSH-ключ, пароль можно
-оставить пустым:</li>
-</ol>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-b</span> 4096 <span class="at">-t</span> rsa</span></code></pre></div>
-<ol start="3" type="1">
-<li>Добавить его в свой профиль в GitHub (нажать на аватар, Settings,
-SSH and GPG Keys, New SSH Key; вставить в большое поле содержимое файла
-~/.ssh/id_rsa.pub).</li>
-</ol>
-</section>
-<section id="система-контроля-версий-git-2" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Ключи для пользователя <code>student</code> удаляются после занятий
-вместе с остальными файлами в рабочей директории, поэтому на каждом
-занятии до получения постоянного логина ключи нужно генерировать и
-регистрировать в GitHub заново.</p>
-</section>
-<section id="система-контроля-версий-git-3" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Для скачивания существующего репозитория:</p>
-<p><code>git clone git@github.com:...</code></p>
-<p>После внесения изменений в файл main.c необходимо их отправить в
-репозиторий.</p>
-<p>Проверка изменённых файлов, убедитесь, что main.c появился в списке
-изменённых файлов:</p>
-<p><code>git status</code></p>
-</section>
-<section id="система-контроля-версий-git-4" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Добавление изменённых файлов в индекс для коммита:</p>
-<p><code>git add main.c</code></p>
-<p>Коммит:</p>
-<p><code>git -m "сообщение для коммита"</code></p>
-<p>Отправка изменений в репозиторий:</p>
-<p><code>git push</code></p>
-<p>Более подробно про работу с Git можно прочитать в этой <a
-href="https://vk.com/@msumathprogx05-git-dlya-github-classroom">статье</a></p>
-</section>
-<section id="тестовое-задание" class="slide level1">
-<h1>Тестовое задание</h1>
-<p>Сейчас будет выдана тестовая задача, которую необходимо будет
-загрузить в Git.</p>
-<ol type="1">
-<li>Напишите код программы в отдельной директории.</li>
-<li>Примите тестовое задание: <a
-href="https://classroom.github.com/a/e0R5Z3MK"
-class="uri">https://classroom.github.com/a/e0R5Z3MK</a></li>
-<li>Автоматически будет создан репозиторий. Перейдите по отобразившейся
-ссылке.</li>
-<li>Создайте Git-репозиторий в директории с вашей программой и загрузите
-файлы по рекомендациям из раздела
-<code>…or create a new repository on the command line</code></li>
-</ol>
-</section>
-<section id="заключение" class="slide level1">
-<h1>Заключение</h1>
-<p>После успешного выполнения задания будет назначена первая зачётная
-задача.</p>
+<section id="тестовая-задача" class="slide level1">
+<h1>Тестовая задача</h1>
+<p>Сейчас будет выдана тестовая задача</p>
 </section>
     </div>
   </div>
