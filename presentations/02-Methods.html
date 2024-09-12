@@ -421,6 +421,10 @@ for <span class=green-box>i := 0…(n-1)</span>
 <h1>LU-разложение</h1>
 <p>На самом деле, предыдущие преобразования могут быть представлены в
 форме умножения на матрицы особого вида.</p>
+<p>Зная такое разложение, можно применять его к различным наборам <span
+class="math inline"><em>x</em><sub><em>m</em></sub></span>, <span
+class="math inline"><em>b</em><sub><em>m</em></sub></span> за время,
+сравнимое с однократным проведением метода Гаусса.</p>
 <ol type="1">
 <li>Умножение текущей строки на элемент, обратный к диагонали.</li>
 </ol>
@@ -644,6 +648,8 @@ class="math inline"><em>D</em> = <em>I</em></span> .</p>
 class="math inline"><em>d</em><sub><em>i</em>, <em>i</em></sub></span>
 для положительно определённой матрицы должны быть единичными. Можно
 начать тестировать с диагональных матриц.</p>
+<p>Сложность - <span class="math inline">$\frac{n^3}{3} + O(n^2)$</span>
+операций.</p>
 </section>
 <section id="метод-холецкого-1" class="slide level1">
 <h1>Метод Холецкого</h1>
@@ -720,6 +726,10 @@ $$</span></p>
 </section>
 <section id="qr-разложение" class="slide level1">
 <h1>QR-разложение</h1>
+<p>Предыдущие методы может увеличивать число обусловленности матрицы.
+Применение преобразований с унитарными матрицами не приводит у
+увеличению числа обусловленности, что ведёт к устойчивости методов к
+накоплению вычислительной погрешности.</p>
 <p><strong>Теорема о QR-разложении</strong>. Всякая невырожденная
 матрица <span class="math inline"><em>A</em></span> может быть
 представлена в виде <span
@@ -808,6 +818,11 @@ class="math inline">1...<em>i</em> − 1</span> и строки <span
 class="math inline">1...<em>i</em> − 1</span> ) на последующих шагах
 <span class="math inline"><em>i</em>...<em>n</em></span> не
 модифицируются.</p>
+<p>Сложность - от <span
+class="math inline">2<em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>
+до <span
+class="math inline">5<em>n</em><sup>3</sup> + <em>O</em>(<em>n</em><sup>2</sup>)</span>
+операций в зависимости от метода хранения данных.</p>
 </section>
 <section id="метод-отражений" class="slide level1">
 <h1>Метод отражений</h1>
@@ -879,6 +894,9 @@ class="math inline"><em>j</em>...<em>n</em></span> относительно эт
 вектора.</li>
 </ul></li>
 </ul>
+<p>Сложность - от <span class="math inline">$\frac{2n^3}{3} +
+O(n^2)$</span> до <span class="math inline">$\frac{10n^3}{3} +
+O(n^2)$</span> операций.</p>
 </section>
 <section id="qr-разложение-методом-отражений" class="slide level1">
 <h1>QR-разложение методом отражений</h1>
