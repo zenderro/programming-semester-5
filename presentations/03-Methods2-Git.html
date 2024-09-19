@@ -233,15 +233,17 @@ href="LinearSystemsTasks.pdf">требованиям</a>.</p>
 <p>Невязка (residual) — вектор (матрица) погрешности вычислений. Нас
 интересует норма невязки.</p>
 <ul>
-<li><p>решение линейной системы: <span
-class="math inline">‖<em>A</em><em>x̂</em> − <em>b</em>‖</span> / <span
-class="math inline">‖<em>b</em>‖</span></p>
-<p>умножить сгенерированную матрицу на вектор полученного решения и
-вычесть правую часть (сумма нечётных столбцов A)</p></li>
-<li><p>обращение матрицы: <span
-class="math inline">‖<em>A</em><em>A</em><sup>−1</sup> − <em>I</em>‖</span></p>
-<p>умножить сгенерированную матрицу на другую* сгенерированную матрицу и
-вычесть единичную</p>
+<li><p>решение линейной системы:</p>
+<p><span
+class="math inline"><em>r</em><sub>1</sub> = ||<em>A</em><em>x</em> − <em>b</em>||<sub>1</sub>/||<em>b</em>||<sub>1</sub>, <em>r</em><sub>2</sub> = ||<em>x</em> − <em>x̂</em>||<sub>1</sub>/||<em>x̂</em>||<sub>1</sub></span>,
+где <span class="math inline">$\hat{x}_i = (i\ mod\ 2), ||y||_1 =
+\sum_{i=1}^n|y_i|$</span></p></li>
+<li><p>обращение матрицы:</p>
+<p><span
+class="math inline"><em>r</em><sub>1</sub> = ||<em>A</em><em>A</em><sup>−1</sup> − <em>E</em>||<sub>1</sub>, <em>r</em><sub>2</sub> = ||<em>A</em><sup>−1</sup><em>A</em> − <em>E</em>||<sub>1</sub></span>
+для <span class="math inline"><em>N</em> ≤ 11000</span>, иначе 0. <span
+class="math inline">$||Y||_1 = \max_{1\le j \le n}\sum_{i=1}^n |y_{ij}|,
+Y = (y_{ij})_{i,j=1..n}$</span></p>
 <p>Для «хороших» матриц наша цель по невязке порядка <span
 class="math inline">10<sup>−16</sup></span></p></li>
 </ul>
@@ -539,14 +541,13 @@ class="uri">https://classroom.github.com/a/HDh4ziuX</a></p>
 <ol type="1">
 <li>Должна быть реализована обработка ошибок с возвращением
 соответствующего кода ошибки.</li>
-<li>Должна быть строка <code>Time:</code> при выводе времени. Считается
-время работы основного метода. Время расчёта невязки считать не
-нужно.</li>
-<li>Должна быть строка <code>Residual:</code>, в которой приводится
-значение невязки</li>
 <li>Для решения СЛУ: строка <code>Solution:</code> и далее решение. Для
 обращения матрицы: <code>Inverse:</code> и обратная матрица.</li>
+<li>Вывод строки с результатами:</li>
 </ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>printf <span class="op">(</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="sc">%s</span><span class="st"> : Task = </span><span class="sc">%d</span><span class="st"> Res1 = </span><span class="sc">%e</span><span class="st"> Res2 = </span><span class="sc">%e</span><span class="st"> T1 = </span><span class="sc">%.2f</span><span class="st"> T2 = </span><span class="sc">%.2f</span><span class="st"> S = </span><span class="sc">%d</span><span class="st"> N = </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>argv<span class="op">[</span><span class="dv">0</span><span class="op">],</span> task<span class="op">,</span> r1<span class="op">,</span> r2<span class="op">,</span> t1<span class="op">,</span> t2<span class="op">,</span> s<span class="op">,</span> n<span class="op">);</span></span></code></pre></div>
 </section>
     </div>
   </div>
