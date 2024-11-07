@@ -508,8 +508,8 @@ typedef struct {
 
 # Задание
 
-1. Решение СЛУ: https://classroom.github.com/a/S-v1dmIS
-2. Обращение матрицы: https://classroom.github.com/a/Kre6WhX7
+1. Решение СЛУ: https://classroom.github.com/a/IVErv9oc
+2. Обращение матрицы: https://classroom.github.com/a/sjAHrVGG
 
 Предусмотрено три режима сборки Makefile:
 
@@ -521,9 +521,11 @@ typedef struct {
 
 # Задание
 
+[Требования к задаче](LinearSystemsTasksParallel.pdf)
+
 Собранный бинарный файл называется `main`.
 
-Запуск: `./main p n m k filename`
+Запуск: `./main n p r s filename`
 
 То же самое, что и в первой задаче, но добавляется параметр `p` - количество потоков.
 

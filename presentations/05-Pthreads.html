@@ -22,7 +22,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -510,10 +510,10 @@ P+1-я строка — 1-й поток, …). Это делается для т
 <section id="задание" class="slide level1">
 <h1>Задание</h1>
 <ol type="1">
-<li>Решение СЛУ: <a href="https://classroom.github.com/a/S-v1dmIS"
-class="uri">https://classroom.github.com/a/S-v1dmIS</a></li>
-<li>Обращение матрицы: <a href="https://classroom.github.com/a/Kre6WhX7"
-class="uri">https://classroom.github.com/a/Kre6WhX7</a></li>
+<li>Решение СЛУ: <a href="https://classroom.github.com/a/IVErv9oc"
+class="uri">https://classroom.github.com/a/IVErv9oc</a></li>
+<li>Обращение матрицы: <a href="https://classroom.github.com/a/sjAHrVGG"
+class="uri">https://classroom.github.com/a/sjAHrVGG</a></li>
 </ol>
 <p>Предусмотрено три режима сборки Makefile:</p>
 <ul>
@@ -531,8 +531,9 @@ class="uri">https://classroom.github.com/a/Kre6WhX7</a></li>
 </section>
 <section id="задание-1" class="slide level1">
 <h1>Задание</h1>
+<p><a href="LinearSystemsTasksParallel.pdf">Требования к задаче</a></p>
 <p>Собранный бинарный файл называется <code>main</code>.</p>
-<p>Запуск: <code>./main p n m k filename</code></p>
+<p>Запуск: <code>./main n p r s filename</code></p>
 <p>То же самое, что и в первой задаче, но добавляется параметр
 <code>p</code> - количество потоков.</p>
 <p>Добавляется новый код ошибки: <code>-5</code>, если не удалось

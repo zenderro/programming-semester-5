@@ -20,6 +20,7 @@ layout: default
 
 ## Параллельное программирование с использованием библиотеки Pthreads
 [презентация — html](presentations/05-Pthreads.html)
+[требования](presentations/LinearSystemsTasksParallel.pdf)
 
 ## Методы нахождения собственных значений
 [презентация — html](presentations/06-Eigenvalues.html)
