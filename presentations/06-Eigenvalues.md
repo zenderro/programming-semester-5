@@ -283,7 +283,7 @@ $$
 
 # Задание
 
-Ссылка на задание: https://classroom.github.com/a/dOYp-UBH
+Ссылка на задание: https://classroom.github.com/a/ut72_llN
 
 Запуск программы: `./main n m eps k`, `eps` в формате `%le` (например, 1e-5)
 
