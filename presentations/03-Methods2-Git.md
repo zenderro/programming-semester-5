@@ -373,9 +373,9 @@ switch (...) {
 
 # Ссылки на первое задание
 
-Решение СЛУ: https://classroom.github.com/a/X7bDP_1e
+Решение СЛУ: https://classroom.github.com/a/UOHGKfFS
 
-Обращение матрицы: https://classroom.github.com/a/HDh4ziuX
+Обращение матрицы: https://classroom.github.com/a/ZiDphTDq
 
 1. Должна быть реализована обработка ошибок с возвращением соответствующего кода ошибки.
 2. Для решения СЛУ: строка `Solution:` и далее решение. Для обращения матрицы: `Inverse:` и обратная матрица.
