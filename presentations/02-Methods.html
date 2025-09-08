@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -177,8 +178,8 @@ href="https://ru.wikipedia.org/wiki/Денормализованные_числ�
 возвращается в операциях, результат которых не определён (<span
 class="math inline">0/0</span>, <span
 class="math inline">$\sqrt{-1}$</span>)</p></li>
-<li><p><strong>Infinity</strong> (<span class="math inline"> ± ∞</span>)
-— возвращается при делении на 0 или переполнении (в дисплейных классах
+<li><p><strong>Infinity</strong> (<span class="math inline">±∞</span>) —
+возвращается при делении на 0 или переполнении (в дисплейных классах
 вместо ∞ — исключение)</p></li>
 </ol>
 </section>
@@ -190,7 +191,7 @@ class="math inline">$\sqrt{-1}$</span>)</p></li>
 class="math inline">$\sqrt{-1}$</span>)</li>
 <li>деление на 0 (частая причина — <span
 class="math inline"><em>n</em> = 1</span> в <span
-class="math inline"><em>x</em>/(<em>n</em>−1)</span>)</li>
+class="math inline"><em>x</em>/(<em>n</em> − 1)</span>)</li>
 <li>переполнение (overflow; частая причина — бесконечный
 цикл/невыполнение условия выхода из цикла, например, сравнение чисел с
 плавающей точкой оператором <code>==</code>)</li>
@@ -315,7 +316,7 @@ alt="Схема умножения" /></p>
 <p>Тривиальная реализация:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="er">.</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> <span class="fl">0.</span><span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> n<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            c<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> j<span class="op">]</span> <span class="op">+=</span> a<span class="op">[</span>i <span class="op">*</span> n <span class="op">+</span> k<span class="op">]</span> <span class="op">*</span> b<span class="op">[</span>k <span class="op">*</span> n <span class="op">+</span> j<span class="op">];</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
@@ -619,7 +620,7 @@ $$</span></p>
 <h1>Положительно определённые матрицы</h1>
 <p>— матрицы <span class="math inline"><em>A</em></span>, для которых
 <span
-class="math inline">(<em>A</em><em>x</em>,<em>x</em>) &gt; 0</span> для
+class="math inline">(<em>A</em><em>x</em>, <em>x</em>) &gt; 0</span> для
 любых векторов <span
 class="math inline"><em>x</em> ∈ <em>ℝ</em><sup><em>n</em></sup></span>.</p>
 <p>Положительно определённые матрицы невырождены и имеют ненулевые
@@ -635,7 +636,7 @@ class="math inline"><em>x</em> ∈ <em>ℝ</em><sup><em>n</em></sup></span>.
 class="math display"><em>A</em> = <em>R</em><sup><em>T</em></sup> · <em>D</em> · <em>R</em></span>,
 где <span class="math inline"><em>R</em></span> — невырожденная
 верхнетреугольная, а <span
-class="math inline"><em>D</em> = <em>d</em><em>i</em><em>a</em><em>g</em>(±1,±1,...,±1)</span>.</p>
+class="math inline"><em>D</em> = <em>d</em><em>i</em><em>a</em><em>g</em>(±1, ±1, ..., ±1)</span>.</p>
 <p>Для комплексного общего случая (самосопряжённой матрицы с ненулевыми
 главными минорами) получаем из <span
 class="math inline"><em>L</em><em>U</em></span>-разложения <span
@@ -680,7 +681,7 @@ class="math inline"><em>d</em><sub><em>i</em><em>i</em></sub></span></li>
 <li><span class="math inline">$r_{ij} =
 \frac{a_{ij}-\sum_{k=1}^{i-1}r_{ki}\cdot d_{kk} \cdot
 r_{kj}}{r_{ii}\cdot d_{ii}}$</span>, при этом <span
-class="math inline"><em>j</em> = (<em>i</em>+1)...<em>n</em></span></li>
+class="math inline"><em>j</em> = (<em>i</em> + 1)...<em>n</em></span></li>
 </ul>
 </section>
 <section id="метод-холецкого-2" class="slide level1">
@@ -726,7 +727,7 @@ $$</span></p>
 </section>
 <section id="qr-разложение" class="slide level1">
 <h1>QR-разложение</h1>
-<p>Предыдущие методы может увеличивать число обусловленности матрицы.
+<p>Предыдущие методы могут увеличивать число обусловленности матрицы.
 Применение преобразований с унитарными матрицами не приводит у
 увеличению числа обусловленности, что ведёт к устойчивости методов к
 накоплению вычислительной погрешности.</p>
@@ -765,7 +766,7 @@ $$</span></p>
 <p>Умножение слева на <span
 class="math inline"><em>T</em><sub><em>i</em><em>j</em></sub>(<em>φ</em>)</span>
 проще рассматривать как операцию с параметрами: <span
-class="math display"><em>T</em>(<em>i</em>,<em>j</em>,<em>φ</em>) ⋅ <em>x</em> = <em>y</em></span>,
+class="math display"><em>T</em>(<em>i</em>, <em>j</em>, <em>φ</em>) ⋅ <em>x</em> = <em>y</em></span>,
 где:</p>
 <ul>
 <li><span
@@ -776,7 +777,7 @@ class="math inline"><em>y</em><sub><em>i</em></sub> = <em>x</em><sub><em>i</
 class="math inline"><em>y</em><sub><em>j</em></sub> = <em>x</em><sub><em>i</em></sub><em>s</em><em>i</em><em>n</em><em>φ</em> + <em>x</em><sub><em>j</em></sub><em>c</em><em>o</em><em>s</em><em>φ</em></span>.</li>
 </ul>
 <p>Любой двумерный вектор <span
-class="math inline">(<em>x</em>,<em>y</em>)</span> можно повернуть так,
+class="math inline">(<em>x</em>, <em>y</em>)</span> можно повернуть так,
 что его вторая координата обнулится.</p>
 <p><span class="math display">$$cos\varphi=\frac{x}{\sqrt{x^2+y^2}},
 sin\varphi=\frac{-y}{\sqrt{x^2+y^2}}$$</span>.</p>
@@ -807,7 +808,7 @@ class="math inline"><em>k</em> = <em>i</em> + 1...<em>n</em></span>:
 <li>Найти угол <span
 class="math inline"><em>φ</em><sub><em>i</em><em>j</em></sub></span>,
 обнуляющий вторую компоненту <span
-class="math inline">(<em>a</em><sub><em>i</em><em>i</em></sub>,<em>a</em><sub><em>k</em><em>i</em></sub>)</span></li>
+class="math inline">(<em>a</em><sub><em>i</em><em>i</em></sub>, <em>a</em><sub><em>k</em><em>i</em></sub>)</span></li>
 <li>Повернуть каждый столбец <span
 class="math inline"><em>j</em> = <em>i</em>...<em>n</em></span> на этот
 угол</li>
@@ -835,7 +836,7 @@ class="math inline"><em>U</em>(<em>x</em>) = <em>I</em> − 2<em>x</em><
 <span class="math inline">‖<em>x</em>‖ = 1</span>.</p>
 <p>Проще рассматривать умножение слева на <span
 class="math inline"><em>U</em>(<em>x</em>)</span> как операцию: <span
-class="math display"><em>U</em>(<em>x</em>) · <em>y</em> = <em>y</em> − 2<em>x</em>(<em>y</em>,<em>x</em>)</span></p>
+class="math display"><em>U</em>(<em>x</em>) · <em>y</em> = <em>y</em> − 2<em>x</em>(<em>y</em>, <em>x</em>)</span></p>
 <p>Отражение может быть задано для подпространства:</p>
 <p><span class="math display">$$
 U_k=
@@ -902,7 +903,7 @@ O(n^2)$</span> операций.</p>
 <h1>QR-разложение методом отражений</h1>
 <p>Предлагается следующий способ хранения:</p>
 <p><span
-class="math display"><em>v</em> = (<em>r</em><sub>11</sub>,<em>r</em><sub>22</sub>,<em>r</em><sub>33</sub>,…,<em>r</em><sub><em>n</em><em>n</em></sub>)</span></p>
+class="math display"><em>v</em> = (<em>r</em><sub>11</sub>, <em>r</em><sub>22</sub>, <em>r</em><sub>33</sub>, …, <em>r</em><sub><em>n</em><em>n</em></sub>)</span></p>
 <p><span class="math display">$$\begin{pmatrix}
 x_{11} &amp; r_{12} &amp; \cdots &amp; r_{1n} \\
 x_{12} &amp; \ddots &amp; &amp; \vdots \\
@@ -923,7 +924,7 @@ class="math inline"><em>Q</em><em>R</em></span>-разложения.</p>
 <p><span
 class="math display">(<em>Q</em><em>R</em>)<sup>−1</sup> = <em>R</em><sup>−1</sup> ⋅ <em>Q</em><sup><em>T</em></sup></span></p>
 <p><span
-class="math display"><em>B</em> ⋅ <em>Q</em><sup><em>T</em></sup> = (<em>Q</em>⋅<em>B</em><sup><em>T</em></sup>)<sup><em>T</em></sup></span></p>
+class="math display"><em>B</em> ⋅ <em>Q</em><sup><em>T</em></sup> = (<em>Q</em> ⋅ <em>B</em><sup><em>T</em></sup>)<sup><em>T</em></sup></span></p>
 <p><span
 class="math display"><em>Q</em> = <em>Q</em><sub><em>k</em></sub>…<em>Q</em><sub>1</sub></span></p></li>
 </ol>
