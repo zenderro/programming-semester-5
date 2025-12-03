@@ -9,6 +9,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
   <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
   <link rel="stylesheet" href="additional.css"/>
@@ -100,7 +166,7 @@ class="math inline"><em>A</em><em>x</em> = <em>b</em></span> решение
 <p><span
 class="math display"><em>A</em> = <em>L</em><sub>*</sub> + <em>U</em></span></p>
 <p><span
-class="math display"><em>L</em><sub>*</sub><em>x</em><sup>(<em>k</em>+1)</sup> = <em>b</em> − <em>U</em><em>x</em><sup>(<em>k</em>)</sup></span></p>
+class="math display"><em>L</em><sub>*</sub><em>x</em><sup>(<em>k</em> + 1)</sup> = <em>b</em> − <em>U</em><em>x</em><sup>(<em>k</em>)</sup></span></p>
 <p><span class="math inline"><em>x</em><sup>(0)</sup></span> выбирается
 произвольно, метод сходится к решению если</p>
 <p><span class="math inline"><em>A</em></span> — симметричная,
@@ -122,7 +188,7 @@ class="math inline"><em>𝐌</em><sub><em>n</em></sub></span> имеет <span
 class="math inline"><em>n</em></span> собственных значений (не
 обязательно различных).</p>
 <p>По определению, <span
-class="math inline">(<em>A</em>−<em>λ</em><sub><em>k</em></sub><em>E</em>) · <em>v</em><sub><em>k</em></sub> = 0</span>,
+class="math inline">(<em>A</em> − <em>λ</em><sub><em>k</em></sub><em>E</em>) · <em>v</em><sub><em>k</em></sub> = 0</span>,
 т.е. столбцы матрицы <span
 class="math inline"><em>A</em> − <em>λ</em><sub><em>k</em></sub><em>E</em></span>
 линейно зависимы с коэффициентами <span
@@ -190,11 +256,11 @@ class="math inline"><em>A</em> ∈ <em>𝐌</em><sub><em>n</em></sub></span>
 class="math inline"><em>C</em></span> (<span
 class="math inline"><em>A</em> = <em>C</em><em>Λ</em><em>C</em><sup>−1</sup></span>,
 <span
-class="math inline"><em>Λ</em> = diag(<em>λ</em><sub>1</sub>,<em>λ</em><sub>2</sub>,…,<em>λ</em><sub><em>n</em></sub>)</span>),
+class="math inline"><em>Λ</em> = diag(<em>λ</em><sub>1</sub>, <em>λ</em><sub>2</sub>, …, <em>λ</em><sub><em>n</em></sub>)</span>),
 ошибка при погрешности во входных данных <span
 class="math inline"><em>E</em></span> выражается следующим образом:</p>
 <p><span
-class="math display">|<em>λ̂</em>−<em>λ</em>| ⩽ <em>κ</em><sub>∞</sub>(<em>C</em>)‖<em>E</em>‖<sub>∞</sub>,</span>
+class="math display">|<em>λ̂</em> − <em>λ</em>| ⩽ <em>κ</em><sub>∞</sub>(<em>C</em>)‖<em>E</em>‖<sub>∞</sub>,</span>
 <!--_ --></p>
 <p>где <span class="math inline"><em>λ̂</em></span> — собственное
 значение матрицы с погрешностью <span
@@ -260,7 +326,7 @@ class="math inline"><em>e</em><sub>1</sub></span>:</p>
 <p><span class="math display">$$ x^{(k+1)} = Ax^{(k)}, \qquad λ^{(k)}_1
 = \dfrac{(x^{(k+1)}, x^{(k)})}{(x^{(k)}, x^{(k)})} $$</span></p>
 <p>Критерий остановки — <span
-class="math inline">‖<em>x</em><sup>(<em>k</em>+1)</sup> − <em>x</em><sup>(<em>k</em>)</sup>‖ &lt; <em>ε</em></span></p>
+class="math inline">‖<em>x</em><sup>(<em>k</em> + 1)</sup> − <em>x</em><sup>(<em>k</em>)</sup>‖ &lt; <em>ε</em></span></p>
 </section>
 <section id="унитарное-подобие" class="slide level1">
 <h1>Унитарное подобие</h1>
@@ -295,7 +361,7 @@ class="math inline"><em>O</em><sub><em>k</em></sub> = <em>T</em><sub><em>i</
 class="math inline"><em>a</em><sub><em>i</em><em>j</em></sub></span>.</p>
 <p>Для данных <span class="math inline"><em>i</em>, <em>j</em></span>
 положим <span
-class="math inline"><em>x</em> =  − 2<em>a</em><sub><em>i</em><em>j</em></sub></span>,
+class="math inline"><em>x</em> = −2<em>a</em><sub><em>i</em><em>j</em></sub></span>,
 <span
 class="math inline"><em>y</em> = <em>a</em><sub><em>i</em><em>i</em></sub> − <em>a</em><sub><em>j</em><em>j</em></sub></span>,
 если <span
@@ -321,7 +387,7 @@ class="math inline"><em>A</em><sub><em>k</em> − 1</sub></span>:</p>
 <li>Циклический выбор</li>
 </ol>
 <p><span
-class="math inline">(<em>i</em>,<em>j</em>) = ((1,2),(1,3),…,(1,<em>n</em>),(2,3),(2,4),…,(<em>n</em>−1,<em>n</em>),<strong>↻</strong>)</span></p>
+class="math inline">(<em>i</em>, <em>j</em>) = ((1, 2), (1, 3), …, (1, <em>n</em>), (2, 3), (2, 4), …, (<em>n</em> − 1, <em>n</em>), <strong>↻</strong>)</span></p>
 <ol start="3" type="1">
 <li>Выбор оптимального элемента</li>
 </ol>
@@ -360,9 +426,9 @@ class="slide level1">
 <p>Метод вращений основан на матрицах вращения <span
 class="math inline"><em>T</em><sub><em>i</em><em>j</em></sub></span>,
 которые преобразуют «поддиагональный» вектор <span
-class="math inline"><em>a</em><sub><em>i</em>…<em>n</em>, <em>i</em> − 1</sub><sup>(<em>i</em>−1)</sup></span>
+class="math inline"><em>a</em><sub><em>i</em>…<em>n</em>, <em>i</em> − 1</sub><sup>(<em>i</em> − 1)</sup></span>
 в <span
-class="math inline">(‖<em>a</em><sub><em>i</em> + 1…<em>n</em>, <em>i</em></sub><sup>(<em>i</em>−1)</sup>‖,0,…,0)</span>.
+class="math inline">(‖<em>a</em><sub><em>i</em> + 1…<em>n</em>, <em>i</em></sub><sup>(<em>i</em> − 1)</sup>‖, 0, …, 0)</span>.
 Такие матрицы можно получить аналогично обычному методу вращений (с той
 поправкой, что норма собирается не в диагональном, а в поддиагональном
 элементе; диагональный элемент в определении углов вращения не
@@ -388,7 +454,7 @@ x^{* }_i $. В отличие от матриц вращения, они явл�
 <em>строки</em> на <span
 class="math inline"><em>U</em>(<em>x</em><sub><em>i</em></sub>)</span>
 справа тоже выражается через скалярное произведение: <span
-class="math display"><em>y</em><sup><em>t</em></sup> · <em>U</em>(<em>x</em><sub><em>i</em></sub>) = <em>y</em><sup><em>t</em></sup> − 2<em>x</em><sub><em>i</em></sub><sup>*</sup>(<em>y</em>,<em>x</em><sub><em>i</em></sub>)</span></p>
+class="math display"><em>y</em><sup><em>t</em></sup> · <em>U</em>(<em>x</em><sub><em>i</em></sub>) = <em>y</em><sup><em>t</em></sup> − 2<em>x</em><sub><em>i</em></sub><sup>*</sup>(<em>y</em>, <em>x</em><sub><em>i</em></sub>)</span></p>
 <p>Вектор <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span> строится так
 же, как для приведения матрицы к треугольному виду методом отражений, с
@@ -533,18 +599,36 @@ class="math inline"><em>a</em><sub>11</sub>…<em>a</em><sub><em>n</em> − 
 </section>
 <section id="задание" class="slide level1">
 <h1>Задание</h1>
-<p>Ссылка на задание: <a href="https://classroom.github.com/a/ut72_llN"
-class="uri">https://classroom.github.com/a/ut72_llN</a></p>
+<p>Ссылка на задание: <a href="https://classroom.github.com/a/e6hz7dI6"
+class="uri">https://classroom.github.com/a/e6hz7dI6</a></p>
 <p>Запуск программы: <code>./main n m eps k</code>, <code>eps</code> в
 формате <code>%le</code> (например, 1e-5)</p>
 <p>На экран должны выводиться в отдельных строках:</p>
 <ol type="1">
+<li>Исходная матрица A</li>
 <li>Первые m собственных значений: <code>Eigenvalues: ...</code></li>
-<li>Невязка в первом инварианте: <code>Residual 1: ...</code></li>
-<li>Невязка во втором инварианте: <code>Residual 2: ...</code></li>
-<li>Количество итераций: <code>Iterations: ...</code></li>
-<li>Время выполнения программы: <code>Time: ...</code></li>
+<li>Отчёт о выполнении программы</li>
 </ol>
+</section>
+<section id="отчёт-о-выполнении-программы" class="slide level1">
+<h1>Отчёт о выполнении программы</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>printf <span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st"> : Residual1 = </span><span class="sc">%e</span><span class="st"> Residual2 = </span><span class="sc">%e</span><span class="st"> Iterations = </span><span class="sc">%d</span><span class="st"> </span><span class="op">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">Iterations1 = </span><span class="sc">%d</span><span class="st"> Elapsed1 = </span><span class="sc">%.2f</span><span class="st"> Elapsed2 = </span><span class="sc">%.2f\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>argv<span class="op">[</span><span class="dv">0</span><span class="op">],</span> res1<span class="op">,</span> res2<span class="op">,</span> its<span class="op">,</span> its <span class="op">/</span> n<span class="op">,</span> t1<span class="op">,</span> t2<span class="op">);</span></span></code></pre></div>
+<ul>
+<li><code>Residual1</code> – относительная невязка в 1-м инварианте:
+<span class="math display">$$ \left| \sum_{i=1}^n a_{ii} - \sum_{i=1}^n
+\lambda_i \right| / ||A||$$</span></li>
+<li><code>Residual2</code> - относительная невязка в 2-м инварианте:
+<span class="math display">$$ \left| \sqrt{\sum_{i=1}^n \sum_{j=1}^n
+a_{ij}a_{ji}} - \sqrt{\sum_{i=1}^n \lambda_i^2}
+\right|/||A||$$</span></li>
+<li><code>Iterations</code> - число итераций на весь алгоритм</li>
+<li><code>Iterations1 = Iterations / n</code> - среднее число итераций
+на 1 собственное значение</li>
+<li><code>t1</code> – время приведения к почти треугольному виду</li>
+<li><code>t2</code> – время нахождения собственных значений</li>
+</ul>
 </section>
     </div>
   </div>
