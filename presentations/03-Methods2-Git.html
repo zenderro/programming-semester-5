@@ -386,67 +386,6 @@ href="https://github.com/EverlastingFire/informatica/blob/128519be92eb34b9c09859
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Time: </span><span class="sc">%lf</span><span class="st"> s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>       <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>time_end<span class="op">.</span>tv_sec <span class="op">+</span> time_end<span class="op">.</span>tv_nsec <span class="op">*</span> NANO_MODIFIER<span class="op">));</span></span></code></pre></div>
 </section>
-<section id="система-контроля-версий-git" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Для сдачи заданий будет использоваться система контроля версий Git, а
-именно - система проверки заданий GitHub Classroom.</p>
-<p>В автоматическом режиме производится проверка отсутствия ошибок при
-сборке, соответствия стилю, другие "быстрые" тесты. После того, как
-программа пройдёт все автоматические тесты, будет проводиться ручная
-проверка задачи.</p>
-<p>Для работы с этой системой необходимо <a
-href="https://github.com/signup">зарегистрироваться в GitHub</a>, если
-ранее не регистрировались.</p>
-</section>
-<section id="система-контроля-версий-git-1" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Далее необходимо сделать предварительную настройку:</p>
-<ol type="1">
-<li>В WSL (или в терминале Linux/macOS) указать своё имя для Git:</li>
-</ol>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Имя Фамилия&quot;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;адрес@email&quot;</span></span></code></pre></div>
-<ol start="2" type="1">
-<li>Если вы ранее этого не делали, сгенерировать SSH-ключ, пароль можно
-оставить пустым:</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-b</span> 4096 <span class="at">-t</span> rsa</span></code></pre></div>
-<ol start="3" type="1">
-<li>Добавить его в свой профиль в GitHub (нажать на аватар, Settings,
-SSH and GPG Keys, New SSH Key; вставить в большое поле содержимое файла
-~/.ssh/id_rsa.pub).</li>
-</ol>
-</section>
-<section id="система-контроля-версий-git-2" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Ключи для пользователя <code>student</code> удаляются после занятий
-вместе с остальными файлами в рабочей директории, поэтому на каждом
-занятии до получения постоянного логина ключи нужно генерировать и
-регистрировать в GitHub заново.</p>
-</section>
-<section id="система-контроля-версий-git-3" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Для скачивания существующего репозитория:</p>
-<p><code>git clone git@github.com:...</code></p>
-<p>После внесения изменений в файл main.c необходимо их отправить в
-репозиторий.</p>
-<p>Проверка изменённых файлов, убедитесь, что main.c появился в списке
-изменённых файлов:</p>
-<p><code>git status</code></p>
-</section>
-<section id="система-контроля-версий-git-4" class="slide level1">
-<h1>Система контроля версий Git</h1>
-<p>Добавление изменённых файлов в индекс для коммита:</p>
-<p><code>git add main.c</code></p>
-<p>Коммит:</p>
-<p><code>git -m "сообщение для коммита"</code></p>
-<p>Отправка изменений в репозиторий:</p>
-<p><code>git push</code></p>
-<p>Более подробно про работу с Git можно прочитать в этой <a
-href="https://vk.com/@msumathprogx05-git-dlya-github-classroom">статье</a></p>
-</section>
 <section id="обработка-ошибок" class="slide level1">
 <h1>Обработка ошибок</h1>
 <p>Коды ошибок:</p>
@@ -503,49 +442,129 @@ class="math inline"><em>r</em> &gt; <em>n</em></span>)</li>
 <p>Рекомендации из <a
 href="https://firefox-source-docs.mozilla.org/code-quality/coding-style/coding_style_cpp.html">Mozilla
 Style Guide</a>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(...);</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(...;</span> <span class="op">...;</span> <span class="op">...)</span> <span class="op">{</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(...);</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(...;</span> <span class="op">...;</span> <span class="op">...)</span> <span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="стиль-написания-3" class="slide level1">
 <h1>Стиль написания</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(...)</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="op">{</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> var<span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(...)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// When you need to declare a variable in a switch, put the block in braces</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> var<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
-<section id="ссылки-на-первое-задание" class="slide level1">
-<h1>Ссылки на первое задание</h1>
-<p>Решение СЛУ: <a href="https://classroom.github.com/a/UOHGKfFS"
-class="uri">https://classroom.github.com/a/UOHGKfFS</a></p>
-<p>Обращение матрицы: <a href="https://classroom.github.com/a/ZiDphTDq"
-class="uri">https://classroom.github.com/a/ZiDphTDq</a></p>
+<section id="система-контроля-версий-git" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Для сдачи заданий будет использоваться система контроля версий
+Git.</p>
+<p>В автоматическом режиме производится проверка отсутствия ошибок при
+сборке, соответствия стилю, другие "быстрые" тесты. После того, как
+программа пройдёт все автоматические тесты, будет проводиться ручная
+проверка задачи.</p>
+<p>Для работы с этой системой необходимо <a
+href="https://gitea.p-i-a.ru/user/sign_up">зарегистрироваться в
+специальном репозитории Gitea</a>. Это внутренняя система контроля
+версий, там располагаются только наши репозитории с заданиями.</p>
+</section>
+<section id="настройка-доступа-по-ssh-secure-shell"
+class="slide level1">
+<h1>Настройка доступа по SSH (Secure SHell)</h1>
+<p>При таком варианте настройки не придётся каждую операцию подтверждать
+вводом логина и пароля.</p>
+<p>Для доступа к репозиторию по SSH необходимо сделать предварительную
+настройку:</p>
+<ol type="1">
+<li>В WSL (или в терминале Linux/macOS) указать своё имя для Git:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Имя Фамилия&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;адрес@email&quot;</span></span></code></pre></div>
+<ol start="2" type="1">
+<li>Если вы ранее этого не делали, сгенерировать SSH-ключ, пароль можно
+оставить пустым:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-b</span> 4096 <span class="at">-t</span> rsa</span></code></pre></div>
+<ol start="3" type="1">
+<li>Добавить его в свой профиль в Gitea (нажать на аватар, Settings, SSH
+and GPG Keys, New SSH Key; вставить в большое поле содержимое файла
+~/.ssh/id_rsa.pub).</li>
+</ol>
+</section>
+<section id="система-контроля-версий-git-1" class="slide level1">
+<h1>Система контроля версий Git</h1>
+<p>Ключи для пользователя <code>student</code> удаляются после занятий
+вместе с остальными файлами в рабочей директории, поэтому на каждом
+занятии до получения постоянного логина ключи нужно генерировать и
+регистрировать в GitHub заново.</p>
+</section>
+<section id="работа-с-репозиторием-git" class="slide level1">
+<h1>Работа с репозиторием Git</h1>
+<p>Для скачивания существующего репозитория:</p>
+<ul>
+<li>По SSH: <code>git clone git@gitea.p-i-a.ru:...</code></li>
+<li>По HTTPS (с вводом логина и пароля):
+<code>git clone https://gitea.p-i-a.ru/...</code></li>
+</ul>
+<p>После внесения изменений в файл main.c необходимо их отправить в
+репозиторий.</p>
+<p>Проверка изменённых файлов, убедитесь, что main.c появился в списке
+изменённых файлов:</p>
+<p><code>git status</code></p>
+</section>
+<section id="отправка-изменений-в-git" class="slide level1">
+<h1>Отправка изменений в Git</h1>
+<p>Добавление изменённых файлов в индекс для коммита:</p>
+<p><code>git add main.c</code></p>
+<p>Коммит:</p>
+<p><code>git -m "сообщение для коммита"</code></p>
+<p>Отправка изменений в репозиторий:</p>
+<p><code>git push</code></p>
+<p>Более подробно про работу с Git можно прочитать в этой <a
+href="https://vk.com/@msumathprogx05-git-dlya-github-classroom">статье</a></p>
+</section>
+<section id="работа-с-нескольких-компьютеров" class="slide level1">
+<h1>Работа с нескольких компьютеров</h1>
+<p>Одно из основных преимуществ использования системы контроля версии -
+возможность работы с нескольких устройств, например, в дисплейном классе
+и на домашнем компьютере. В этом случае необходимо периодически
+синхронизировать локальные копии репозитория, чтобы не возникало
+конфликтов.</p>
+<p>Загрузить с сервера новые наборы изменений, которые вы ранее
+отправили с других компьютеров:</p>
+<p><code>git pull</code></p>
+</section>
+<section id="первое-задание" class="slide level1">
+<h1>Первое задание</h1>
+<p>Зарегистрируйтесь в Gitea и сообщите мне логин. Далее я создам для
+Вас репозитории с шаблоном первого задания.</p>
+<p>Дополнительные к рассмотренным ранее требования.</p>
 <ol type="1">
 <li>Должна быть реализована обработка ошибок с возвращением
 соответствующего кода ошибки.</li>
 <li>Для решения СЛУ: строка <code>Solution:</code> и далее решение. Для
 обращения матрицы: <code>Inverse:</code> и обратная матрица.</li>
-<li>Вывод строки с результатами:</li>
 </ol>
+<p>Не забываем про вывод строки с результатами:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>printf <span class="op">(</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="sc">%s</span><span class="st"> : Task = </span><span class="sc">%d</span><span class="st"> Res1 = </span><span class="sc">%e</span><span class="st"> Res2 = </span><span class="sc">%e</span><span class="st"> T1 = </span><span class="sc">%.2f</span><span class="st"> T2 = </span><span class="sc">%.2f</span><span class="st"> S = </span><span class="sc">%d</span><span class="st"> N = </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>argv<span class="op">[</span><span class="dv">0</span><span class="op">],</span> task<span class="op">,</span> r1<span class="op">,</span> r2<span class="op">,</span> t1<span class="op">,</span> t2<span class="op">,</span> s<span class="op">,</span> n<span class="op">);</span></span></code></pre></div>
