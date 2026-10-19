@@ -4,6 +4,7 @@ layout: default
 
 # Презентации
 *Для просмотра презентаций в дисплейных классах нужно использовать Firefox с включенным JavaScript (кнопка «Настроить» в правой нижней части окна).*
+*Для корректного отображения тестов в Gitea желательно установить [расширение Header editor](header_editor-4.1.1.xpi) и импортировать правила из [этого файла](header_editor_rule.json)*.
 
 ## Практикум на ЭВМ. Пятый семестр. Введение.
 [презентация — html](presentations/01-Introduction.html)
@@ -27,5 +28,5 @@ layout: default
 [список задач и требования](presentations/EigenvaluesTasks.pdf)
 
 # Материалы предыдущих лет
-2014-15 учебный год: https://goo.gl/v4jFHo
-2015-16 учебный год: https://goo.gl/byCcXB
+[2014-15 учебный год](https://goo.gl/v4jFHo)
+[2015-16 учебный год](https://goo.gl/byCcXB)

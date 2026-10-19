@@ -1,0 +1,21 @@
+{
+	"request": [],
+	"sendHeader": [
+		{
+			"enable": true,
+			"name": "Gitea",
+			"ruleType": "modifySendHeader",
+			"matchType": "domain",
+			"pattern": "gitea.p-i-a.ru",
+			"exclude": "",
+			"group": "Gitea",
+			"isFunction": false,
+			"action": {
+				"name": "sec-fetch-site",
+				"value": "same-origin"
+			}
+		}
+	],
+	"receiveHeader": [],
+	"receiveBody": []
+}
